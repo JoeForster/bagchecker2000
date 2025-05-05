@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://dts8no83t1eo3"]
+
+[ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://scanner_screen.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://bag_items/circle.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dpa5lsoxu3l5i" path="res://bag_items/hexagon.tscn" id="3_lquwl"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://bag_items/triangle.tscn" id="4_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://bag_items/square.tscn" id="5_272bh"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ScannerScreen" type="Node2D" parent="."]
+script = ExtResource("1_0xm2m")
+possible_shapes = Array[PackedScene]([ExtResource("1_ig7tw"), ExtResource("3_lquwl"), ExtResource("4_7mycd"), ExtResource("5_272bh")])
+
+[node name="Row1" type="Node2D" parent="ScannerScreen"]
+
+[node name="Triangle" type="Polygon2D" parent="ScannerScreen/Row1"]
+position = Vector2(127, 191)
+polygon = PackedVector2Array(-100, 0, 0, -150, 100, 0)
+
+[node name="Square" type="Polygon2D" parent="ScannerScreen/Row1"]
+position = Vector2(308, 42)
+polygon = PackedVector2Array(0, 0, 0, 150, 150, 150, 150, 0)
+
+[node name="Hexagon" type="Polygon2D" parent="ScannerScreen/Row1"]
+position = Vector2(595, 69)
+polygon = PackedVector2Array(-25, 25, 25, -25, 100, -25, 150, 25, 150, 100, 100, 150, 25, 150, -25, 100)
+
+[node name="Circle" parent="ScannerScreen/Row1" instance=ExtResource("1_ig7tw")]
+position = Vector2(969, 128)
+
+[node name="Row2" type="Node2D" parent="ScannerScreen"]
+position = Vector2(0, 250)
+
+[node name="Row3" type="Node2D" parent="ScannerScreen"]
+position = Vector2(0, 500)
