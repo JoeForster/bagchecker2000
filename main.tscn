@@ -11,6 +11,7 @@
 [node name="ScannerScreen" type="Node2D" parent="."]
 script = ExtResource("1_0xm2m")
 possible_shapes = Array[PackedScene]([ExtResource("1_ig7tw"), ExtResource("3_lquwl"), ExtResource("4_7mycd"), ExtResource("5_272bh")])
+possible_colours = Array[Color]([Color(0, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 0, 1, 1), Color(1, 1, 0, 1)])
 
 [node name="Row1" type="Node2D" parent="ScannerScreen"]
 
@@ -28,6 +29,7 @@ polygon = PackedVector2Array(-25, 25, 25, -25, 100, -25, 150, 25, 150, 100, 100,
 
 [node name="Circle" parent="ScannerScreen/Row1" instance=ExtResource("1_ig7tw")]
 position = Vector2(969, 128)
+color = null
 
 [node name="Row2" type="Node2D" parent="ScannerScreen"]
 position = Vector2(0, 250)

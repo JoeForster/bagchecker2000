@@ -3,4 +3,7 @@
 [ext_resource type="Script" uid="uid://bxpsm4u7gbig0" path="res://Circle2D.gd" id="1_je52t"]
 
 [node name="Circle" type="Node2D"]
+position = Vector2(75, 75)
 script = ExtResource("1_je52t")
+color = null
+radius = 75.0

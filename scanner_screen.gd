@@ -2,6 +2,7 @@ extends Node2D
 
 @export var shape_refresh_period : float = 1.0
 @export var possible_shapes : Array[PackedScene]
+@export var possible_colours : Array[Color]
 
 class ShapeRow:
 	var node : Node2D
@@ -31,7 +32,7 @@ func _spawn_shapes():
 	if possible_shapes.is_empty():
 		return
 
-	var num_in_row = 3
+	var num_in_row = 4
 	for row_node in get_children():
 
 		var offset = Vector2.ZERO
@@ -41,8 +42,10 @@ func _spawn_shapes():
 
 		for i in num_in_row:
 			var spawn_from : PackedScene = possible_shapes.pick_random()
+			var shape_colour : Color = possible_colours.pick_random()
 			var shape_node = spawn_from.instantiate() as Node2D
 			if shape_node:
+				shape_node.set_color(shape_colour)
 				row_node.add_child(shape_node)
 				shape_node.translate(offset)
 				offset.x += 200
