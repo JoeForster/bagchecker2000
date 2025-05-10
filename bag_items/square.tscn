@@ -2,3 +2,8 @@
 
 [node name="Square" type="Polygon2D"]
 polygon = PackedVector2Array(0, 0, 0, 150, 150, 150, 150, 0)
+
+[node name="Highlighter" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 150)
+default_color = Color(1, 0, 1, 1)

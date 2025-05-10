@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dts8no83t1eo3"]
+[gd_scene load_steps=8 format=3 uid="uid://dts8no83t1eo3"]
 
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://scanner_screen.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://bag_items/circle.tscn" id="1_ig7tw"]
@@ -6,33 +6,104 @@
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://bag_items/triangle.tscn" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://bag_items/square.tscn" id="5_272bh"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="SystemFont" id="SystemFont_lquwl"]
 
-[node name="ScannerScreen" type="Node2D" parent="."]
+[sub_resource type="Theme" id="Theme_7mycd"]
+Label/fonts/font = SubResource("SystemFont_lquwl")
+
+[node name="Root" type="Node2D"]
+
+[node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("timer_label", "successes_label", "failures_label", "accept_button", "reject_button")]
+position = Vector2(0, -1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 script = ExtResource("1_0xm2m")
 possible_shapes = Array[PackedScene]([ExtResource("1_ig7tw"), ExtResource("3_lquwl"), ExtResource("4_7mycd"), ExtResource("5_272bh")])
 possible_colours = Array[Color]([Color(0, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 0, 1, 1), Color(1, 1, 0, 1)])
+forbidden_colour = Color(0, 1, 0, 1)
+forbidden_shape = ExtResource("1_ig7tw")
+timer_label = NodePath("../UI/Timer")
+successes_label = NodePath("../UI/SuccessesLabel/SuccessesValue")
+failures_label = NodePath("../UI/FailuresLabel/FailuresValue")
+accept_button = NodePath("../UI/AcceptButton")
+reject_button = NodePath("../UI/RejectButton")
 
 [node name="Row1" type="Node2D" parent="ScannerScreen"]
-
-[node name="Triangle" type="Polygon2D" parent="ScannerScreen/Row1"]
-position = Vector2(127, 191)
-polygon = PackedVector2Array(-100, 0, 0, -150, 100, 0)
-
-[node name="Square" type="Polygon2D" parent="ScannerScreen/Row1"]
-position = Vector2(308, 42)
-polygon = PackedVector2Array(0, 0, 0, 150, 150, 150, 150, 0)
-
-[node name="Hexagon" type="Polygon2D" parent="ScannerScreen/Row1"]
-position = Vector2(595, 69)
-polygon = PackedVector2Array(-25, 25, 25, -25, 100, -25, 150, 25, 150, 100, 100, 150, 25, 150, -25, 100)
-
-[node name="Circle" parent="ScannerScreen/Row1" instance=ExtResource("1_ig7tw")]
-position = Vector2(969, 128)
-color = null
+position = Vector2(11, 23)
 
 [node name="Row2" type="Node2D" parent="ScannerScreen"]
-position = Vector2(0, 250)
+position = Vector2(11, 223)
 
 [node name="Row3" type="Node2D" parent="ScannerScreen"]
-position = Vector2(0, 500)
+position = Vector2(11, 423)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AcceptButton" type="Button" parent="UI"]
+offset_left = 850.0
+offset_top = 150.0
+offset_right = 1050.0
+offset_bottom = 250.0
+text = "Accept"
+
+[node name="RejectButton" type="Button" parent="UI"]
+offset_left = 849.0
+offset_top = 349.0
+offset_right = 1049.0
+offset_bottom = 449.0
+text = "Reject"
+
+[node name="Timer" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 927.0
+offset_top = 73.0
+offset_right = 968.0
+offset_bottom = 96.0
+theme = SubResource("Theme_7mycd")
+text = "00:00"
+
+[node name="RuleLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 867.0
+offset_top = 106.0
+offset_right = 1043.0
+offset_bottom = 129.0
+theme = SubResource("Theme_7mycd")
+text = "Rule: No Green Circles!"
+
+[node name="SuccessesLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 901.0
+offset_top = 499.0
+offset_right = 987.0
+offset_bottom = 522.0
+theme = SubResource("Theme_7mycd")
+text = "Successes: "
+
+[node name="SuccessesValue" type="Label" parent="UI/SuccessesLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="FailuresLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 901.0
+offset_top = 541.0
+offset_right = 971.0
+offset_bottom = 564.0
+theme = SubResource("Theme_7mycd")
+text = "Failures: "
+
+[node name="FailuresValue" type="Label" parent="UI/FailuresLabel"]
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "0"

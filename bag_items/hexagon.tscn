@@ -1,5 +1,9 @@
 [gd_scene format=3 uid="uid://dpa5lsoxu3l5i"]
 
 [node name="Hexagon" type="Polygon2D"]
-position = Vector2(25, 25)
-polygon = PackedVector2Array(-25, 25, 25, -25, 100, -25, 150, 25, 150, 100, 100, 150, 25, 150, -25, 100)
+polygon = PackedVector2Array(0, 75, 40, 0, 110, 0, 150, 75, 110, 150, 40, 150)
+
+[node name="Highlighter" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 150)
+default_color = Color(1, 0, 1, 1)

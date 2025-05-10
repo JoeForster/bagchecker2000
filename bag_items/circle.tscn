@@ -5,5 +5,10 @@
 [node name="Circle" type="Node2D"]
 position = Vector2(75, 75)
 script = ExtResource("1_je52t")
-color = null
 radius = 75.0
+
+[node name="Highlighter" type="Line2D" parent="."]
+visible = false
+position = Vector2(-75, -75)
+points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 150)
+default_color = Color(1, 0, 1, 1)
