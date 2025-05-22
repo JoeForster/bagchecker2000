@@ -9,6 +9,9 @@ extends Node2D
 @export var initial_restricted_colour_name : String
 @export var initial_max_num_of_shape : int
 
+# Game elements
+@export var conveyor : Conveyor
+
 # UI Elements
 @export var timer_label : Label
 @export var successes_label : Label
@@ -93,6 +96,13 @@ func check_accept():
 		num_successes += 1
 	accept_button.disabled = true
 	reject_button.disabled = true
+	
+	if conveyor:
+		#conveyor.allow_bag_through()
+		# the scanner stopper only blocks layer 1 but the despawner blocks layers 1 and 2,
+		# so this nwill allow it through whilst still hitting the despawner.
+		current_scanned_bag.set_collision_mask_value(1, false)
+		clear_shapes()
 
 func check_reject():
 	if highlight_forbidden_shapes():
@@ -130,7 +140,7 @@ func _ready():
 
 var first_turn = true
 
-func _process(delta):
+func _conveyorless_process(delta):
 	shape_refresh_timer -= delta
 	if (shape_refresh_timer <= 0):
 		# HACK Force accept if no guess made on first
@@ -145,5 +155,27 @@ func _process(delta):
 		accept_button.disabled = false
 		reject_button.disabled = false
 
+func on_scan_new_bag():
+	clear_shapes()
+	spawn_shapes()
 
+	accept_button.disabled = false
+	reject_button.disabled = false
+
+var current_scanned_bag : ConveyorBag = null
+
+
+
+func _conveyor_process(delta):
+	var scanned_bag = conveyor.get_scanned_bag()
+	if scanned_bag:
+		if current_scanned_bag != scanned_bag:
+			current_scanned_bag = scanned_bag
+			on_scan_new_bag()
+
+func _process(delta):
+	if conveyor == null:
+		_conveyorless_process(delta)
+	else:
+		_conveyor_process(delta)
 	update_ui()

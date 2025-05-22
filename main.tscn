@@ -15,7 +15,7 @@ Label/fonts/font = SubResource("SystemFont_lquwl")
 
 [node name="Root" type="Node2D"]
 
-[node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("timer_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
+[node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("conveyor", "timer_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
 position = Vector2(303, 69)
 scale = Vector2(0.8, 0.8)
 color = Color(0, 0, 0, 1)
@@ -31,6 +31,7 @@ possible_colours = {
 }
 initial_restricted_shape = "Square"
 initial_restricted_colour_name = "Red"
+conveyor = NodePath("../Conveyor")
 timer_label = NodePath("../UI/TimerPanel/Timer")
 successes_label = NodePath("../UI/ScorePanel/SuccessesLabel/SuccessesValue")
 failures_label = NodePath("../UI/ScorePanel/FailuresLabel/FailuresValue")
@@ -52,6 +53,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
 
 [node name="AcceptButton" type="Button" parent="UI"]
 layout_mode = 0

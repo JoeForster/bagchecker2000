@@ -13,10 +13,11 @@ size = Vector2(205, 120)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y326v"]
 distance = -506.0
 
-[node name="Conveyor" type="Node2D" node_paths=PackedStringArray("scroller", "despawn_area")]
+[node name="Conveyor" type="Node2D" node_paths=PackedStringArray("scroller", "despawn_area", "stop_bag_collider")]
 script = ExtResource("1_y326v")
 scroller = NodePath("ConveyorBG/ConveyorScroller")
 despawn_area = NodePath("DespawnArea")
+stop_bag_collider = NodePath("ConveyorBG/ScannerArea/BlockerLine")
 
 [node name="ConveyorBG" type="Polygon2D" parent="."]
 color = Color(0.187176, 0.187176, 0.187176, 1)
@@ -44,6 +45,7 @@ position = Vector2(-1, 52)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBG/ScannerArea/BlockerLine"]
 shape = SubResource("SegmentShape2D_y326v")
+one_way_collision = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBG/ScannerArea"]
 position = Vector2(78.5, 9)
@@ -51,6 +53,8 @@ shape = SubResource("RectangleShape2D_mfjcm")
 
 [node name="DespawnArea" type="Area2D" parent="."]
 position = Vector2(0, 880)
+collision_layer = 3
+collision_mask = 3
 
 [node name="BoundaryShape" type="CollisionShape2D" parent="DespawnArea"]
 position = Vector2(67, -587)
