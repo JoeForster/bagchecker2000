@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bubr4467euv3f"]
+
+[ext_resource type="Script" uid="uid://bqfiiebovdef" path="res://scenes/conveyor_bag.gd" id="1_7hmnl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ftnk"]
+size = Vector2(132, 84)
+
+[node name="ConveyorBag" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_7hmnl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(64, 40)
+shape = SubResource("RectangleShape2D_2ftnk")
+
+[node name="Bag" type="Polygon2D" parent="."]
+color = Color(0.368627, 0.180392, 0.0470588, 1)
+polygon = PackedVector2Array(0, 0, 128, 0, 128, 80, 0, 80)

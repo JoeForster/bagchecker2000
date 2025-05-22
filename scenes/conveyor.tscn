@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://dul4y13kgs5a4"]
+
+[ext_resource type="Script" uid="uid://nwqeoeqys0xq" path="res://scenes/conveyor.gd" id="1_y326v"]
+[ext_resource type="PackedScene" uid="uid://bubr4467euv3f" path="res://scenes/conveyor_bag.tscn" id="2_mfjcm"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_y326v"]
+a = Vector2(-40, 0)
+b = Vector2(200, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfjcm"]
+size = Vector2(205, 120)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y326v"]
+distance = -506.0
+
+[node name="Conveyor" type="Node2D" node_paths=PackedStringArray("scroller", "despawn_area")]
+script = ExtResource("1_y326v")
+scroller = NodePath("ConveyorBG/ConveyorScroller")
+despawn_area = NodePath("DespawnArea")
+
+[node name="ConveyorBG" type="Polygon2D" parent="."]
+color = Color(0.187176, 0.187176, 0.187176, 1)
+polygon = PackedVector2Array(0, 0, 0, 800, 180, 800, 180, 0)
+uv = PackedVector2Array(168, 70, 170, 780, 304, 776, 313, 68)
+
+[node name="ConveyorScroller" type="Node2D" parent="ConveyorBG"]
+
+[node name="Bag1" parent="ConveyorBG/ConveyorScroller" instance=ExtResource("2_mfjcm")]
+position = Vector2(28, 33)
+
+[node name="Bag2" parent="ConveyorBG/ConveyorScroller" instance=ExtResource("2_mfjcm")]
+position = Vector2(28, 142)
+
+[node name="ScannerArea" type="Area2D" parent="ConveyorBG"]
+position = Vector2(11, 415)
+
+[node name="ScannerBorder" type="Line2D" parent="ConveyorBG/ScannerArea"]
+position = Vector2(-29, -56)
+points = PackedVector2Array(0, 0, 215, 0, 215, 130, 0, 130, 0, -5)
+default_color = Color(0, 1, 0, 1)
+
+[node name="BlockerLine" type="StaticBody2D" parent="ConveyorBG/ScannerArea"]
+position = Vector2(-1, 52)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBG/ScannerArea/BlockerLine"]
+shape = SubResource("SegmentShape2D_y326v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBG/ScannerArea"]
+position = Vector2(78.5, 9)
+shape = SubResource("RectangleShape2D_mfjcm")
+
+[node name="DespawnArea" type="Area2D" parent="."]
+position = Vector2(0, 880)
+
+[node name="BoundaryShape" type="CollisionShape2D" parent="DespawnArea"]
+position = Vector2(67, -587)
+shape = SubResource("WorldBoundaryShape2D_y326v")

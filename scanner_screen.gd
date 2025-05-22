@@ -4,35 +4,40 @@ extends Node2D
 @export var shape_refresh_period = 4.0
 @export var horizontal_offset = 200.0
 @export var possible_shapes : Array[PackedScene]
-@export var possible_colours : Array[Color]
-@export var forbidden_colour : Color
-@export var forbidden_shape : PackedScene
+@export var possible_colours : Dictionary
+@export var initial_restricted_shape : String
+@export var initial_restricted_colour_name : String
+@export var initial_max_num_of_shape : int
 
 # UI Elements
 @export var timer_label : Label
 @export var successes_label : Label
 @export var failures_label : Label
+@export var rule_label : Label
 @export var accept_button : Button
 @export var reject_button : Button
 
 # Internal data structures
 class ShapeEntry:
 	var node : Node
-	var shape_colour : Color
+	var colour_name : String
 	var shape_name : String
 
 class ShapeRow:
 	var node : Node2D
 	var shapes : Array[ShapeEntry]
 
-#class Rule:
-#	var forbidden_shape : PackedScene
+class Rule:
+	var restricted_shape : String
+	var restricted_colour_name : String
+	var max_num_of_shape : int
 
 # Game state
 var shape_refresh_timer : float = 0
 var rows : Array[ShapeRow]
 var num_failures = 0
 var num_successes = 0
+var current_rule : Rule
 
 func clear_shapes():
 	for r in rows:
@@ -53,18 +58,19 @@ func spawn_shapes():
 
 		for i in num_in_row:
 			var spawn_from : PackedScene = possible_shapes.pick_random()
-			var shape_colour : Color = possible_colours.pick_random()
+			var shape_colour_name = possible_colours.keys().pick_random()
+			var shape_colour = possible_colours[shape_colour_name]
 			var shape_node = spawn_from.instantiate() as Node2D
 			if shape_node:
-				shape_node.set_color(shape_colour)
+				shape_node.set_colour(shape_colour)
 				row_node.add_child(shape_node)
 				shape_node.translate(offset)
 				offset.x += horizontal_offset
 
 			var new_shape = ShapeEntry.new()
 			new_shape.node = shape_node
-			new_shape.shape_colour = shape_colour
-			new_shape.shape_name = spawn_from.resource_path
+			new_shape.colour_name = shape_colour_name
+			new_shape.shape_name = shape_node.shape_name
 			shape_row.shapes.push_back(new_shape)
 			
 		rows.push_back(shape_row)
@@ -73,7 +79,7 @@ func highlight_forbidden_shapes():
 	var found_any = false
 	for r in rows:
 		for s in r.shapes:
-			if s.shape_colour == forbidden_colour && s.shape_name == forbidden_shape.resource_path:
+			if s.colour_name == current_rule.restricted_colour_name && s.shape_name == current_rule.restricted_shape:
 				found_any = true
 				var highlighter_node = s.node.get_child(0) as Node2D
 				if highlighter_node:
@@ -103,26 +109,41 @@ func update_ui():
 		successes_label.text = str(num_successes)
 	if failures_label:
 		failures_label.text = str(num_failures)
+	if rule_label:
+		if current_rule.max_num_of_shape <= 0:
+			rule_label.text = "No " + current_rule.restricted_colour_name + " " + current_rule.restricted_shape + "s"
+		else:
+			rule_label.text = "No more than " + rule_label.max_num_of_shape + " " + current_rule.restricted_colour_name + " " + current_rule.restricted_shape + "s"
+		rule_label.add_theme_color_override("font_color", current_rule.restricted_colour_name)
 
 
 func _ready():
+	current_rule = Rule.new()
+	current_rule.restricted_colour_name = initial_restricted_colour_name
+	current_rule.restricted_shape = initial_restricted_shape
+	current_rule.max_num_of_shape = 0
+	
 	if accept_button:
 		accept_button.pressed.connect(check_accept)
 	if reject_button:
 		reject_button.pressed.connect(check_reject)
 
+var first_turn = true
+
 func _process(delta):
 	shape_refresh_timer -= delta
 	if (shape_refresh_timer <= 0):
+		# HACK Force accept if no guess made on first
+		if !first_turn && !accept_button.disabled:
+			check_accept()
+		first_turn = false
+		
 		shape_refresh_timer = shape_refresh_period
 		clear_shapes()
 		spawn_shapes()
-		
-		# HACK Force accept if no guess made on first
-		#if (num_failures > 0 || num_successes > 0) && !accept_button.disabled:
-		#	check_accept()
 
 		accept_button.disabled = false
 		reject_button.disabled = false
+
 
 	update_ui()

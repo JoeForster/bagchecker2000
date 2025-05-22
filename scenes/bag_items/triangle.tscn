@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://vtugltde8pc6"]
+
+[ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://scanned_shape.gd" id="1_gck25"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("shape_node")]
+script = ExtResource("1_gck25")
+shape_name = "Triangle"
+shape_node = NodePath("Triangle")
+
+[node name="Triangle" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 150, 75, 0, 150, 150)
+
+[node name="Highlighter" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 150)
+default_color = Color(1, 0, 1, 1)

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxohy4i7chyl3"]
+
+[ext_resource type="Script" uid="uid://bxpsm4u7gbig0" path="res://circle_2d.gd" id="1_je52t"]
+[ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://scanned_shape.gd" id="1_t0or2"]
+
+[node name="Circle" type="Node2D" node_paths=PackedStringArray("shape_node")]
+script = ExtResource("1_t0or2")
+shape_name = "Circle"
+shape_node = NodePath("CircleShape")
+
+[node name="CircleShape" type="Node2D" parent="."]
+position = Vector2(75, 75)
+script = ExtResource("1_je52t")
+radius = 75.0
+
+[node name="Highlighter" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 150)
+default_color = Color(1, 0, 1, 1)
