@@ -15,13 +15,19 @@ var scanned_bag : ConveyorBag = null
 
 func spawn_new_bag():
 	if possible_bags.is_empty():
-		return
+		return false
+		
+	if $ConveyorBG/SpawnArea.has_overlapping_bodies():
+		return false
+
 	var spawn_from : PackedScene = possible_bags.pick_random()
 	var bag_node = spawn_from.instantiate() as ConveyorBag
 	
-	bag_spawn_point.get_parent().add_child(bag_node)
+	$ConveyorBG/ConveyorScroller.add_child(bag_node)
 	bag_node.set_global_position(bag_spawn_point.global_position) # TODO local?
 	# TODO select minigame
+	
+	return true
 
 func get_scanned_bag() -> ConveyorBag:
 	return scanned_bag

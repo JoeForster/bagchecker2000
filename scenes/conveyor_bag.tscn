@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bubr4467euv3f"]
 
 [ext_resource type="Script" uid="uid://bqfiiebovdef" path="res://scenes/conveyor_bag.gd" id="1_7hmnl"]
-[ext_resource type="PackedScene" uid="uid://dyg3juhyimsy1" path="res://minigame_placeholder.tscn" id="2_u40iu"]
+[ext_resource type="PackedScene" uid="uid://cpo7xuk2y20s3" path="res://minigame_bag_jumble.tscn" id="2_u40iu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ftnk"]
 size = Vector2(132, 84)

@@ -11,7 +11,7 @@ extends Node2D
 @export var initial_max_num_of_shape : int
 @export var number_of_bags : int = 10
 @export var bag_spawn_period : float = 4.0
-@export var time_limit : float = 60.0
+@export var time_limit : float = 300.0
 
 # Game elements
 @export var conveyor : Conveyor
@@ -190,8 +190,8 @@ func _conveyor_process(delta):
 
 	bag_spawn_timer -= delta
 	if bag_spawn_timer <= 0:
-		conveyor.spawn_new_bag()
-		bag_spawn_timer = bag_spawn_period
+		if conveyor.spawn_new_bag():
+			bag_spawn_timer = bag_spawn_period
 	
 	var scanned_bag = conveyor.get_scanned_bag()
 	if scanned_bag:

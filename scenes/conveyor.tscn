@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dul4y13kgs5a4"]
+[gd_scene load_steps=7 format=3 uid="uid://dul4y13kgs5a4"]
 
 [ext_resource type="Script" uid="uid://nwqeoeqys0xq" path="res://scenes/conveyor.gd" id="1_y326v"]
 [ext_resource type="PackedScene" uid="uid://bubr4467euv3f" path="res://scenes/conveyor_bag.tscn" id="2_mfjcm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y326v"]
+size = Vector2(193, 119)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_y326v"]
 a = Vector2(-40, 0)
@@ -19,17 +22,26 @@ scroller = NodePath("ConveyorBG/ConveyorScroller")
 despawn_area = NodePath("DespawnArea")
 stop_bag_collider = NodePath("ConveyorBG/ScannerArea/BlockerLine")
 possible_bags = Array[PackedScene]([ExtResource("2_mfjcm")])
-bag_spawn_point = NodePath("ConveyorBG/ConveyorScroller/BagSpawnPoint")
+bag_spawn_point = NodePath("ConveyorBG/SpawnArea/BagSpawnPoint")
 
 [node name="ConveyorBG" type="Polygon2D" parent="."]
 color = Color(0.187176, 0.187176, 0.187176, 1)
 polygon = PackedVector2Array(0, 0, 0, 800, 180, 800, 180, 0)
 uv = PackedVector2Array(168, 70, 170, 780, 304, 776, 313, 68)
 
-[node name="ConveyorScroller" type="Node2D" parent="ConveyorBG"]
+[node name="SpawnArea" type="Area2D" parent="ConveyorBG"]
+position = Vector2(16, 15)
+collision_layer = 3
+collision_mask = 3
 
-[node name="BagSpawnPoint" type="Marker2D" parent="ConveyorBG/ConveyorScroller"]
-position = Vector2(25, 21)
+[node name="BoundaryShape" type="CollisionShape2D" parent="ConveyorBG/SpawnArea"]
+position = Vector2(73.5, 39.5)
+shape = SubResource("RectangleShape2D_y326v")
+
+[node name="BagSpawnPoint" type="Marker2D" parent="ConveyorBG/SpawnArea"]
+position = Vector2(7, 1)
+
+[node name="ConveyorScroller" type="Node2D" parent="ConveyorBG"]
 
 [node name="ScannerArea" type="Area2D" parent="ConveyorBG"]
 position = Vector2(11, 415)

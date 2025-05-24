@@ -12,7 +12,12 @@ offset_right = 40.0
 offset_bottom = 40.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Button" type="Button" parent="UI"]
+[node name="Panel" type="Panel" parent="UI"]
+layout_mode = 0
+offset_right = 1278.0
+offset_bottom = 799.0
+
+[node name="Button" type="Button" parent="UI/Panel"]
 layout_mode = 0
 offset_left = 156.0
 offset_top = 83.0
@@ -20,4 +25,4 @@ offset_right = 1063.0
 offset_bottom = 662.0
 text = "Click Me!"
 
-[connection signal="pressed" from="UI/Button" to="." method="complete"]
+[connection signal="pressed" from="UI/Panel/Button" to="." method="complete"]
