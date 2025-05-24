@@ -13,11 +13,13 @@ size = Vector2(205, 120)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_y326v"]
 distance = -506.0
 
-[node name="Conveyor" type="Node2D" node_paths=PackedStringArray("scroller", "despawn_area", "stop_bag_collider")]
+[node name="Conveyor" type="Node2D" node_paths=PackedStringArray("scroller", "despawn_area", "stop_bag_collider", "bag_spawn_point")]
 script = ExtResource("1_y326v")
 scroller = NodePath("ConveyorBG/ConveyorScroller")
 despawn_area = NodePath("DespawnArea")
 stop_bag_collider = NodePath("ConveyorBG/ScannerArea/BlockerLine")
+possible_bags = Array[PackedScene]([ExtResource("2_mfjcm")])
+bag_spawn_point = NodePath("ConveyorBG/ConveyorScroller/BagSpawnPoint")
 
 [node name="ConveyorBG" type="Polygon2D" parent="."]
 color = Color(0.187176, 0.187176, 0.187176, 1)
@@ -26,11 +28,8 @@ uv = PackedVector2Array(168, 70, 170, 780, 304, 776, 313, 68)
 
 [node name="ConveyorScroller" type="Node2D" parent="ConveyorBG"]
 
-[node name="Bag1" parent="ConveyorBG/ConveyorScroller" instance=ExtResource("2_mfjcm")]
-position = Vector2(28, 33)
-
-[node name="Bag2" parent="ConveyorBG/ConveyorScroller" instance=ExtResource("2_mfjcm")]
-position = Vector2(28, 142)
+[node name="BagSpawnPoint" type="Marker2D" parent="ConveyorBG/ConveyorScroller"]
+position = Vector2(25, 21)
 
 [node name="ScannerArea" type="Area2D" parent="ConveyorBG"]
 position = Vector2(11, 415)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bubr4467euv3f"]
+[gd_scene load_steps=4 format=3 uid="uid://bubr4467euv3f"]
 
 [ext_resource type="Script" uid="uid://bqfiiebovdef" path="res://scenes/conveyor_bag.gd" id="1_7hmnl"]
+[ext_resource type="PackedScene" uid="uid://dyg3juhyimsy1" path="res://minigame_placeholder.tscn" id="2_u40iu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ftnk"]
 size = Vector2(132, 84)
@@ -9,6 +10,7 @@ size = Vector2(132, 84)
 collision_layer = 3
 gravity_scale = 0.0
 script = ExtResource("1_7hmnl")
+my_minigame = ExtResource("2_u40iu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(64, 40)

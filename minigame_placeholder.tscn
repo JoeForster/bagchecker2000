@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyg3juhyimsy1"]
+
+[ext_resource type="Script" uid="uid://iew1ywrup1se" path="res://minigame_base.gd" id="1_pydw4"]
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_pydw4")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 83.0
+offset_right = 1063.0
+offset_bottom = 662.0
+text = "Click Me!"
+
+[connection signal="pressed" from="UI/Button" to="." method="complete"]

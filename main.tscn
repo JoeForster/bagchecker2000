@@ -15,7 +15,7 @@ Label/fonts/font = SubResource("SystemFont_lquwl")
 
 [node name="Root" type="Node2D"]
 
-[node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("conveyor", "timer_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
+[node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("conveyor", "timer_label", "bags_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
 position = Vector2(303, 69)
 scale = Vector2(0.8, 0.8)
 color = Color(0, 0, 0, 1)
@@ -32,7 +32,8 @@ possible_colours = {
 initial_restricted_shape = "Square"
 initial_restricted_colour_name = "Red"
 conveyor = NodePath("../Conveyor")
-timer_label = NodePath("../UI/TimerPanel/Timer")
+timer_label = NodePath("../UI/StatusPanel/TimerLabel/TimerValue")
+bags_label = NodePath("../UI/StatusPanel/BagCounterLabel/BagCounterValue")
 successes_label = NodePath("../UI/ScorePanel/SuccessesLabel/SuccessesValue")
 failures_label = NodePath("../UI/ScorePanel/FailuresLabel/FailuresValue")
 rule_label = NodePath("../UI/RulesPanel/RuleLabel")
@@ -61,7 +62,7 @@ offset_left = 400.0
 offset_top = 580.0
 offset_right = 580.0
 offset_bottom = 660.0
-text = "Clear"
+text = "Accept"
 
 [node name="RejectButton" type="Button" parent="UI"]
 layout_mode = 0
@@ -69,20 +70,45 @@ offset_left = 702.0
 offset_top = 580.0
 offset_right = 882.0
 offset_bottom = 660.0
-text = "Flag"
+text = "Reject"
 
-[node name="TimerPanel" type="Panel" parent="UI"]
+[node name="StatusPanel" type="Panel" parent="UI"]
 layout_mode = 0
 offset_top = 680.0
 offset_right = 400.0
 offset_bottom = 800.0
 
-[node name="Timer" type="Label" parent="UI/TimerPanel"]
+[node name="BagCounterLabel" type="Label" parent="UI/StatusPanel"]
 layout_mode = 0
-offset_left = 183.0
-offset_top = 47.0
-offset_right = 224.0
-offset_bottom = 70.0
+offset_left = 101.0
+offset_top = 73.0
+offset_right = 171.0
+offset_bottom = 96.0
+theme = SubResource("Theme_7mycd")
+text = "Bags:"
+
+[node name="BagCounterValue" type="Label" parent="UI/StatusPanel/BagCounterLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="TimerLabel" type="Label" parent="UI/StatusPanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 42.0
+offset_right = 171.0
+offset_bottom = 65.0
+theme = SubResource("Theme_7mycd")
+text = "Timer:"
+
+[node name="TimerValue" type="Label" parent="UI/StatusPanel/TimerLabel"]
+layout_mode = 0
+offset_left = 70.0
+offset_right = 111.0
+offset_bottom = 23.0
 theme = SubResource("Theme_7mycd")
 text = "00:00"
 
