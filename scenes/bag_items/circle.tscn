@@ -5,7 +5,6 @@
 
 [node name="Circle" type="Node2D" node_paths=PackedStringArray("shape_node")]
 script = ExtResource("1_t0or2")
-shape_name = "Circle"
 shape_node = NodePath("CircleShape")
 
 [node name="CircleShape" type="Node2D" parent="."]

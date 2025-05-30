@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dul4y13kgs5a4"]
+[gd_scene load_steps=6 format=3 uid="uid://dul4y13kgs5a4"]
 
 [ext_resource type="Script" uid="uid://nwqeoeqys0xq" path="res://scenes/conveyor.gd" id="1_y326v"]
-[ext_resource type="PackedScene" uid="uid://bubr4467euv3f" path="res://scenes/conveyor_bag.tscn" id="2_mfjcm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y326v"]
 size = Vector2(193, 119)
@@ -21,7 +20,6 @@ script = ExtResource("1_y326v")
 scroller = NodePath("ConveyorBG/ConveyorScroller")
 despawn_area = NodePath("DespawnArea")
 stop_bag_collider = NodePath("ConveyorBG/ScannerArea/BlockerLine")
-possible_bags = Array[PackedScene]([ExtResource("2_mfjcm")])
 bag_spawn_point = NodePath("ConveyorBG/SpawnArea/BagSpawnPoint")
 
 [node name="ConveyorBG" type="Polygon2D" parent="."]

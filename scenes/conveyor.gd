@@ -5,7 +5,6 @@ extends Node2D
 @export var despawn_area : Area2D
 @export var stop_bag_collider : CollisionObject2D
 @export var scroll_speed : float = 50.0
-@export var possible_bags : Array[PackedScene]
 @export var bag_spawn_point : Node2D
 
 signal bag_reached_bottom
@@ -13,18 +12,13 @@ signal bag_reached_bottom
 var scanned_bag : ConveyorBag = null
 #var reenable_timer : float = 0.0
 
-func spawn_new_bag():
-	if possible_bags.is_empty():
-		return false
-		
+func spawn_new_bag(new_bag : ConveyorBag):
 	if $ConveyorBG/SpawnArea.has_overlapping_bodies():
 		return false
 
-	var spawn_from : PackedScene = possible_bags.pick_random()
-	var bag_node = spawn_from.instantiate() as ConveyorBag
-	
-	$ConveyorBG/ConveyorScroller.add_child(bag_node)
-	bag_node.set_global_position(bag_spawn_point.global_position) # TODO local?
+	scroller.add_child(new_bag)
+	new_bag.set_global_position(bag_spawn_point.global_position) # TODO local?
+	new_bag.set_owner(scroller)
 	# TODO select minigame
 	
 	return true

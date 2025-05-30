@@ -1,11 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://dts8no83t1eo3"]
+[gd_scene load_steps=11 format=3 uid="uid://dts8no83t1eo3"]
 
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://scanner_screen.gd" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://scenes/bag_items/circle.tscn" id="1_ig7tw"]
-[ext_resource type="PackedScene" uid="uid://dpa5lsoxu3l5i" path="res://scenes/bag_items/hexagon.tscn" id="3_lquwl"]
-[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/triangle.tscn" id="4_7mycd"]
-[ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://scenes/bag_items/square.tscn" id="5_272bh"]
+[ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://scenes/bag_items/circle.tscn" id="2_272bh"]
+[ext_resource type="PackedScene" uid="uid://dpa5lsoxu3l5i" path="res://scenes/bag_items/hexagon.tscn" id="3_5vw27"]
+[ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://scenes/bag_items/square.tscn" id="4_kek77"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/triangle.tscn" id="5_4c57u"]
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://scenes/conveyor.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://bubr4467euv3f" path="res://scenes/conveyor_bag.tscn" id="6_efxa6"]
+
+[sub_resource type="GDScript" id="GDScript_0xm2m"]
+script/source = "class_name ShapeRow
+extends Node2D
+"
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -22,7 +28,12 @@ color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 script = ExtResource("1_0xm2m")
 shape_refresh_period = 3.5
-possible_shapes = Array[PackedScene]([ExtResource("1_ig7tw"), ExtResource("3_lquwl"), ExtResource("4_7mycd"), ExtResource("5_272bh")])
+shape_name_to_scene = {
+"Circle": ExtResource("2_272bh"),
+"Hexagon": ExtResource("3_5vw27"),
+"Square": ExtResource("4_kek77"),
+"Triangle": ExtResource("5_4c57u")
+}
 possible_colours = {
 "Blue": Color(0, 0, 1, 1),
 "Green": Color(0, 1, 0, 1),
@@ -32,6 +43,7 @@ possible_colours = {
 initial_restricted_shape = "Square"
 initial_restricted_colour_name = "Red"
 conveyor = NodePath("../Conveyor")
+conveyor_bag_scene = ExtResource("6_efxa6")
 timer_label = NodePath("../UI/StatusPanel/TimerLabel/TimerValue")
 bags_label = NodePath("../UI/StatusPanel/BagCounterLabel/BagCounterValue")
 successes_label = NodePath("../UI/ScorePanel/SuccessesLabel/SuccessesValue")
@@ -42,12 +54,7 @@ reject_button = NodePath("../UI/RejectButton")
 
 [node name="Row1" type="Node2D" parent="ScannerScreen"]
 position = Vector2(11, 23)
-
-[node name="Row2" type="Node2D" parent="ScannerScreen"]
-position = Vector2(11, 223)
-
-[node name="Row3" type="Node2D" parent="ScannerScreen"]
-position = Vector2(11, 423)
+script = SubResource("GDScript_0xm2m")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
