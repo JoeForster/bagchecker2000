@@ -39,8 +39,6 @@ possible_colours = {
 "Red": Color(1, 0, 0, 1),
 "Yellow": Color(1, 1, 0, 1)
 }
-initial_restricted_shape = "Square"
-initial_restricted_colour_name = "Red"
 conveyor = NodePath("../Conveyor")
 timer_label = NodePath("../UI/StatusPanel/TimerLabel/TimerValue")
 bags_label = NodePath("../UI/StatusPanel/BagCounterLabel/BagCounterValue")
@@ -190,7 +188,7 @@ offset_top = 46.0
 offset_right = 287.0
 offset_bottom = 69.0
 theme = SubResource("Theme_7mycd")
-text = "Rule: No Green Circles!"
+text = "RULE_PLACEHOLDER"
 
 [node name="Conveyor" parent="." instance=ExtResource("6_7mycd")]
 position = Vector2(28, -125)

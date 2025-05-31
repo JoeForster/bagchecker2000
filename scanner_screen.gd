@@ -6,11 +6,10 @@ extends Node2D
 @export var rows_per_bag = 3
 @export var shapes_per_row = 4
 @export var bad_shapes_in_bag_min = 1
-@export var bad_shapes_in_bag_max = 5
+@export var bad_shapes_in_bag_max = 3
 @export var shape_name_to_scene : Dictionary
 @export var possible_colours : Dictionary
-@export var initial_restricted_shape : String
-@export var initial_restricted_colour_name : String
+@export var initial_rule_count = 2
 @export var initial_max_num_of_shape : int
 @export var number_of_bags : int = 10
 @export var number_of_bad_bags : int = 4
@@ -44,14 +43,17 @@ var bags_left_to_spawn : Array[BagContents]
 var remaining_bags : int
 var num_failures = 0
 var num_successes = 0
-var current_rule : Rule
+var current_rules : Array[Rule]
 # The scanned bag on the conveyor itself
 var current_scanned_bag : ConveyorBag
 # NOTE this is a duplicate of the BagContents node within the current_scanned_bag
 var scanned_bag_contents : BagContents 
 
 func _shape_breaks_rule(shape : ScannedShape) -> bool:
-	return shape.colour_name == current_rule.restricted_colour_name && shape.shape_name == current_rule.restricted_shape
+	for rule in current_rules:
+		if shape.colour_name == rule.restricted_colour_name && shape.shape_name == rule.restricted_shape:
+			return true
+	return false
 
 func _generate_shape_colour_combos(want_to_break_rule : bool) -> Array[ScannedShape]:
 	var possible_shape_colour_combos : Array[ScannedShape]
@@ -66,7 +68,6 @@ func _generate_shape_colour_combos(want_to_break_rule : bool) -> Array[ScannedSh
 			if _shape_breaks_rule(this_shape_entry) == want_to_break_rule:
 				possible_shape_colour_combos.push_back(this_shape_entry)
 	return possible_shape_colour_combos
-
 
 func _generate_bag_contents(breaks_rule : bool) -> BagContents:
 	if possible_shape_colour_combos_passing_rule.is_empty() || possible_shape_colour_combos_failing_rule.is_empty():
@@ -181,16 +182,43 @@ func _check_reject():
 	accept_button.disabled = true
 	reject_button.disabled = true
 
-func _ready():
+func _generate_rules():
 	# Generate a rule
-	current_rule = Rule.new()
-	current_rule.restricted_colour_name = initial_restricted_colour_name
-	current_rule.restricted_shape = initial_restricted_shape
-	current_rule.max_num_of_shape = 0
+	for rule_index in range(initial_rule_count):
+		var new_rule = Rule.new()
+		new_rule.restricted_colour_name = possible_colours.keys().pick_random()
+		new_rule.restricted_shape = shape_name_to_scene.keys().pick_random()
+		new_rule.max_num_of_shape = 0
+		current_rules.push_back(new_rule)
 	
 	# Generate the possible shapes based on the rules
 	possible_shape_colour_combos_passing_rule =  _generate_shape_colour_combos(true)
 	possible_shape_colour_combos_failing_rule =  _generate_shape_colour_combos(false)
+	
+	# setup rules UI
+	if rule_label:
+		var current_label_offset = 0
+		for rule in current_rules:
+			# HACK: Get or duplicate the rule label per rule
+			var this_rule_label : Label
+			if current_label_offset == 0:
+				this_rule_label = rule_label
+			else:
+				this_rule_label = rule_label.duplicate()
+				rule_label.add_sibling(this_rule_label)
+				this_rule_label.set_owner(rule_label.get_parent())
+				this_rule_label.set_position(rule_label.get_position() + Vector2(0, current_label_offset))
+			current_label_offset += this_rule_label.get_size().y
+			# Populate the rule label
+			if rule.max_num_of_shape <= 0:
+				this_rule_label.text = "No " + rule.restricted_colour_name + " " + rule.restricted_shape + "s"
+			else:
+				this_rule_label.text = "No more than " + this_rule_label.max_num_of_shape + " " + rule.restricted_colour_name + " " + rule.restricted_shape + "s"
+			var text_colour = possible_colours[rule.restricted_colour_name]
+			this_rule_label.add_theme_color_override("font_color", text_colour)
+
+func _ready():
+	_generate_rules()
 	
 	# Generate the bags - meeting our quota of "bad" bags in random order
 	var bags_bad_flags : Array[bool]
@@ -250,12 +278,6 @@ func _update_ui():
 		successes_label.text = str(num_successes)
 	if failures_label:
 		failures_label.text = str(num_failures)
-	if rule_label:
-		if current_rule.max_num_of_shape <= 0:
-			rule_label.text = "No " + current_rule.restricted_colour_name + " " + current_rule.restricted_shape + "s"
-		else:
-			rule_label.text = "No more than " + rule_label.max_num_of_shape + " " + current_rule.restricted_colour_name + " " + current_rule.restricted_shape + "s"
-		rule_label.add_theme_color_override("font_color", current_rule.restricted_colour_name)
 
 func _process(delta):
 	_conveyor_process(delta)
