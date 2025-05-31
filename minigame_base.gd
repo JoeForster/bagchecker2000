@@ -7,7 +7,7 @@ func complete():
 	on_completed.emit()
 	queue_free()
 	
-func _init_with_contents(scanner : ScannerScreen):
+func _init_with_contents(bag_contents : BagContents):
 	pass#%BagBG/Zip.on_zip_opened.connect(_open_bag)
 	
 # TODO need to split this off into the subclass

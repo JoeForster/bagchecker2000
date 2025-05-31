@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dts8no83t1eo3"]
+[gd_scene load_steps=10 format=3 uid="uid://dts8no83t1eo3"]
 
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://scanner_screen.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://scenes/bag_items/circle.tscn" id="2_272bh"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://scenes/bag_items/square.tscn" id="4_kek77"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/triangle.tscn" id="5_4c57u"]
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://scenes/conveyor.tscn" id="6_7mycd"]
-[ext_resource type="PackedScene" uid="uid://bubr4467euv3f" path="res://scenes/conveyor_bag.tscn" id="6_efxa6"]
 
 [sub_resource type="GDScript" id="GDScript_0xm2m"]
 script/source = "class_name ShapeRow
@@ -43,7 +42,6 @@ possible_colours = {
 initial_restricted_shape = "Square"
 initial_restricted_colour_name = "Red"
 conveyor = NodePath("../Conveyor")
-conveyor_bag_scene = ExtResource("6_efxa6")
 timer_label = NodePath("../UI/StatusPanel/TimerLabel/TimerValue")
 bags_label = NodePath("../UI/StatusPanel/BagCounterLabel/BagCounterValue")
 successes_label = NodePath("../UI/ScorePanel/SuccessesLabel/SuccessesValue")
