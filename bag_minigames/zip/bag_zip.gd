@@ -1,3 +1,4 @@
+class_name BagZip
 extends Node2D
 
 var mouse_held = false

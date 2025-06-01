@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dul4y13kgs5a4"]
 
-[ext_resource type="Script" uid="uid://nwqeoeqys0xq" path="res://scenes/conveyor.gd" id="1_y326v"]
-[ext_resource type="PackedScene" uid="uid://bubr4467euv3f" path="res://scenes/conveyor_bag.tscn" id="2_y326v"]
+[ext_resource type="Script" uid="uid://nwqeoeqys0xq" path="res://conveyor/conveyor.gd" id="1_y326v"]
+[ext_resource type="PackedScene" uid="uid://bubr4467euv3f" path="res://conveyor/conveyor_bag.tscn" id="2_y326v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y326v"]
 size = Vector2(193, 119)

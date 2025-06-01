@@ -177,6 +177,7 @@ func _check_reject():
 			_on_completed_bag_minigame()
 	else:
 		num_failures += 1
+		_clear_displayed_contents()
 		_allow_bag_through()
 
 	accept_button.disabled = true

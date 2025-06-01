@@ -1,16 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://dts8no83t1eo3"]
+[gd_scene load_steps=9 format=3 uid="uid://dts8no83t1eo3"]
 
-[ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://scanner_screen.gd" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://scenes/bag_items/circle.tscn" id="2_272bh"]
-[ext_resource type="PackedScene" uid="uid://dpa5lsoxu3l5i" path="res://scenes/bag_items/hexagon.tscn" id="3_5vw27"]
-[ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://scenes/bag_items/square.tscn" id="4_kek77"]
-[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/triangle.tscn" id="5_4c57u"]
-[ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://scenes/conveyor.tscn" id="6_7mycd"]
-
-[sub_resource type="GDScript" id="GDScript_0xm2m"]
-script/source = "class_name ShapeRow
-extends Node2D
-"
+[ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://levels/scanner_proto/scanner_screen.gd" id="1_tefeu"]
+[ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://conveyor_bag/bag_items/circle.tscn" id="2_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dpa5lsoxu3l5i" path="res://conveyor_bag/bag_items/hexagon.tscn" id="3_tipki"]
+[ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://conveyor_bag/bag_items/square.tscn" id="4_85g3d"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="5_choun"]
+[ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://conveyor/conveyor.tscn" id="6_ya4ey"]
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -25,13 +20,13 @@ position = Vector2(303, 69)
 scale = Vector2(0.8, 0.8)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
-script = ExtResource("1_0xm2m")
+script = ExtResource("1_tefeu")
 shape_refresh_period = 3.5
 shape_name_to_scene = {
-"Circle": ExtResource("2_272bh"),
-"Hexagon": ExtResource("3_5vw27"),
-"Square": ExtResource("4_kek77"),
-"Triangle": ExtResource("5_4c57u")
+"Circle": ExtResource("2_o6xl0"),
+"Hexagon": ExtResource("3_tipki"),
+"Square": ExtResource("4_85g3d"),
+"Triangle": ExtResource("5_choun")
 }
 possible_colours = {
 "Blue": Color(0, 0, 1, 1),
@@ -47,10 +42,6 @@ failures_label = NodePath("../UI/ScorePanel/FailuresLabel/FailuresValue")
 rule_label = NodePath("../UI/RulesPanel/RuleLabel")
 accept_button = NodePath("../UI/AcceptButton")
 reject_button = NodePath("../UI/RejectButton")
-
-[node name="Row1" type="Node2D" parent="ScannerScreen"]
-position = Vector2(11, 23)
-script = SubResource("GDScript_0xm2m")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -190,5 +181,5 @@ offset_bottom = 69.0
 theme = SubResource("Theme_7mycd")
 text = "RULE_PLACEHOLDER"
 
-[node name="Conveyor" parent="." instance=ExtResource("6_7mycd")]
+[node name="Conveyor" parent="." instance=ExtResource("6_ya4ey")]
 position = Vector2(28, -125)

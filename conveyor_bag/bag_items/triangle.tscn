@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://vtugltde8pc6"]
 
-[ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://scanned_shape.gd" id="1_gck25"]
+[ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://conveyor_bag/scanned_shape.gd" id="1_gck25"]
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("shape_node")]
 script = ExtResource("1_gck25")

@@ -1,17 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cpo7xuk2y20s3"]
+[gd_scene load_steps=5 format=3 uid="uid://cpo7xuk2y20s3"]
 
-[ext_resource type="Script" uid="uid://iew1ywrup1se" path="res://minigame_base.gd" id="1_kxejn"]
-[ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_zip.gd" id="2_h1vyj"]
+[ext_resource type="Script" uid="uid://bmcmrikj3e8ba" path="res://bag_minigames/zip/minigame_bag_jumble.gd" id="1_7r0xy"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="2_owxwg"]
+[ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_minigames/zip/bag_zip.gd" id="2_plqs4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1vyj"]
 size = Vector2(96.2502, 246.25)
 
-[node name="Root" type="Node2D" node_paths=PackedStringArray("zip", "bag_front_top", "bag_front_bottom")]
-script = ExtResource("1_kxejn")
-open_speed = 80.0
+[node name="Root" type="Node2D" node_paths=PackedStringArray("zip", "bag_front_top", "bag_front_bottom", "contents_holder")]
+script = ExtResource("1_7r0xy")
 zip = NodePath("BagBG/Zip")
 bag_front_top = NodePath("BagBG/BagFrontTop")
 bag_front_bottom = NodePath("BagBG/BagFrontBottom")
+contents_holder = NodePath("BagBG/BagContentsHolder")
 
 [node name="BagBG" type="Polygon2D" parent="."]
 position = Vector2(326, 146)
@@ -19,14 +20,12 @@ scale = Vector2(0.8, 0.8)
 color = Color(0.0575054, 0.0219947, 1.50409e-09, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 
-[node name="Row1" type="Node2D" parent="BagBG"]
-position = Vector2(11, 23)
+[node name="BagContentsHolder" type="Node2D" parent="BagBG"]
+position = Vector2(28.75, 36.25)
+scale = Vector2(1, 1)
 
-[node name="Row2" type="Node2D" parent="BagBG"]
-position = Vector2(11, 223)
-
-[node name="Row3" type="Node2D" parent="BagBG"]
-position = Vector2(11, 423)
+[node name="Node2D" parent="BagBG/BagContentsHolder" instance=ExtResource("2_owxwg")]
+visible = false
 
 [node name="BagFrontTop" type="Polygon2D" parent="BagBG"]
 color = Color(0.256086, 0.149754, 0, 1)
@@ -37,7 +36,7 @@ color = Color(0.254902, 0.14902, 0, 1)
 polygon = PackedVector2Array(5, 282.5, 156.25, 326.25, 510, 275, 798.75, 316.25, 810, 610, -22.5, 620)
 
 [node name="Zip" type="Node2D" parent="BagBG"]
-script = ExtResource("2_h1vyj")
+script = ExtResource("2_plqs4")
 
 [node name="ZipLine" type="Line2D" parent="BagBG/Zip"]
 position = Vector2(0, 278.75)
@@ -83,3 +82,11 @@ polygon = PackedVector2Array(0, 0, 0, 300, 800, 300, 800, 0)
 position = Vector2(265, -153)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 0, 300, 800, 300, 800, 0)
+
+[node name="TestModeLabel" type="Label" parent="."]
+visible = false
+offset_left = 13.0
+offset_top = 4.0
+offset_right = 132.0
+offset_bottom = 42.0
+text = "TEST MODE"

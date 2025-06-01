@@ -9,7 +9,7 @@ func start_minigame() -> MiniGameBase:
 	if my_minigame:
 		var minigame_scene = my_minigame.instantiate() as MiniGameBase
 		if minigame_scene:
-			minigame_scene._init_with_contents(bag_contents)
+			minigame_scene.init_with_contents(bag_contents)
 			return minigame_scene
 	return null
 
