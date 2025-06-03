@@ -29,7 +29,6 @@ func _start_opening_bag():
 func _ready() -> void:
 	super()
 	zip.on_zip_opened.connect(_start_opening_bag)
-	# TODO if is_test_mode generate some bag contents and call init_with_contents
 
 func _process(delta: float) -> void:
 	if opening:

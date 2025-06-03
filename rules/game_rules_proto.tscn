@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdtkv0d3nr14"]
+
+[ext_resource type="Script" uid="uid://d0a6nmdhlbgy6" path="res://rules/game_rules.gd" id="1_k0dcv"]
+[ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://conveyor_bag/bag_items/circle.tscn" id="2_tcjnq"]
+[ext_resource type="PackedScene" uid="uid://dpa5lsoxu3l5i" path="res://conveyor_bag/bag_items/hexagon.tscn" id="3_aul36"]
+[ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://conveyor_bag/bag_items/square.tscn" id="4_pw6ve"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="5_3wcc5"]
+
+[node name="GameRules" type="Node"]
+script = ExtResource("1_k0dcv")
+shape_name_to_scene = {
+"Circle": ExtResource("2_tcjnq"),
+"Hexagon": ExtResource("3_aul36"),
+"Square": ExtResource("4_pw6ve"),
+"Triangle": ExtResource("5_3wcc5")
+}
+possible_colours = {
+"Blue": Color(0, 0, 1, 1),
+"Green": Color(0, 1, 0, 1),
+"Red": Color(1, 0, 0, 1),
+"Yellow": Color(1, 1, 0, 1)
+}

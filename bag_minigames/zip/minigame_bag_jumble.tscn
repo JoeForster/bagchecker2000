@@ -1,18 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpo7xuk2y20s3"]
+[gd_scene load_steps=6 format=3 uid="uid://cpo7xuk2y20s3"]
 
 [ext_resource type="Script" uid="uid://bmcmrikj3e8ba" path="res://bag_minigames/zip/minigame_bag_jumble.gd" id="1_7r0xy"]
+[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="2_bvnuh"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="2_owxwg"]
 [ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_minigames/zip/bag_zip.gd" id="2_plqs4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1vyj"]
 size = Vector2(96.2502, 246.25)
 
-[node name="Root" type="Node2D" node_paths=PackedStringArray("zip", "bag_front_top", "bag_front_bottom", "contents_holder")]
+[node name="Root" type="Node2D" node_paths=PackedStringArray("zip", "bag_front_top", "bag_front_bottom", "contents_holder", "test_rules")]
 script = ExtResource("1_7r0xy")
 zip = NodePath("BagBG/Zip")
 bag_front_top = NodePath("BagBG/BagFrontTop")
 bag_front_bottom = NodePath("BagBG/BagFrontBottom")
 contents_holder = NodePath("BagBG/BagContentsHolder")
+test_rules = NodePath("TestRules")
+
+[node name="TestRules" parent="." instance=ExtResource("2_bvnuh")]
 
 [node name="BagBG" type="Polygon2D" parent="."]
 position = Vector2(326, 146)
@@ -22,7 +26,6 @@ polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 
 [node name="BagContentsHolder" type="Node2D" parent="BagBG"]
 position = Vector2(28.75, 36.25)
-scale = Vector2(1, 1)
 
 [node name="Node2D" parent="BagBG/BagContentsHolder" instance=ExtResource("2_owxwg")]
 visible = false

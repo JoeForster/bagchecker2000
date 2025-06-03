@@ -16,6 +16,7 @@ signal on_zip_opened
 
 func _on_zip_reached_end() -> void:
 	$ZipHandle.queue_free()
+	$ZipLine.queue_free()
 	on_zip_opened.emit()
 	
 func _on_zip_end_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
