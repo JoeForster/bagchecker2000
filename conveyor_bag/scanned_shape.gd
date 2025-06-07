@@ -1,5 +1,5 @@
 class_name ScannedShape
-extends Node2D
+extends Area2D
 
 @export var shape_name : String
 @export var shape_node : Node2D
@@ -17,3 +17,9 @@ func clone():
 	var new_node = duplicate()
 	new_node.set_colour_and_name(colour, colour_name)
 	return new_node
+
+func set_highlighter_visible(value : bool):
+	$Highlighter.set_visible(value)
+
+func is_highlighted() -> bool:
+	return $Highlighter.is_visible()

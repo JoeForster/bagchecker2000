@@ -5,11 +5,11 @@ extends RigidBody2D
 
 var bag_contents : BagContents
 
-func start_minigame() -> MiniGameBase:
+func start_minigame(game_rules : GameRules) -> MiniGameBase:
 	if my_minigame:
 		var minigame_scene = my_minigame.instantiate() as MiniGameBase
 		if minigame_scene:
-			minigame_scene.init_with_contents(bag_contents)
+			minigame_scene.init_with_contents(game_rules, bag_contents)
 			return minigame_scene
 	return null
 

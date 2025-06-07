@@ -50,8 +50,8 @@ func generate_bag_contents(breaks_rule : bool):
 		var offset = Vector2.ZERO
 		var shape_row = new_bag_contents.add_row()
 		for row_shape_index in range(shapes_per_row):
-			var shape_breaks_rule = rule_breaking_shapes[overall_shape_index]
-			var possible_combos = possible_shape_colour_combos_passing_rule if shape_breaks_rule else possible_shape_colour_combos_failing_rule
+			var this_shape_breaks_rule = rule_breaking_shapes[overall_shape_index]
+			var possible_combos = possible_shape_colour_combos_passing_rule if this_shape_breaks_rule else possible_shape_colour_combos_failing_rule
 			var new_shape_orig : ScannedShape = possible_combos.pick_random()
 			var new_shape_dupe = new_shape_orig.clone()
 			shape_row.add_child(new_shape_dupe)

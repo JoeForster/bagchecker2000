@@ -5,11 +5,13 @@ extends Node2D
 # TODO many to be moved into GameRules
 @export var game_rules : GameRules
 @export var shape_refresh_period = 4.0
+@export var delay_after_success = 0.5
+@export var delay_after_failure = 2.0
 @export var initial_max_num_of_shape : int
 @export var number_of_bags : int = 10
 @export var number_of_bad_bags : int = 4
 @export var bag_spawn_period : float = 4.0
-@export var time_limit : float = 300.0
+@export var time_limit : float = 100.0
 
 # Game elements
 @export var conveyor : Conveyor
@@ -24,9 +26,10 @@ extends Node2D
 @export var reject_button : Button
 
 # Game state
-var timer : float = 0
+var timer = 0.0
 var first_turn = true
-var bag_spawn_timer : float = 0
+var bag_spawn_timer = 0.0
+var allow_through_timer = 0.0
 var bags_left_to_spawn : Array[BagContents]
 var remaining_bags : int
 var num_failures = 0
@@ -54,15 +57,21 @@ func _clear_displayed_contents():
 	for child in get_children():
 		child.queue_free()
 
+
+func _check_forbidden_shapes():
+	for r in scanned_bag_contents.get_rows():
+		for shape : ScannedShape in r.get_children():
+			if game_rules.shape_breaks_rule(shape):
+				return true
+	return false
+
 func _highlight_forbidden_shapes():
 	var found_any = false
 	for r in scanned_bag_contents.get_rows():
 		for shape : ScannedShape in r.get_children():
 			if game_rules.shape_breaks_rule(shape):
 				found_any = true
-				var highlighter_node = shape.get_child(0) as Node2D
-				if highlighter_node:
-					highlighter_node.visible = true
+				shape.set_highlighter_visible(true)
 	return found_any
 
 func _on_bag_removed():
@@ -80,37 +89,38 @@ func _check_accept():
 	
 	if _highlight_forbidden_shapes():
 		num_failures += 1
+		allow_through_timer = delay_after_failure
 	else:
 		num_successes += 1
+		allow_through_timer = delay_after_success
+
 	accept_button.disabled = true
 	reject_button.disabled = true
 
-	_clear_displayed_contents()
-	_allow_bag_through()
-
 func _on_completed_bag_minigame():
-	current_scanned_bag.queue_free()
 	_clear_displayed_contents()
-	_on_bag_removed()
+	num_successes += 1
+	allow_through_timer = delay_after_success
 
 func _check_reject():
 	if current_scanned_bag == null:
 		return # TODO disable the button in all cases there's no bag
 	
-	if _highlight_forbidden_shapes():
-		num_successes += 1 # TODO this should be tied to success in the minigame
-		var search_minigame : MiniGameBase = current_scanned_bag.start_minigame()
+	_clear_displayed_contents()
+	
+	if _check_forbidden_shapes():
+		var search_minigame : MiniGameBase = current_scanned_bag.start_minigame(game_rules)
 		if search_minigame:
 			search_minigame.on_completed.connect(_on_completed_bag_minigame)
 			# HACK
 			get_parent().add_child(search_minigame)
 			search_minigame.set_owner(get_parent())
+			
 		else:
 			_on_completed_bag_minigame()
 	else:
 		num_failures += 1
-		_clear_displayed_contents()
-		_allow_bag_through()
+		allow_through_timer = delay_after_failure
 
 	accept_button.disabled = true
 	reject_button.disabled = true
@@ -168,6 +178,10 @@ func _ready():
 		remaining_bags = number_of_bags
 
 func _conveyor_process(delta):
+	if remaining_bags <= 0:
+		# TODO GAME OVER LOGIC
+		return
+	
 	timer -= delta
 	if timer <= 0:
 		timer = 0
@@ -175,10 +189,9 @@ func _conveyor_process(delta):
 		return
 
 	bag_spawn_timer -= delta
-	if bag_spawn_timer <= 0:
+	if bag_spawn_timer <= 0 and conveyor.can_spawn_new_bag() and not bags_left_to_spawn.is_empty():
 		var next_bag = bags_left_to_spawn.pop_back()
-		if next_bag:
-			conveyor.spawn_new_bag(next_bag)
+		conveyor.spawn_new_bag(next_bag)
 		bag_spawn_timer = bag_spawn_period
 	
 	var scanned_bag : ConveyorBag = conveyor.get_scanned_bag()
@@ -187,8 +200,15 @@ func _conveyor_process(delta):
 			current_scanned_bag = scanned_bag
 			_display_bag_contents(scanned_bag)
 
-		accept_button.disabled = false
-		reject_button.disabled = false
+			accept_button.disabled = false
+			reject_button.disabled = false
+
+	if allow_through_timer > 0.0:
+		allow_through_timer -= delta
+		if allow_through_timer <= 0.0:
+			allow_through_timer = 0.0
+			_clear_displayed_contents()
+			_allow_bag_through()
 
 func _update_ui():
 	if timer_label:

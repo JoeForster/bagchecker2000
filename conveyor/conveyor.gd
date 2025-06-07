@@ -13,12 +13,17 @@ signal bag_reached_bottom
 var scanned_bag : ConveyorBag = null
 #var reenable_timer : float = 0.0
 
-func spawn_new_bag(new_bag_contents : BagContents):
+func can_spawn_new_bag():
 	if $ConveyorBG/SpawnArea.has_overlapping_bodies():
 		return false
 
 	if conveyor_bag_scene == null || !conveyor_bag_scene.can_instantiate():
 		return false
+		
+	return true
+
+func spawn_new_bag(new_bag_contents : BagContents):
+	assert(can_spawn_new_bag())
 
 	var new_bag = conveyor_bag_scene.instantiate() as ConveyorBag
 	new_bag.set_contents(new_bag_contents)
@@ -26,17 +31,10 @@ func spawn_new_bag(new_bag_contents : BagContents):
 	scroller.add_child(new_bag)
 	new_bag.set_global_position(bag_spawn_point.global_position) # TODO local?
 	new_bag.set_owner(scroller)
-	# TODO select minigame
-	
-	return true
+	# TODO select minigame per type of bag here
 
 func get_scanned_bag() -> ConveyorBag:
 	return scanned_bag
-
-#func allow_bag_through():
-#	stop_bag_collider.set_
-#	stop_bag_collider.process_mode = Node.PROCESS_MODE_DISABLED
-#	reenable_timer = 2 # HACK - this makes us dependent 
 
 func _process_scroll(delta: float) -> void:
 	#scroller.translate(Vector2.DOWN * scroll_speed * delta)
@@ -48,8 +46,6 @@ func _process_scroll(delta: float) -> void:
 			if collision:
 				if collision.get_collider() == stop_bag_collider:
 					scanned_bag = bag
-
-#func _stop_entered(body: Node2D)
 
 func _despawn_entered(body: Node2D):
 	var bag = body as ConveyorBag
@@ -65,11 +61,3 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if scroller:
 		_process_scroll(delta)
-
-func _process(delta: float) -> void:
-	pass
-	#if reenable_timer > 0:
-	#	reenable_timer -= delta
-	#	if reenable_timer <= 0:
-	#		stop_bag_collider.process_mode = Node.PROCESS_MODE_INHERIT
-			

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://conveyor_bag/scanned_shape.gd" id="1_gck25"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("shape_node")]
+[node name="Node2D" type="Area2D" node_paths=PackedStringArray("shape_node")]
 script = ExtResource("1_gck25")
 shape_name = "Triangle"
 shape_node = NodePath("Triangle")
@@ -14,3 +14,6 @@ polygon = PackedVector2Array(0, 150, 75, 0, 150, 150)
 visible = false
 points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 150)
 default_color = Color(1, 0, 1, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(75, 0, 150, 150, 0, 150)

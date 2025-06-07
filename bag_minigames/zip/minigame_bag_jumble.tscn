@@ -19,8 +19,9 @@ test_rules = NodePath("TestRules")
 [node name="TestRules" parent="." instance=ExtResource("2_bvnuh")]
 
 [node name="BagBG" type="Polygon2D" parent="."]
-position = Vector2(326, 146)
-scale = Vector2(0.8, 0.8)
+position = Vector2(1266, 61)
+rotation = 1.57079
+scale = Vector2(0.65707, 0.588839)
 color = Color(0.0575054, 0.0219947, 1.50409e-09, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 
@@ -36,7 +37,7 @@ polygon = PackedVector2Array(0, 0, 800, 0, 800, 316.25, 508.75, 272.5, 151.25, 3
 
 [node name="BagFrontBottom" type="Polygon2D" parent="BagBG"]
 color = Color(0.254902, 0.14902, 0, 1)
-polygon = PackedVector2Array(5, 282.5, 156.25, 326.25, 510, 275, 798.75, 316.25, 810, 610, -22.5, 620)
+polygon = PackedVector2Array(0, 277.5, 156.25, 326.25, 510, 275, 798.75, 316.25, 800, 601.25, 1.25, 601.25)
 
 [node name="Zip" type="Node2D" parent="BagBG"]
 script = ExtResource("2_plqs4")
@@ -67,21 +68,25 @@ position = Vector2(821.25, 326.25)
 shape = SubResource("RectangleShape2D_h1vyj")
 
 [node name="Polygon2D2" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(966, 17)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-8, -45, 0, 800, 300, 800, 323, -50)
 
 [node name="Polygon2D3" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(28, -3)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-77, -27, -72, 839, 300, 800, 300, 0)
 
 [node name="Polygon2D4" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(250, 634)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 0, 300, 800, 300, 800, 0)
 
 [node name="Polygon2D5" type="Polygon2D" parent="."]
+visible = false
 position = Vector2(265, -153)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 0, 300, 800, 300, 800, 0)

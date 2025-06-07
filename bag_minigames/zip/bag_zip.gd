@@ -19,11 +19,11 @@ func _on_zip_reached_end() -> void:
 	$ZipLine.queue_free()
 	on_zip_opened.emit()
 	
-func _on_zip_end_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
-	if area == $ZipHandle:
+func _on_zip_end_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
+	if has_node("ZipHandle") && area == $ZipHandle:
 		_on_zip_reached_end()
 
-func _on_mouse_move_with_zip(mouse_event : InputEventMouseMotion):
+func _on_mouse_move_with_zip(_mouse_event : InputEventMouseMotion):
 	dragging_mouse_pos = get_global_mouse_position()
 	# Basic idea here: determine where along the line the zip handle is, and where the 
 	# next point along the zip should be. Use that to determine th e drag angle
@@ -32,8 +32,6 @@ func _on_mouse_move_with_zip(mouse_event : InputEventMouseMotion):
 	var zip_line : Line2D = $ZipLine
 	var zip_handle : Node2D = $ZipHandle
 	var closest_dist_sq = -1
-	var zip_first_point_pos = zip_line.to_global(zip_line.get_point_position(0))
-	var closest_point_to_handle = zip_first_point_pos
 	var point_after_closest_point_to_handle : Vector2 = to_global(zip_line.get_point_position(zip_line.get_point_count()-1))
 	var zip_handle_pos = zip_handle.get_global_position()
 	for from_point in range(0, zip_line.get_point_count()-1):
@@ -44,7 +42,6 @@ func _on_mouse_move_with_zip(mouse_event : InputEventMouseMotion):
 			var check_point = lerp(from_point_pos, to_point_pos, percent/100.0)
 			var dist_sq = zip_handle_pos.distance_squared_to(check_point)
 			if closest_dist_sq < 0 || dist_sq < closest_dist_sq:
-				closest_point_to_handle = check_point
 				closest_dist_sq = dist_sq
 				point_after_closest_point_to_handle = to_point_pos
 	
@@ -54,8 +51,7 @@ func _on_mouse_move_with_zip(mouse_event : InputEventMouseMotion):
 	var drag_angle = zip_to_mouse.angle_to(zip_to_next_point)
 	if abs(drag_angle) < deg_to_rad(rotation_threshold_degrees):
 		zip_handle_moving = true
-		
-	var zip_current_point_pos = closest_point_to_handle
+
 	zip_next_point_pos = point_after_closest_point_to_handle
 
 func _update_zip_handle(delta: float, zip_handle: Area2D):
@@ -76,7 +72,7 @@ func _update_zip_handle(delta: float, zip_handle: Area2D):
 func _on_mouse_exited() -> void:
 	mouse_held = false
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	var click_event = event as InputEventMouseButton
 	if click_event and click_event.button_index == mouse_button_index and click_event.pressed:
 		mouse_held = true
