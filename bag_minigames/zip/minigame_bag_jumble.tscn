@@ -10,6 +10,8 @@ size = Vector2(96.2502, 246.25)
 
 [node name="Root" type="Node2D" node_paths=PackedStringArray("zip", "bag_front_top", "bag_front_bottom", "contents_holder", "test_rules")]
 script = ExtResource("1_7r0xy")
+open_speed = 120.0
+open_dist = 260.0
 zip = NodePath("BagBG/Zip")
 bag_front_top = NodePath("BagBG/BagFrontTop")
 bag_front_bottom = NodePath("BagBG/BagFrontBottom")
@@ -33,22 +35,25 @@ visible = false
 
 [node name="BagFrontTop" type="Polygon2D" parent="BagBG"]
 color = Color(0.256086, 0.149754, 0, 1)
-polygon = PackedVector2Array(0, 0, 800, 0, 800, 316.25, 508.75, 272.5, 151.25, 328.75, 0, 281.25)
+polygon = PackedVector2Array(0, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 0, 0, 0)
 
 [node name="BagFrontBottom" type="Polygon2D" parent="BagBG"]
 color = Color(0.254902, 0.14902, 0, 1)
-polygon = PackedVector2Array(0, 277.5, 156.25, 326.25, 510, 275, 798.75, 316.25, 800, 601.25, 1.25, 601.25)
+polygon = PackedVector2Array(0, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 600, 0, 600)
 
-[node name="Zip" type="Node2D" parent="BagBG"]
+[node name="Zip" type="Node2D" parent="BagBG" node_paths=PackedStringArray("bag_front_top", "bag_front_bottom")]
 script = ExtResource("2_plqs4")
+zip_line_variance = 80.0
+bag_front_top = NodePath("../BagFrontTop")
+bag_front_bottom = NodePath("../BagFrontBottom")
 
 [node name="ZipLine" type="Line2D" parent="BagBG/Zip"]
-position = Vector2(0, 278.75)
-points = PackedVector2Array(0, 0, 155, 50, 506.25, -5, 800, 40)
+position = Vector2(0, 300)
+points = PackedVector2Array(0, 0, 200, 0, 400, 0, 600, 0, 800, 0)
 default_color = Color(0.374139, 0.374139, 0.374139, 1)
 
 [node name="ZipHandle" type="Area2D" parent="BagBG/Zip"]
-position = Vector2(3.75, 278.75)
+position = Vector2(0, 300)
 
 [node name="Polygon2D" type="Polygon2D" parent="BagBG/Zip/ZipHandle"]
 z_index = 1
@@ -64,32 +69,18 @@ polygon = PackedVector2Array(-2.5, -278.75, 47.5, -258.75, 47.5, -298.75)
 [node name="ZipEnd" type="Area2D" parent="BagBG/Zip"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BagBG/Zip/ZipEnd"]
-position = Vector2(821.25, 326.25)
+position = Vector2(820.307, 298.899)
 shape = SubResource("RectangleShape2D_h1vyj")
 
-[node name="Polygon2D2" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(966, 17)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-8, -45, 0, 800, 300, 800, 323, -50)
+[node name="BG1" type="Polygon2D" parent="."]
+position = Vector2(555, 65)
+color = Color(0.301961, 0.301961, 0.301961, 1)
+polygon = PackedVector2Array(33, -31, 19, 535, 358, 529, 358, -31)
 
-[node name="Polygon2D3" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(28, -3)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(-77, -27, -72, 839, 300, 800, 300, 0)
-
-[node name="Polygon2D4" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(250, 634)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(0, 0, 0, 300, 800, 300, 800, 0)
-
-[node name="Polygon2D5" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(265, -153)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(0, 0, 0, 300, 800, 300, 800, 0)
+[node name="BG2" type="Polygon2D" parent="."]
+position = Vector2(1400, 19)
+color = Color(0.301961, 0.301961, 0.301961, 1)
+polygon = PackedVector2Array(-137, -2, -134, 607, 157, 611, 144, -7)
 
 [node name="TestModeLabel" type="Label" parent="."]
 visible = false

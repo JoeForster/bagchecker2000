@@ -10,6 +10,9 @@ var zip_colour : Color
 @export var mouse_button_index = 1
 @export var rotation_threshold_degrees = 10.0
 @export var zip_move_speed = 200.0
+@export var zip_line_variance = 100.0
+@export var bag_front_top : Polygon2D
+@export var bag_front_bottom : Polygon2D
 
 signal on_zip_opened
 
@@ -88,11 +91,36 @@ func _input(event: InputEvent) -> void:
 		if move_event:
 			_on_mouse_move_with_zip(move_event)
 
+func _randomise_zip() -> void:
+	var zip_line : Line2D = $ZipLine
+	var zip_handle : Node2D = $ZipHandle
+	
+	var bfb_polygon = bag_front_bottom.get_polygon()
+	var bft_polygon = bag_front_top.get_polygon()
+	
+	for point_index in range(zip_line.get_point_count()):
+		var point_pos = zip_line.get_point_position(point_index)
+		var y_random_delta = randf_range(-zip_line_variance, zip_line_variance)
+		point_pos.y += y_random_delta
+		zip_line.set_point_position(point_index, point_pos)
+		if point_index == 0:
+			zip_handle.position.y += y_random_delta
+		for poly in [bfb_polygon, bft_polygon]:
+			var poly_point = poly.get(point_index)
+			poly_point.y += y_random_delta
+			poly.set(point_index, poly_point)
+
+	bag_front_bottom.set_polygon(bfb_polygon)
+	bag_front_top.set_polygon(bft_polygon)
+
 func _ready() -> void:
 	$ZipHandle.input_event.connect(_on_input_event)
 	zip_colour = $ZipHandle/Polygon2D.color
 	
 	$ZipEnd.area_shape_entered.connect(_on_zip_end_entered)
+	
+	if zip_line_variance > 0.0:
+		_randomise_zip()
 
 func _process(delta: float) -> void:
 	if has_node("ZipHandle"):

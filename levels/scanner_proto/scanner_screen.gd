@@ -15,6 +15,7 @@ extends Node2D
 
 # Game elements
 @export var conveyor : Conveyor
+@export var minigame_holder : Node2D
 
 # UI Elements
 @export var timer_label : Label
@@ -112,9 +113,8 @@ func _check_reject():
 		var search_minigame : MiniGameBase = current_scanned_bag.start_minigame(game_rules)
 		if search_minigame:
 			search_minigame.on_completed.connect(_on_completed_bag_minigame)
-			# HACK
-			get_parent().add_child(search_minigame)
-			search_minigame.set_owner(get_parent())
+			minigame_holder.add_child(search_minigame)
+			search_minigame.set_owner(minigame_holder)
 			
 		else:
 			_on_completed_bag_minigame()

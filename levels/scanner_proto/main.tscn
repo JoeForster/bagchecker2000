@@ -14,7 +14,9 @@ Label/fonts/font = SubResource("SystemFont_lquwl")
 
 [node name="GameRules" parent="." instance=ExtResource("1_87nrr")]
 
-[node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("game_rules", "conveyor", "timer_label", "bags_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
+[node name="MiniGameHolder" type="Node2D" parent="."]
+
+[node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("game_rules", "conveyor", "minigame_holder", "timer_label", "bags_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
 position = Vector2(261, 70)
 scale = Vector2(0.8, 0.8)
 color = Color(0, 0, 0, 1)
@@ -23,6 +25,7 @@ script = ExtResource("1_tefeu")
 game_rules = NodePath("../GameRules")
 shape_refresh_period = 2.5
 conveyor = NodePath("../Conveyor")
+minigame_holder = NodePath("../MiniGameHolder")
 timer_label = NodePath("../UI/StatusPanel/TimerLabel/TimerValue")
 bags_label = NodePath("../UI/StatusPanel/BagCounterLabel/BagCounterValue")
 successes_label = NodePath("../UI/ScorePanel/SuccessesLabel/SuccessesValue")
