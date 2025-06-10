@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://conveyor_bag/scanned_shape.gd" id="1_wba84"]
 
-[node name="Hexagon" type="Area2D" node_paths=PackedStringArray("shape_node")]
+[node name="Hexagon" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
+process_mode = 4
+input_pickable = true
+freeze = true
 script = ExtResource("1_wba84")
 shape_name = "Hexagon"
 shape_node = NodePath("HexagonPoly")

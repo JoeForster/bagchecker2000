@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://conveyor_bag/scanned_shape.gd" id="1_gck25"]
 
-[node name="Node2D" type="Area2D" node_paths=PackedStringArray("shape_node")]
+[node name="Triangle" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
+process_mode = 4
+input_pickable = true
+can_sleep = false
+freeze = true
 script = ExtResource("1_gck25")
 shape_name = "Triangle"
 shape_node = NodePath("Triangle")

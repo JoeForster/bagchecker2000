@@ -8,6 +8,7 @@ extends MiniGameBase
 @export var bag_front_bottom : Node2D
 @export var contents_holder : Node2D
 
+# Internal sate values
 var opening = false
 var opened_dist = 0.0
 var complete_timer = -1.0
@@ -30,6 +31,7 @@ func _start_opening_bag():
 		
 	for row in bag_contents.get_rows():
 		for shape : ScannedShape in row.get_children():
+			shape.set_process_mode(Node.PROCESS_MODE_INHERIT)
 			shape.input_event.connect(_on_shape_input_event.bind(shape))
 
 func _ready() -> void:

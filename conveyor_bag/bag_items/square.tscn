@@ -5,7 +5,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1hh0h"]
 size = Vector2(150, 150)
 
-[node name="Node2D" type="Area2D" node_paths=PackedStringArray("shape_node")]
+[node name="Square" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
+process_mode = 4
+input_pickable = true
+freeze = true
 script = ExtResource("1_iqrqo")
 shape_name = "Square"
 shape_node = NodePath("Square")

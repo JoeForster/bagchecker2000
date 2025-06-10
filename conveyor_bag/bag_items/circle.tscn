@@ -6,7 +6,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_c8xoc"]
 radius = 75.0
 
-[node name="Circle" type="Area2D" node_paths=PackedStringArray("shape_node")]
+[node name="Circle" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
+process_mode = 4
+input_pickable = true
+freeze = true
 script = ExtResource("1_t0or2")
 shape_node = NodePath("CircleShape")
 

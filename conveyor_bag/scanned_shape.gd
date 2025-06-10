@@ -1,5 +1,5 @@
 class_name ScannedShape
-extends Area2D
+extends CollisionObject2D
 
 @export var shape_name : String
 @export var shape_node : Node2D
