@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://conveyor_bag/scanned_shape.gd" id="1_iqrqo"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hh0h"]
-size = Vector2(150, 150)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_1hh0h"]
+points = PackedVector2Array(0, 0, 150, 0, 150, 150, 0, 150)
 
 [node name="Square" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
 process_mode = 4
+collision_layer = 3
 input_pickable = true
 freeze = true
 script = ExtResource("1_iqrqo")
@@ -22,5 +23,7 @@ points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 1
 default_color = Color(1, 0, 1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("ConvexPolygonShape2D_1hh0h")
+
+[node name="DragPoint" type="Marker2D" parent="."]
 position = Vector2(75, 75)
-shape = SubResource("RectangleShape2D_1hh0h")

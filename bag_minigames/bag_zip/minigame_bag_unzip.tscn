@@ -1,15 +1,15 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpo7xuk2y20s3"]
 
-[ext_resource type="Script" uid="uid://bmcmrikj3e8ba" path="res://bag_minigames/zip/minigame_bag_jumble.gd" id="1_7r0xy"]
-[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="2_bvnuh"]
-[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="2_owxwg"]
-[ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_minigames/zip/bag_zip.gd" id="2_plqs4"]
+[ext_resource type="Script" uid="uid://bmcmrikj3e8ba" path="res://bag_minigames/bag_zip/minigame_bag_unzip.gd" id="1_3coqq"]
+[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="2_rrr7o"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="3_p46va"]
+[ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_minigames/bag_zip/bag_zip.gd" id="4_hy5y4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1vyj"]
 size = Vector2(96.2502, 246.25)
 
-[node name="Root" type="Node2D" node_paths=PackedStringArray("zip", "bag_front_top", "bag_front_bottom", "contents_holder", "test_rules")]
-script = ExtResource("1_7r0xy")
+[node name="MiniGame" type="Node2D" node_paths=PackedStringArray("zip", "bag_front_top", "bag_front_bottom", "contents_holder", "test_rules")]
+script = ExtResource("1_3coqq")
 open_speed = 120.0
 open_dist = 260.0
 zip = NodePath("BagBG/Zip")
@@ -18,7 +18,7 @@ bag_front_bottom = NodePath("BagBG/BagFrontBottom")
 contents_holder = NodePath("BagBG/BagContentsHolder")
 test_rules = NodePath("TestRules")
 
-[node name="TestRules" parent="." instance=ExtResource("2_bvnuh")]
+[node name="TestRules" parent="." instance=ExtResource("2_rrr7o")]
 
 [node name="BagBG" type="Polygon2D" parent="."]
 position = Vector2(1266, 61)
@@ -30,7 +30,7 @@ polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 [node name="BagContentsHolder" type="Node2D" parent="BagBG"]
 position = Vector2(28.75, 36.25)
 
-[node name="Node2D" parent="BagBG/BagContentsHolder" instance=ExtResource("2_owxwg")]
+[node name="Node2D" parent="BagBG/BagContentsHolder" instance=ExtResource("3_p46va")]
 visible = false
 
 [node name="BagFrontTop" type="Polygon2D" parent="BagBG"]
@@ -42,7 +42,7 @@ color = Color(0.254902, 0.14902, 0, 1)
 polygon = PackedVector2Array(0, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 600, 0, 600)
 
 [node name="Zip" type="Node2D" parent="BagBG" node_paths=PackedStringArray("bag_front_top", "bag_front_bottom")]
-script = ExtResource("2_plqs4")
+script = ExtResource("4_hy5y4")
 zip_line_variance = 80.0
 bag_front_top = NodePath("../BagFrontTop")
 bag_front_bottom = NodePath("../BagFrontBottom")

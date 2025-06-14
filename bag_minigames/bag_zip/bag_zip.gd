@@ -72,9 +72,6 @@ func _update_zip_handle(delta: float, zip_handle: Area2D):
 		zip_poly.color = zip_colour
 
 # TODO HACK The below is probably not the nicest way to handle input here...
-func _on_mouse_exited() -> void:
-	mouse_held = false
-
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	var click_event = event as InputEventMouseButton
 	if click_event and click_event.button_index == mouse_button_index and click_event.pressed:

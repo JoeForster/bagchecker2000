@@ -4,6 +4,7 @@
 
 [node name="Triangle" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
 process_mode = 4
+collision_layer = 3
 input_pickable = true
 can_sleep = false
 freeze = true
@@ -21,3 +22,6 @@ default_color = Color(1, 0, 1, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(75, 0, 150, 150, 0, 150)
+
+[node name="DragPoint" type="Marker2D" parent="."]
+position = Vector2(75, 75)

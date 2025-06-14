@@ -8,6 +8,7 @@ radius = 75.0
 
 [node name="Circle" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
 process_mode = 4
+collision_layer = 3
 input_pickable = true
 freeze = true
 script = ExtResource("1_t0or2")
@@ -26,3 +27,6 @@ default_color = Color(1, 0, 1, 1)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(75, 75)
 shape = SubResource("CircleShape2D_c8xoc")
+
+[node name="DragPoint" type="Marker2D" parent="."]
+position = Vector2(75, 75)

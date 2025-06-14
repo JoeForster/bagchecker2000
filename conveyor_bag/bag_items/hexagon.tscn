@@ -4,6 +4,7 @@
 
 [node name="Hexagon" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
 process_mode = 4
+collision_layer = 3
 input_pickable = true
 freeze = true
 script = ExtResource("1_wba84")
@@ -20,3 +21,6 @@ default_color = Color(1, 0, 1, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(40, 0, 110, 0, 150, 75, 110, 150, 40, 150, 0, 75)
+
+[node name="DragPoint" type="Marker2D" parent="."]
+position = Vector2(75, 75)

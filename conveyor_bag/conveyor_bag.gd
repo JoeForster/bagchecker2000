@@ -1,13 +1,13 @@
 class_name ConveyorBag
 extends RigidBody2D
 
-@export var my_minigame : PackedScene
+@export var possible_minigames : Array[PackedScene]
 
 var bag_contents : BagContents
 
 func start_minigame(game_rules : GameRules) -> MiniGameBase:
-	if my_minigame:
-		var minigame_scene = my_minigame.instantiate() as MiniGameBase
+	if !possible_minigames.is_empty():
+		var minigame_scene = possible_minigames.pick_random().instantiate() as MiniGameBase
 		if minigame_scene:
 			minigame_scene.init_with_contents(game_rules, bag_contents)
 			return minigame_scene
