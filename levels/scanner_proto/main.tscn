@@ -43,19 +43,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AcceptButton" type="Button" parent="UI"]
 layout_mode = 0
-offset_left = 358.0
-offset_top = 582.0
-offset_right = 538.0
-offset_bottom = 662.0
-text = "Accept"
+offset_left = 331.0
+offset_top = 581.0
+offset_right = 511.0
+offset_bottom = 661.0
+text = "Clear"
 
 [node name="RejectButton" type="Button" parent="UI"]
 layout_mode = 0
-offset_left = 660.0
+offset_left = 647.0
 offset_top = 582.0
-offset_right = 840.0
+offset_right = 827.0
 offset_bottom = 662.0
-text = "Reject"
+text = "Flag"
 
 [node name="StatusPanel" type="Panel" parent="UI"]
 layout_mode = 0
