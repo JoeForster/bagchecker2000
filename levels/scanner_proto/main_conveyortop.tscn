@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dts8no83t1eo3"]
+[gd_scene load_steps=6 format=3 uid="uid://1r0abch81bt3"]
 
-[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="1_87nrr"]
-[ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://levels/scanner_proto/scanner_screen.gd" id="1_tefeu"]
-[ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://conveyor/conveyor.tscn" id="6_ya4ey"]
+[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="1_ux08f"]
+[ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://levels/scanner_proto/scanner_screen.gd" id="2_ge08q"]
+[ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://conveyor/conveyor.tscn" id="3_db33v"]
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -12,16 +12,16 @@ Label/fonts/font = SubResource("SystemFont_lquwl")
 
 [node name="Root" type="Node2D"]
 
-[node name="GameRules" parent="." instance=ExtResource("1_87nrr")]
+[node name="GameRules" parent="." instance=ExtResource("1_ux08f")]
 
 [node name="MiniGameHolder" type="Node2D" parent="."]
 
 [node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("game_rules", "conveyor", "minigame_holder", "timer_label", "bags_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
-position = Vector2(261, 70)
-scale = Vector2(0.8, 0.8)
+position = Vector2(438, 226)
+scale = Vector2(0.511393, 0.511393)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
-script = ExtResource("1_tefeu")
+script = ExtResource("2_ge08q")
 game_rules = NodePath("../GameRules")
 shape_refresh_period = 2.5
 conveyor = NodePath("../Conveyor")
@@ -43,18 +43,18 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AcceptButton" type="Button" parent="UI"]
 layout_mode = 0
-offset_left = 331.0
-offset_top = 581.0
-offset_right = 511.0
-offset_bottom = 661.0
+offset_left = 437.0
+offset_top = 560.0
+offset_right = 617.0
+offset_bottom = 640.0
 text = "Clear"
 
 [node name="RejectButton" type="Button" parent="UI"]
 layout_mode = 0
-offset_left = 647.0
-offset_top = 582.0
-offset_right = 827.0
-offset_bottom = 662.0
+offset_left = 667.0
+offset_top = 559.0
+offset_right = 847.0
+offset_bottom = 639.0
 text = "Flag"
 
 [node name="StatusPanel" type="Panel" parent="UI"]
@@ -99,9 +99,9 @@ text = "00:00"
 
 [node name="ScorePanel" type="Panel" parent="UI"]
 layout_mode = 0
-offset_left = 440.0
+offset_left = 403.0
 offset_top = 680.0
-offset_right = 840.0
+offset_right = 877.0
 offset_bottom = 800.0
 
 [node name="SuccessesLabel" type="Label" parent="UI/ScorePanel"]
@@ -172,5 +172,7 @@ offset_bottom = 69.0
 theme = SubResource("Theme_7mycd")
 text = "RULE_PLACEHOLDER"
 
-[node name="Conveyor" parent="." instance=ExtResource("6_ya4ey")]
-position = Vector2(28, -125)
+[node name="Conveyor" parent="." instance=ExtResource("3_db33v")]
+position = Vector2(974, 23)
+rotation = 1.5708
+scale = Vector2(1, 1.2)

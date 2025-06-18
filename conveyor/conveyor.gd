@@ -6,6 +6,7 @@ extends Node2D
 @export var stop_bag_collider : CollisionObject2D
 @export var scroll_speed : float = 50.0
 @export var bag_spawn_point : Node2D
+@export var bag_dest_point : Node2D
 @export var conveyor_bag_scene : PackedScene
 
 signal bag_reached_bottom
@@ -42,7 +43,9 @@ func _process_scroll(delta: float) -> void:
 	for child in scroller.get_children():
 		var bag = child as ConveyorBag
 		if bag:
-			var collision = bag.move_and_collide(Vector2.DOWN * scroll_speed * delta)
+			var spawn_to_dest = (bag_dest_point.global_position - bag_spawn_point.global_position)
+			var move_dir = spawn_to_dest.normalized()
+			var collision = bag.move_and_collide(move_dir * scroll_speed * delta)
 			if collision:
 				if collision.get_collider() == stop_bag_collider:
 					scanned_bag = bag
