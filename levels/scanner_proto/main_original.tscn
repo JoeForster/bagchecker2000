@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dts8no83t1eo3"]
+[gd_scene load_steps=7 format=3 uid="uid://dts8no83t1eo3"]
 
 [ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="1_3t6gu"]
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://levels/scanner_proto/scanner_screen.gd" id="2_wk5d4"]
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://conveyor/conveyor.tscn" id="3_h5kaj"]
+[ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="3_wk5d4"]
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -18,7 +19,7 @@ Label/fonts/font = SubResource("SystemFont_lquwl")
 
 [node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("game_rules", "conveyor", "minigame_holder", "timer_label", "bags_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
 position = Vector2(261, 70)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.712762, 0.714327)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 script = ExtResource("2_wk5d4")
@@ -44,17 +45,21 @@ metadata/_edit_use_anchors_ = true
 [node name="AcceptButton" type="Button" parent="UI"]
 layout_mode = 0
 offset_left = 331.0
-offset_top = 581.0
+offset_top = 524.0
 offset_right = 511.0
-offset_bottom = 661.0
+offset_bottom = 604.0
+theme = ExtResource("3_wk5d4")
+theme_type_variation = &"GreenButton"
 text = "Clear"
 
 [node name="RejectButton" type="Button" parent="UI"]
 layout_mode = 0
-offset_left = 647.0
-offset_top = 582.0
-offset_right = 827.0
-offset_bottom = 662.0
+offset_left = 605.0
+offset_top = 525.0
+offset_right = 785.0
+offset_bottom = 605.0
+theme = ExtResource("3_wk5d4")
+theme_type_variation = &"RedButton"
 text = "Flag"
 
 [node name="StatusPanel" type="Panel" parent="UI"]

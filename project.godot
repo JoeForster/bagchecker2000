@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="BagChecker2000"
-run/main_scene="uid://bpimkl30d7hxs"
+run/main_scene="uid://dts8no83t1eo3"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1280
 window/size/viewport_height=800
+
+[gui]
+
+theme/custom="uid://cb67h1qmovvhl"
 
 [rendering]
 

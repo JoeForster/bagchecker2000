@@ -1,40 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bpimkl30d7hxs"]
+[gd_scene load_steps=8 format=3 uid="uid://bpimkl30d7hxs"]
 
 [ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="1_srjxi"]
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://levels/scanner_proto/scanner_screen.gd" id="2_esfuu"]
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://conveyor/conveyor.tscn" id="3_kgv0x"]
+[ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="3_wnwte"]
 [ext_resource type="PackedScene" uid="uid://d3s1wwrkdxkgl" path="res://passengers/passenger.tscn" id="4_esfuu"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_esfuu"]
-bg_color = Color(0.0142584, 0.720317, 0.321908, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kgv0x"]
-bg_color = Color(0.2016, 0.72, 0.42624, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="Theme" id="Theme_kgv0x"]
-Button/colors/font_color = Color(0, 0, 0, 1)
-Button/font_sizes/font_size = 20
-Button/styles/focus = SubResource("StyleBoxFlat_esfuu")
-Button/styles/hover = SubResource("StyleBoxFlat_kgv0x")
-Button/styles/normal = SubResource("StyleBoxFlat_esfuu")
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -59,153 +29,42 @@ game_rules = NodePath("../GameRules")
 shape_refresh_period = 2.5
 conveyor = NodePath("../Conveyor")
 minigame_holder = NodePath("../MiniGameHolder")
-timer_label = NodePath("../UI/StatusPanel/TimerLabel/TimerValue")
-bags_label = NodePath("../UI/StatusPanel/BagCounterLabel/BagCounterValue")
-successes_label = NodePath("../UI/ScorePanel/SuccessesLabel/SuccessesValue")
-failures_label = NodePath("../UI/ScorePanel/FailuresLabel/FailuresValue")
-rule_label = NodePath("../UI/RulesPanel/RuleLabel")
-accept_button = NodePath("../UI/AcceptButton")
-reject_button = NodePath("../UI/RejectButton")
+timer_label = NodePath("../ProtoGameUI/StatusPanel/TimerLabel/TimerValue")
+bags_label = NodePath("../ProtoGameUI/StatusPanel/BagCounterLabel/BagCounterValue")
+successes_label = NodePath("../ProtoGameUI/ScorePanel/SuccessesLabel/SuccessesValue")
+failures_label = NodePath("../ProtoGameUI/ScorePanel/FailuresLabel/FailuresValue")
+rule_label = NodePath("../ProtoGameUI/RulesPanel/RuleLabel")
+accept_button = NodePath("../ScannerScreenUI/AcceptButton")
+reject_button = NodePath("../ScannerScreenUI/RejectButton")
 
-[node name="UI" type="Control" parent="."]
+[node name="ScannerScreenUI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 406.0
+offset_top = 339.0
+offset_right = 446.0
+offset_bottom = 379.0
 metadata/_edit_use_anchors_ = true
 
-[node name="AcceptButton" type="Button" parent="UI"]
+[node name="AcceptButton" type="Button" parent="ScannerScreenUI"]
 layout_mode = 0
-offset_left = 409.0
-offset_top = 331.0
-offset_right = 564.0
-offset_bottom = 400.0
-theme = SubResource("Theme_kgv0x")
-theme_type_variation = &"FlatButton"
+offset_left = 10.0
+offset_top = -7.0
+offset_right = 165.0
+offset_bottom = 64.0
+theme = ExtResource("3_wnwte")
+theme_type_variation = &"GreenButton"
 text = "Clear"
 
-[node name="RejectButton" type="Button" parent="UI"]
+[node name="RejectButton" type="Button" parent="ScannerScreenUI"]
 layout_mode = 0
-offset_left = 601.0
-offset_top = 331.0
-offset_right = 756.0
-offset_bottom = 402.0
+offset_left = 200.0
+offset_top = -6.0
+offset_right = 355.0
+offset_bottom = 65.0
+theme = ExtResource("3_wnwte")
+theme_type_variation = &"RedButton"
 text = "Flag"
-
-[node name="StatusPanel" type="Panel" parent="UI"]
-layout_mode = 0
-offset_top = 701.0
-offset_right = 268.0
-offset_bottom = 800.0
-
-[node name="BagCounterLabel" type="Label" parent="UI/StatusPanel"]
-layout_mode = 0
-offset_left = 68.0
-offset_top = 55.0
-offset_right = 144.0
-offset_bottom = 78.0
-theme = SubResource("Theme_7mycd")
-text = "Bags Left:"
-
-[node name="BagCounterValue" type="Label" parent="UI/StatusPanel/BagCounterLabel"]
-layout_mode = 0
-offset_left = 99.0
-offset_right = 185.0
-offset_bottom = 23.0
-theme = SubResource("Theme_7mycd")
-text = "0"
-
-[node name="TimerLabel" type="Label" parent="UI/StatusPanel"]
-layout_mode = 0
-offset_left = 70.0
-offset_top = 27.0
-offset_right = 140.0
-offset_bottom = 50.0
-theme = SubResource("Theme_7mycd")
-text = "Timer:"
-
-[node name="TimerValue" type="Label" parent="UI/StatusPanel/TimerLabel"]
-layout_mode = 0
-offset_left = 70.0
-offset_right = 111.0
-offset_bottom = 23.0
-theme = SubResource("Theme_7mycd")
-text = "00:00"
-
-[node name="ScorePanel" type="Panel" parent="UI"]
-layout_mode = 0
-offset_left = 268.0
-offset_top = 701.0
-offset_right = 554.0
-offset_bottom = 800.0
-
-[node name="SuccessesLabel" type="Label" parent="UI/ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 19.0
-offset_right = 187.0
-offset_bottom = 42.0
-theme = SubResource("Theme_7mycd")
-text = "Successes: "
-
-[node name="SuccessesValue" type="Label" parent="UI/ScorePanel/SuccessesLabel"]
-layout_mode = 0
-offset_left = 99.0
-offset_right = 185.0
-offset_bottom = 23.0
-theme = SubResource("Theme_7mycd")
-text = "0"
-
-[node name="FailuresLabel" type="Label" parent="UI/ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 45.0
-offset_right = 171.0
-offset_bottom = 68.0
-theme = SubResource("Theme_7mycd")
-text = "Failures: "
-
-[node name="FailuresValue" type="Label" parent="UI/ScorePanel/FailuresLabel"]
-layout_mode = 0
-offset_left = 99.0
-offset_top = 3.0
-offset_right = 185.0
-offset_bottom = 26.0
-theme = SubResource("Theme_7mycd")
-text = "0"
-
-[node name="ScoreLabel" type="Label" parent="UI/ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 73.0
-offset_right = 171.0
-offset_bottom = 96.0
-theme = SubResource("Theme_7mycd")
-text = "Score: "
-
-[node name="ScoreValue" type="Label" parent="UI/ScorePanel/ScoreLabel"]
-layout_mode = 0
-offset_left = 99.0
-offset_right = 185.0
-offset_bottom = 23.0
-theme = SubResource("Theme_7mycd")
-text = "0"
-
-[node name="RulesPanel" type="Panel" parent="UI"]
-layout_mode = 0
-offset_left = 554.0
-offset_top = 701.0
-offset_right = 901.0
-offset_bottom = 800.0
-
-[node name="RuleLabel" type="Label" parent="UI/RulesPanel"]
-layout_mode = 0
-offset_left = 111.0
-offset_top = 46.0
-offset_right = 287.0
-offset_bottom = 69.0
-theme = SubResource("Theme_7mycd")
-text = "RULE_PLACEHOLDER"
 
 [node name="Conveyor" parent="." instance=ExtResource("3_kgv0x")]
 position = Vector2(902, 6)
@@ -224,3 +83,122 @@ position = Vector2(21, 347)
 
 [node name="Passenger4" parent="Queue" instance=ExtResource("4_esfuu")]
 position = Vector2(21, 515)
+
+[node name="ProtoGameUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 701.0
+offset_right = 907.0
+offset_bottom = 803.0
+
+[node name="StatusPanel" type="Panel" parent="ProtoGameUI"]
+layout_mode = 0
+offset_right = 268.0
+offset_bottom = 99.0
+
+[node name="BagCounterLabel" type="Label" parent="ProtoGameUI/StatusPanel"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 55.0
+offset_right = 144.0
+offset_bottom = 78.0
+theme = SubResource("Theme_7mycd")
+text = "Bags Left:"
+
+[node name="BagCounterValue" type="Label" parent="ProtoGameUI/StatusPanel/BagCounterLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="TimerLabel" type="Label" parent="ProtoGameUI/StatusPanel"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 27.0
+offset_right = 140.0
+offset_bottom = 50.0
+theme = SubResource("Theme_7mycd")
+text = "Timer:"
+
+[node name="TimerValue" type="Label" parent="ProtoGameUI/StatusPanel/TimerLabel"]
+layout_mode = 0
+offset_left = 70.0
+offset_right = 111.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "00:00"
+
+[node name="ScorePanel" type="Panel" parent="ProtoGameUI"]
+layout_mode = 0
+offset_left = 268.0
+offset_right = 554.0
+offset_bottom = 99.0
+
+[node name="SuccessesLabel" type="Label" parent="ProtoGameUI/ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 19.0
+offset_right = 187.0
+offset_bottom = 42.0
+theme = SubResource("Theme_7mycd")
+text = "Successes: "
+
+[node name="SuccessesValue" type="Label" parent="ProtoGameUI/ScorePanel/SuccessesLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="FailuresLabel" type="Label" parent="ProtoGameUI/ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 45.0
+offset_right = 171.0
+offset_bottom = 68.0
+theme = SubResource("Theme_7mycd")
+text = "Failures: "
+
+[node name="FailuresValue" type="Label" parent="ProtoGameUI/ScorePanel/FailuresLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 3.0
+offset_right = 185.0
+offset_bottom = 26.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="ScoreLabel" type="Label" parent="ProtoGameUI/ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 73.0
+offset_right = 171.0
+offset_bottom = 96.0
+theme = SubResource("Theme_7mycd")
+text = "Score: "
+
+[node name="ScoreValue" type="Label" parent="ProtoGameUI/ScorePanel/ScoreLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="RulesPanel" type="Panel" parent="ProtoGameUI"]
+layout_mode = 0
+offset_left = 554.0
+offset_right = 901.0
+offset_bottom = 99.0
+
+[node name="RuleLabel" type="Label" parent="ProtoGameUI/RulesPanel"]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 46.0
+offset_right = 287.0
+offset_bottom = 69.0
+theme = SubResource("Theme_7mycd")
+text = "RULE_PLACEHOLDER"

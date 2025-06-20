@@ -1,0 +1,151 @@
+[gd_scene load_steps=4 format=3 uid="uid://cct66377jbylc"]
+
+[ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="1_myy6v"]
+
+[sub_resource type="SystemFont" id="SystemFont_lquwl"]
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_7mycd"]
+Label/fonts/font = SubResource("SystemFont_lquwl")
+
+[node name="ProtoUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="AcceptButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 409.0
+offset_top = 331.0
+offset_right = 564.0
+offset_bottom = 400.0
+theme = ExtResource("1_myy6v")
+theme_type_variation = &"GreenButton"
+text = "Clear"
+
+[node name="RejectButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 601.0
+offset_top = 331.0
+offset_right = 756.0
+offset_bottom = 402.0
+theme = ExtResource("1_myy6v")
+theme_type_variation = &"RedButton"
+text = "Flag"
+
+[node name="StatusPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_top = 701.0
+offset_right = 268.0
+offset_bottom = 800.0
+
+[node name="BagCounterLabel" type="Label" parent="StatusPanel"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 55.0
+offset_right = 144.0
+offset_bottom = 78.0
+theme = SubResource("Theme_7mycd")
+text = "Bags Left:"
+
+[node name="BagCounterValue" type="Label" parent="StatusPanel/BagCounterLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="TimerLabel" type="Label" parent="StatusPanel"]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 27.0
+offset_right = 140.0
+offset_bottom = 50.0
+theme = SubResource("Theme_7mycd")
+text = "Timer:"
+
+[node name="TimerValue" type="Label" parent="StatusPanel/TimerLabel"]
+layout_mode = 0
+offset_left = 70.0
+offset_right = 111.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "00:00"
+
+[node name="ScorePanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 268.0
+offset_top = 701.0
+offset_right = 554.0
+offset_bottom = 800.0
+
+[node name="SuccessesLabel" type="Label" parent="ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 19.0
+offset_right = 187.0
+offset_bottom = 42.0
+theme = SubResource("Theme_7mycd")
+text = "Successes: "
+
+[node name="SuccessesValue" type="Label" parent="ScorePanel/SuccessesLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="FailuresLabel" type="Label" parent="ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 45.0
+offset_right = 171.0
+offset_bottom = 68.0
+theme = SubResource("Theme_7mycd")
+text = "Failures: "
+
+[node name="FailuresValue" type="Label" parent="ScorePanel/FailuresLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 3.0
+offset_right = 185.0
+offset_bottom = 26.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="ScoreLabel" type="Label" parent="ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 73.0
+offset_right = 171.0
+offset_bottom = 96.0
+theme = SubResource("Theme_7mycd")
+text = "Score: "
+
+[node name="ScoreValue" type="Label" parent="ScorePanel/ScoreLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_7mycd")
+text = "0"
+
+[node name="RulesPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 554.0
+offset_top = 701.0
+offset_right = 901.0
+offset_bottom = 800.0
+
+[node name="RuleLabel" type="Label" parent="RulesPanel"]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 46.0
+offset_right = 287.0
+offset_bottom = 69.0
+theme = SubResource("Theme_7mycd")
+text = "RULE_PLACEHOLDER"

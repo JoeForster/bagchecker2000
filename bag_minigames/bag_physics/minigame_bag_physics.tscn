@@ -181,7 +181,7 @@ position = Vector2(634, 337)
 rotation = 1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftTop"]
-position = Vector2(-81.9999, 18.0003)
+position = Vector2(-69.0001, -36.9997)
 shape = SubResource("RectangleShape2D_gw6n5")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundaries/LeftTop"]
