@@ -21,7 +21,8 @@ func init_with_contents(game_rules : GameRules, new_bag_contents : BagContents):
 func _ready() -> void:
 	super()
 	for clasp in clasps:
-		clasp.get_node("ClaspTurner").input_event.connect(_on_clasp_input_event.bind(clasp))
+		var turner = clasp.get_node("ClaspTurner")
+		turner.input_event.connect(_on_clasp_input_event.bind(clasp))
 
 func _on_clasp_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, clasp : BagClasp):
 	var click_event = event as InputEventMouseButton
