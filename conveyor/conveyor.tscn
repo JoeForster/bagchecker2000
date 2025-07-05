@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dul4y13kgs5a4"]
+[gd_scene load_steps=8 format=3 uid="uid://dul4y13kgs5a4"]
 
 [ext_resource type="Script" uid="uid://nwqeoeqys0xq" path="res://conveyor/conveyor.gd" id="1_y326v"]
-[ext_resource type="PackedScene" uid="uid://bubr4467euv3f" path="res://conveyor_bag/conveyor_bag.tscn" id="2_y326v"]
+[ext_resource type="PackedScene" uid="uid://bi5l0nqecdgno" path="res://conveyor_bag/bags/conveyor_bag_zip.tscn" id="2_1318w"]
+[ext_resource type="PackedScene" uid="uid://b5rtxv5uwpvtw" path="res://conveyor_bag/bags/conveyor_bag_clasps.tscn" id="3_vkvkj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y326v"]
 size = Vector2(193, 119)
@@ -23,7 +24,7 @@ despawn_area = NodePath("DespawnArea")
 stop_bag_collider = NodePath("ConveyorBG/ScannerArea/BlockerLine")
 bag_spawn_point = NodePath("ConveyorBG/SpawnArea/BagSpawnPoint")
 bag_dest_point = NodePath("DespawnArea/BagDestinationPoint")
-conveyor_bag_scene = ExtResource("2_y326v")
+possible_bags = Array[PackedScene]([ExtResource("2_1318w"), ExtResource("3_vkvkj")])
 
 [node name="ConveyorBG" type="Polygon2D" parent="."]
 color = Color(0.187176, 0.187176, 0.187176, 1)

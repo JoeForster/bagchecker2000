@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bubr4467euv3f"]
 
-[ext_resource type="Script" uid="uid://bqfiiebovdef" path="res://conveyor_bag/conveyor_bag.gd" id="1_nimtd"]
+[ext_resource type="Script" uid="uid://bqfiiebovdef" path="res://conveyor_bag/bags/conveyor_bag.gd" id="1_nimtd"]
 [ext_resource type="PackedScene" uid="uid://1egx5sl1odcu" path="res://bag_minigames/bag_physics/minigame_bag_physics.tscn" id="2_3uxfc"]
 [ext_resource type="PackedScene" uid="uid://cpo7xuk2y20s3" path="res://bag_minigames/bag_zip/minigame_bag_unzip.tscn" id="2_u4b67"]
 

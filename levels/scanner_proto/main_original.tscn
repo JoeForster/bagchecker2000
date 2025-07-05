@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dts8no83t1eo3"]
+[gd_scene load_steps=8 format=3 uid="uid://dts8no83t1eo3"]
 
 [ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="1_3t6gu"]
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://levels/scanner_proto/scanner_screen.gd" id="2_wk5d4"]
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://conveyor/conveyor.tscn" id="3_h5kaj"]
 [ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="3_wk5d4"]
+[ext_resource type="PackedScene" uid="uid://d3s1wwrkdxkgl" path="res://passengers/passenger.tscn" id="5_h5kaj"]
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -18,7 +19,7 @@ Label/fonts/font = SubResource("SystemFont_lquwl")
 [node name="MiniGameHolder" type="Node2D" parent="."]
 
 [node name="Conveyor" parent="." instance=ExtResource("3_h5kaj")]
-position = Vector2(28, -125)
+position = Vector2(160, -112)
 
 [node name="UICanvasLayer" type="CanvasLayer" parent="."]
 
@@ -165,10 +166,10 @@ text = "RULE_PLACEHOLDER"
 
 [node name="ScannerUI" type="Control" parent="UICanvasLayer/UI"]
 anchors_preset = 0
-offset_left = 338.0
-offset_top = 39.0
-offset_right = 952.0
-offset_bottom = 644.0
+offset_left = 411.0
+offset_top = 51.0
+offset_right = 969.0
+offset_bottom = 656.0
 
 [node name="ScannerBGPanel" type="Panel" parent="UICanvasLayer/UI/ScannerUI"]
 layout_mode = 1
@@ -215,20 +216,35 @@ reject_button = NodePath("../../../RejectButton")
 
 [node name="AcceptButton" type="Button" parent="UICanvasLayer/UI/ScannerUI"]
 layout_mode = 0
-offset_left = 91.0
-offset_top = 470.0
-offset_right = 271.0
-offset_bottom = 550.0
+offset_left = 70.0
+offset_top = 473.0
+offset_right = 250.0
+offset_bottom = 553.0
 theme = ExtResource("3_wk5d4")
 theme_type_variation = &"GreenButton"
 text = "Clear"
 
 [node name="RejectButton" type="Button" parent="UICanvasLayer/UI/ScannerUI"]
 layout_mode = 0
-offset_left = 359.0
+offset_left = 309.0
 offset_top = 472.0
-offset_right = 539.0
+offset_right = 489.0
 offset_bottom = 552.0
 theme = ExtResource("3_wk5d4")
 theme_type_variation = &"RedButton"
 text = "Flag"
+
+[node name="Queue" type="Node2D" parent="."]
+position = Vector2(-29, 20)
+
+[node name="Passenger" parent="Queue" instance=ExtResource("5_h5kaj")]
+position = Vector2(21, 9)
+
+[node name="Passenger2" parent="Queue" instance=ExtResource("5_h5kaj")]
+position = Vector2(21, 177)
+
+[node name="Passenger3" parent="Queue" instance=ExtResource("5_h5kaj")]
+position = Vector2(21, 347)
+
+[node name="Passenger4" parent="Queue" instance=ExtResource("5_h5kaj")]
+position = Vector2(21, 515)

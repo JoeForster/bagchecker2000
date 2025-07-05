@@ -7,7 +7,7 @@ extends Node2D
 @export var scroll_speed : float = 50.0
 @export var bag_spawn_point : Node2D
 @export var bag_dest_point : Node2D
-@export var conveyor_bag_scene : PackedScene
+@export var possible_bags : Array[PackedScene]
 
 signal bag_reached_bottom
 
@@ -18,7 +18,7 @@ func can_spawn_new_bag():
 	if $ConveyorBG/SpawnArea.has_overlapping_bodies():
 		return false
 
-	if conveyor_bag_scene == null || !conveyor_bag_scene.can_instantiate():
+	if possible_bags.is_empty():
 		return false
 		
 	return true
@@ -26,7 +26,8 @@ func can_spawn_new_bag():
 func spawn_new_bag(new_bag_contents : BagContents):
 	assert(can_spawn_new_bag())
 
-	var new_bag = conveyor_bag_scene.instantiate() as ConveyorBag
+	# assuming can_instantiate
+	var new_bag = possible_bags.pick_random().instantiate() as ConveyorBag
 	new_bag.set_contents(new_bag_contents)
 
 	scroller.add_child(new_bag)
