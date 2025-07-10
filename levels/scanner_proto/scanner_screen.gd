@@ -3,7 +3,7 @@ extends Node2D
 
 # Game rules
 # TODO many to be moved into GameRules
-@export var game_rules : GameRules
+@export var shift_results_scene : PackedScene
 @export var shape_refresh_period = 4.0
 @export var delay_after_success = 0.5
 @export var delay_after_failure = 2.0
@@ -20,9 +20,6 @@ extends Node2D
 # UI Elements
 @export var timer_label : Label
 @export var bags_label : Label
-@export var successes_label : Label
-@export var failures_label : Label
-@export var rule_label : Label
 @export var accept_button : Button
 @export var reject_button : Button
 
@@ -33,15 +30,19 @@ var bag_spawn_timer = 0.0
 var allow_through_timer = 0.0
 var bags_left_to_spawn : Array[BagContents]
 var remaining_bags : int
-var num_failures = 0
-var num_successes = 0
 # The scanned bag on the conveyor itself
 var current_scanned_bag : ConveyorBag
 # NOTE this is a duplicate of the BagContents node within the current_scanned_bag
 var scanned_bag_contents : BagContents 
 
+func _get_rules():
+	return GameRulesProto
+
+func _get_progression():
+	return GameProgressionProto
+
 func _generate_bag_contents(breaks_rule : bool) -> BagContents:
-	var new_bag_contents = game_rules.generate_bag_contents(breaks_rule)
+	var new_bag_contents = _get_rules().generate_bag_contents(breaks_rule)
 	return new_bag_contents
 
 func _display_bag_contents(bag : ConveyorBag):
@@ -62,7 +63,7 @@ func _clear_displayed_contents():
 func _check_forbidden_shapes():
 	for r in scanned_bag_contents.get_rows():
 		for shape : ScannedShape in r.get_children():
-			if game_rules.shape_breaks_rule(shape):
+			if _get_rules().shape_breaks_rule(shape):
 				return true
 	return false
 
@@ -70,7 +71,7 @@ func _highlight_forbidden_shapes():
 	var found_any = false
 	for r in scanned_bag_contents.get_rows():
 		for shape : ScannedShape in r.get_children():
-			if game_rules.shape_breaks_rule(shape):
+			if _get_rules().shape_breaks_rule(shape):
 				found_any = true
 				shape.set_highlighter_visible(true)
 	return found_any
@@ -89,10 +90,10 @@ func _check_accept():
 		return # TODO disable the button in all cases there's no bag
 	
 	if _highlight_forbidden_shapes():
-		num_failures += 1
+		_get_progression().num_failures += 1
 		allow_through_timer = delay_after_failure
 	else:
-		num_successes += 1
+		_get_progression().num_successes += 1
 		allow_through_timer = delay_after_success
 
 	accept_button.disabled = true
@@ -100,7 +101,7 @@ func _check_accept():
 
 func _on_completed_bag_minigame():
 	_clear_displayed_contents()
-	num_successes += 1
+	_get_progression().num_successes += 1
 	allow_through_timer = delay_after_success
 
 func _check_reject():
@@ -110,7 +111,7 @@ func _check_reject():
 	_clear_displayed_contents()
 	
 	if _check_forbidden_shapes():
-		var search_minigame : MiniGameBase = current_scanned_bag.start_minigame(game_rules)
+		var search_minigame : MiniGameBase = current_scanned_bag.start_minigame(_get_rules())
 		if search_minigame:
 			search_minigame.on_completed.connect(_on_completed_bag_minigame)
 			minigame_holder.add_child(search_minigame)
@@ -119,39 +120,14 @@ func _check_reject():
 		else:
 			_on_completed_bag_minigame()
 	else:
-		num_failures += 1
+		_get_progression().num_failures += 1
 		allow_through_timer = delay_after_failure
 
 	accept_button.disabled = true
 	reject_button.disabled = true
 
-func _init_ui():
-	# setup persistent UI (just rules at the moment)
-	if rule_label:
-		var current_label_offset = 0
-		for rule in game_rules.current_rules:
-			# HACK: Get or duplicate the rule label per rule
-			var this_rule_label : Label
-			if current_label_offset == 0:
-				this_rule_label = rule_label
-			else:
-				this_rule_label = rule_label.duplicate()
-				rule_label.add_sibling(this_rule_label)
-				this_rule_label.set_owner(rule_label.get_parent())
-				this_rule_label.set_position(rule_label.get_position() + Vector2(0, current_label_offset))
-			current_label_offset += this_rule_label.get_size().y
-			# Populate the rule label
-			if rule.max_num_of_shape <= 0:
-				this_rule_label.text = "No " + rule.restricted_colour_name + " " + rule.restricted_shape + "s"
-			else:
-				this_rule_label.text = "No more than " + this_rule_label.max_num_of_shape + " " + rule.restricted_colour_name + " " + rule.restricted_shape + "s"
-			var text_colour = game_rules.possible_colours[rule.restricted_colour_name]
-			this_rule_label.add_theme_color_override("font_color", text_colour)
-
 func _ready():
-	_init_ui()
-	
-	# Generate the bags - meeting our quota of "bad" bags in random order
+	# Generate t he bags- meeting our quota of "bad" bags in random order
 	var bags_bad_flags : Array[bool]
 	assert(number_of_bad_bags <= number_of_bags, "number_of_bad_bags is larger than number_of_bags!!")
 	for bag_index in range(0, number_of_bags):
@@ -177,15 +153,18 @@ func _ready():
 		timer = time_limit
 		remaining_bags = number_of_bags
 
+func _game_over():
+	get_tree().change_scene_to_packed(shift_results_scene)
+
 func _conveyor_process(delta):
 	if remaining_bags <= 0:
-		# TODO GAME OVER LOGIC
+		_game_over()
 		return
 	
 	timer -= delta
 	if timer <= 0:
 		timer = 0
-		# TODO GAME OVER LOGIC
+		_game_over()
 		return
 
 	bag_spawn_timer -= delta
@@ -215,10 +194,6 @@ func _update_ui():
 		timer_label.text = str(timer).pad_decimals(2).replace(".", ":")
 	if bags_label:
 		bags_label.text = str(remaining_bags)
-	if successes_label:
-		successes_label.text = str(num_successes)
-	if failures_label:
-		failures_label.text = str(num_failures)
 
 func _process(delta):
 	_conveyor_process(delta)

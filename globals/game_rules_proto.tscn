@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bdtkv0d3nr14"]
 
-[ext_resource type="Script" uid="uid://d0a6nmdhlbgy6" path="res://rules/game_rules.gd" id="1_k0dcv"]
+[ext_resource type="Script" uid="uid://d0a6nmdhlbgy6" path="res://globals/game_rules.gd" id="1_k0dcv"]
 [ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://conveyor_bag/bag_items/circle.tscn" id="2_tcjnq"]
 [ext_resource type="PackedScene" uid="uid://dpa5lsoxu3l5i" path="res://conveyor_bag/bag_items/hexagon.tscn" id="3_aul36"]
 [ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://conveyor_bag/bag_items/square.tscn" id="4_pw6ve"]

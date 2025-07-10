@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="BagChecker2000"
-run/main_scene="uid://dts8no83t1eo3"
+run/main_scene="uid://d3sqpvo0oom3w"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameRulesProto="*res://globals/game_rules_proto.tscn"
+GameProgressionProto="*res://globals/game_progression.gd"
 
 [display]
 

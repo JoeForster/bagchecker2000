@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bpimkl30d7hxs"]
+[gd_scene load_steps=9 format=3 uid="uid://bpimkl30d7hxs"]
 
-[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="1_srjxi"]
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://levels/scanner_proto/scanner_screen.gd" id="2_esfuu"]
+[ext_resource type="PackedScene" uid="uid://hm88ugqy8ogu" path="res://levels/scanner_proto/shift_results.tscn" id="2_wnwte"]
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://conveyor/conveyor.tscn" id="3_kgv0x"]
 [ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="3_wnwte"]
 [ext_resource type="PackedScene" uid="uid://d3s1wwrkdxkgl" path="res://passengers/passenger.tscn" id="4_esfuu"]
+[ext_resource type="Script" uid="uid://3jh3epebyfqt" path="res://levels/scanner_proto/rules_panel.gd" id="5_kgv0x"]
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -14,26 +15,21 @@ Label/fonts/font = SubResource("SystemFont_lquwl")
 
 [node name="Root" type="Node2D"]
 
-[node name="GameRules" parent="." instance=ExtResource("1_srjxi")]
-
 [node name="MiniGameHolder" type="Node2D" parent="."]
 position = Vector2(378, 415)
 
-[node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("game_rules", "conveyor", "minigame_holder", "timer_label", "bags_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
+[node name="ScannerScreen" type="Polygon2D" parent="." node_paths=PackedStringArray("conveyor", "minigame_holder", "timer_label", "bags_label", "accept_button", "reject_button")]
 position = Vector2(378, 8)
 scale = Vector2(0.511585, 0.511585)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 script = ExtResource("2_esfuu")
-game_rules = NodePath("../GameRules")
+shift_results_scene = ExtResource("2_wnwte")
 shape_refresh_period = 2.5
 conveyor = NodePath("../Conveyor")
 minigame_holder = NodePath("../MiniGameHolder")
 timer_label = NodePath("../ProtoGameUI/StatusPanel/TimerLabel/TimerValue")
 bags_label = NodePath("../ProtoGameUI/StatusPanel/BagCounterLabel/BagCounterValue")
-successes_label = NodePath("../ProtoGameUI/ScorePanel/SuccessesLabel/SuccessesValue")
-failures_label = NodePath("../ProtoGameUI/ScorePanel/FailuresLabel/FailuresValue")
-rule_label = NodePath("../ProtoGameUI/RulesPanel/RuleLabel")
 accept_button = NodePath("../ScannerScreenUI/AcceptButton")
 reject_button = NodePath("../ScannerScreenUI/RejectButton")
 
@@ -193,6 +189,7 @@ layout_mode = 0
 offset_left = 554.0
 offset_right = 901.0
 offset_bottom = 99.0
+script = ExtResource("5_kgv0x")
 
 [node name="RuleLabel" type="Label" parent="ProtoGameUI/RulesPanel"]
 layout_mode = 0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://1egx5sl1odcu"]
 
 [ext_resource type="Script" uid="uid://be5cxlur1m30q" path="res://bag_minigames/bag_physics/minigame_bag_physics.gd" id="1_uhric"]
-[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="2_hxame"]
+[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://globals/game_rules_proto.tscn" id="2_hxame"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="3_pt3c8"]
 [ext_resource type="Script" uid="uid://c1vgtvhawyjr7" path="res://bag_minigames/bag_physics/bag_clasp.gd" id="4_vi636"]
 
@@ -44,14 +44,14 @@ size = Vector2(266, 176)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nm5b0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_r36gv"]
-size = Vector2(140, 483.875)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gw6n5"]
+normal = Vector2(1, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gw6n5"]
-size = Vector2(1353, 398)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r36gv"]
+normal = Vector2(-1, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5a5f"]
-size = Vector2(144, 740)
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j5a5f"]
+normal = Vector2(0, 1)
 
 [node name="MiniGame" type="Node2D" node_paths=PackedStringArray("clasps", "contents_holder", "item_spawn_line", "tray_area", "test_rules")]
 script = ExtResource("1_uhric")
@@ -66,7 +66,7 @@ test_rules = NodePath("TestRules")
 [node name="TestRules" parent="." instance=ExtResource("2_hxame")]
 
 [node name="BagBG" type="Polygon2D" parent="."]
-position = Vector2(903, 45)
+position = Vector2(22, 35)
 scale = Vector2(0.455628, 0.38012)
 color = Color(0.0575054, 0.0219947, 1.50409e-09, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
@@ -138,7 +138,6 @@ position = Vector2(3.41573, 4.65288)
 curve = SubResource("Curve2D_nm5b0")
 
 [node name="TestModeLabel" type="Label" parent="."]
-visible = false
 offset_left = 13.0
 offset_top = 4.0
 offset_right = 132.0
@@ -146,7 +145,7 @@ offset_bottom = 42.0
 text = "TEST MODE"
 
 [node name="Tray" type="StaticBody2D" parent="."]
-position = Vector2(1072, 594)
+position = Vector2(377, 530)
 scale = Vector2(0.65307, 0.97255)
 
 [node name="Polygon2D" type="Polygon2D" parent="Tray"]
@@ -166,31 +165,30 @@ shape = SubResource("RectangleShape2D_nm5b0")
 [node name="Boundaries" type="Node2D" parent="."]
 
 [node name="Bottom" type="StaticBody2D" parent="Boundaries"]
-position = Vector2(1106, 798)
+position = Vector2(300, 600)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Bottom"]
+position = Vector2(-78, 68)
 shape = SubResource("WorldBoundaryShape2D_nm5b0")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundaries/Bottom"]
-position = Vector2(-48.0625, -50.0001)
-rotation = 1.5708
-shape = SubResource("RectangleShape2D_r36gv")
-
-[node name="LeftTop" type="StaticBody2D" parent="Boundaries"]
-position = Vector2(634, 337)
+[node name="Left" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(0, 362)
 rotation = 1.5708
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftTop"]
-position = Vector2(-69.0001, -36.9997)
-shape = SubResource("RectangleShape2D_gw6n5")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Boundaries/LeftTop"]
-position = Vector2(-307.002, -459.999)
-shape = SubResource("RectangleShape2D_j5a5f")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Left"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_gw6n5")
 
 [node name="Right" type="StaticBody2D" parent="Boundaries"]
-position = Vector2(1279, 444)
+position = Vector2(600, 339)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Right"]
+shape = SubResource("WorldBoundaryShape2D_r36gv")
+
+[node name="Top" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(300, 0)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Top"]
 rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_nm5b0")
+shape = SubResource("WorldBoundaryShape2D_j5a5f")

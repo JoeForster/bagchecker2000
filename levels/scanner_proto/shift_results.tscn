@@ -1,0 +1,106 @@
+[gd_scene load_steps=6 format=3 uid="uid://hm88ugqy8ogu"]
+
+[ext_resource type="Script" uid="uid://ggvhqs8ina0x" path="res://levels/scanner_proto/score_panel.gd" id="1_3bk6o"]
+[ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="1_ep24s"]
+[ext_resource type="Script" uid="uid://bmxgxbslh0wqf" path="res://levels/scanner_proto/scene_transition_button.gd" id="2_3bk6o"]
+
+[sub_resource type="SystemFont" id="SystemFont_lquwl"]
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_5kfrg"]
+Label/fonts/font = SubResource("SystemFont_lquwl")
+
+[node name="ShiftResults" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScorePanel" type="Panel" parent="." node_paths=PackedStringArray("successes_label", "failures_label")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3bk6o")
+successes_label = NodePath("SuccessesLabel/SuccessesValue")
+failures_label = NodePath("FailuresLabel/FailuresValue")
+
+[node name="SuccessesLabel" type="Label" parent="ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 19.0
+offset_right = 187.0
+offset_bottom = 42.0
+theme = SubResource("Theme_5kfrg")
+text = "Successes: "
+
+[node name="SuccessesValue" type="Label" parent="ScorePanel/SuccessesLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_5kfrg")
+text = "0"
+
+[node name="FailuresLabel" type="Label" parent="ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 45.0
+offset_right = 171.0
+offset_bottom = 68.0
+theme = SubResource("Theme_5kfrg")
+text = "Failures: "
+
+[node name="FailuresValue" type="Label" parent="ScorePanel/FailuresLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 3.0
+offset_right = 185.0
+offset_bottom = 26.0
+theme = SubResource("Theme_5kfrg")
+text = "0"
+
+[node name="ScoreLabel" type="Label" parent="ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 73.0
+offset_right = 171.0
+offset_bottom = 96.0
+theme = SubResource("Theme_5kfrg")
+text = "Score: "
+
+[node name="ScoreValue" type="Label" parent="ScorePanel/ScoreLabel"]
+layout_mode = 0
+offset_left = 99.0
+offset_right = 185.0
+offset_bottom = 23.0
+theme = SubResource("Theme_5kfrg")
+text = "0"
+
+[node name="BeginButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = 92.0
+offset_right = 90.0
+offset_bottom = 172.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ep24s")
+text = "Next Shift"
+script = ExtResource("2_3bk6o")
+scene_to_load = "res://levels/scanner_proto/shift_intro.tscn"

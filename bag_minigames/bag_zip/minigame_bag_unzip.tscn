@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpo7xuk2y20s3"]
 
 [ext_resource type="Script" uid="uid://bmcmrikj3e8ba" path="res://bag_minigames/bag_zip/minigame_bag_unzip.gd" id="1_3coqq"]
-[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="2_rrr7o"]
+[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://globals/game_rules_proto.tscn" id="2_rrr7o"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="3_p46va"]
 [ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_minigames/bag_zip/bag_zip.gd" id="4_hy5y4"]
 
@@ -21,7 +21,7 @@ test_rules = NodePath("TestRules")
 [node name="TestRules" parent="." instance=ExtResource("2_rrr7o")]
 
 [node name="BagBG" type="Polygon2D" parent="."]
-position = Vector2(1266, 61)
+position = Vector2(444, 55)
 rotation = 1.57079
 scale = Vector2(0.65707, 0.588839)
 color = Color(0.0575054, 0.0219947, 1.50409e-09, 1)
@@ -73,12 +73,12 @@ position = Vector2(820.307, 298.899)
 shape = SubResource("RectangleShape2D_h1vyj")
 
 [node name="BG1" type="Polygon2D" parent="."]
-position = Vector2(555, 65)
+position = Vector2(-267, 59)
 color = Color(0.301961, 0.301961, 0.301961, 1)
 polygon = PackedVector2Array(33, -31, 19, 535, 358, 529, 358, -31)
 
 [node name="BG2" type="Polygon2D" parent="."]
-position = Vector2(1400, 19)
+position = Vector2(578, 13)
 color = Color(0.301961, 0.301961, 0.301961, 1)
 polygon = PackedVector2Array(-137, -2, -134, 607, 157, 611, 144, -7)
 

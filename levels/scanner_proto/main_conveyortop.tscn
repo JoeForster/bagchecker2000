@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://77nwqdkwsa76"]
+[gd_scene load_steps=10 format=3 uid="uid://77nwqdkwsa76"]
 
-[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://rules/game_rules_proto.tscn" id="1_macby"]
+[ext_resource type="Script" uid="uid://ggvhqs8ina0x" path="res://levels/scanner_proto/score_panel.gd" id="2_5bek3"]
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://conveyor/conveyor.tscn" id="2_7oatl"]
+[ext_resource type="Script" uid="uid://3jh3epebyfqt" path="res://levels/scanner_proto/rules_panel.gd" id="2_db33v"]
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://levels/scanner_proto/scanner_screen.gd" id="3_0mf4y"]
 [ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="4_jifd8"]
 [ext_resource type="PackedScene" uid="uid://d3s1wwrkdxkgl" path="res://passengers/passenger.tscn" id="5_db33v"]
+[ext_resource type="PackedScene" uid="uid://hm88ugqy8ogu" path="res://levels/scanner_proto/shift_results.tscn" id="5_e0lju"]
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -13,10 +15,6 @@ subpixel_positioning = 0
 Label/fonts/font = SubResource("SystemFont_lquwl")
 
 [node name="GameRoot" type="Node2D"]
-
-[node name="GameRules" parent="." instance=ExtResource("1_macby")]
-
-[node name="MiniGameHolder" type="Node2D" parent="."]
 
 [node name="Conveyor" parent="." instance=ExtResource("2_7oatl")]
 position = Vector2(220, 154)
@@ -82,7 +80,7 @@ offset_bottom = 23.0
 theme = SubResource("Theme_7mycd")
 text = "00:00"
 
-[node name="ScorePanel" type="Panel" parent="UICanvasLayer/UI"]
+[node name="ScorePanel" type="Panel" parent="UICanvasLayer/UI" node_paths=PackedStringArray("successes_label", "failures_label")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -95,6 +93,9 @@ offset_right = 203.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("2_5bek3")
+successes_label = NodePath("SuccessesLabel/SuccessesValue")
+failures_label = NodePath("FailuresLabel/FailuresValue")
 
 [node name="SuccessesLabel" type="Label" parent="UICanvasLayer/UI/ScorePanel"]
 layout_mode = 0
@@ -161,6 +162,7 @@ offset_right = 28.0
 offset_bottom = -1.0
 grow_horizontal = 0
 grow_vertical = 0
+script = ExtResource("2_db33v")
 
 [node name="RuleLabel" type="Label" parent="UICanvasLayer/UI/RulesPanel"]
 layout_mode = 0
@@ -203,21 +205,18 @@ handle_input_locally = false
 size = Vector2i(500, 325)
 render_target_update_mode = 4
 
-[node name="ScannerScreen" type="Polygon2D" parent="UICanvasLayer/UI/ScannerUI/ScannerScreenContainer/SubViewport" node_paths=PackedStringArray("game_rules", "conveyor", "minigame_holder", "timer_label", "bags_label", "successes_label", "failures_label", "rule_label", "accept_button", "reject_button")]
+[node name="ScannerScreen" type="Polygon2D" parent="UICanvasLayer/UI/ScannerUI/ScannerScreenContainer/SubViewport" node_paths=PackedStringArray("conveyor", "minigame_holder", "timer_label", "bags_label", "accept_button", "reject_button")]
 position = Vector2(2, 0)
 scale = Vector2(0.619375, 0.543333)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 script = ExtResource("3_0mf4y")
-game_rules = NodePath("../../../../../../GameRules")
+shift_results_scene = ExtResource("5_e0lju")
 shape_refresh_period = 2.5
 conveyor = NodePath("../../../../../../Conveyor")
-minigame_holder = NodePath("../../../../../../MiniGameHolder")
+minigame_holder = NodePath("../../../../TaskUI/SubViewportContainer/SubViewport/MiniGameHolder")
 timer_label = NodePath("../../../../StatusPanel/TimerLabel/TimerValue")
 bags_label = NodePath("../../../../StatusPanel/BagCounterLabel/BagCounterValue")
-successes_label = NodePath("../../../../ScorePanel/SuccessesLabel/SuccessesValue")
-failures_label = NodePath("../../../../ScorePanel/FailuresLabel/FailuresValue")
-rule_label = NodePath("../../../../RulesPanel/RuleLabel")
 accept_button = NodePath("../../../AcceptButton")
 reject_button = NodePath("../../../RejectButton")
 
@@ -269,3 +268,38 @@ position = Vector2(21, 347)
 
 [node name="Passenger4" parent="UICanvasLayer/UI/Queue" instance=ExtResource("5_db33v")]
 position = Vector2(21, 515)
+
+[node name="TaskUI" type="Control" parent="UICanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -622.0
+offset_right = 26.0
+offset_bottom = 778.0
+grow_horizontal = 0
+focus_mode = 2
+mouse_filter = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UICanvasLayer/UI/TaskUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 42.0
+offset_top = 165.0
+offset_right = -6.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+stretch = true
+mouse_target = true
+
+[node name="SubViewport" type="SubViewport" parent="UICanvasLayer/UI/TaskUI/SubViewportContainer"]
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(600, 600)
+render_target_update_mode = 4
+
+[node name="MiniGameHolder" type="Node2D" parent="UICanvasLayer/UI/TaskUI/SubViewportContainer/SubViewport"]
