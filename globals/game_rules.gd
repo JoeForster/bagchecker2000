@@ -1,7 +1,6 @@
 class_name GameRules
 extends Node
 
-@export var time_limit : float = 5.0
 @export var initial_rule_count = 1
 @export var rule_count_add_per_shift = 1
 @export var max_rule_count = 4 
@@ -12,6 +11,11 @@ extends Node
 @export var shape_name_to_scene : Dictionary
 @export var possible_colours : Dictionary
 
+@export var score_per_safe_bag = 30
+@export var score_per_searched_bag = 50
+@export var penalty_per_mistake = 60
+@export var out_of_time_penalty = 100
+
 class Rule:
 	var restricted_shape : String
 	var restricted_colour_name : String
@@ -20,6 +24,12 @@ class Rule:
 var current_rules : Array[Rule]
 var possible_shape_colour_combos_passing_rule : Array[ScannedShape]
 var possible_shape_colour_combos_failing_rule : Array[ScannedShape]
+
+var current_shift_no = 0 # TODO move into GameProgressionProto?
+var shift_rules : Array[ShiftRules]
+
+func get_shift_rules() -> ShiftRules:
+	return shift_rules[current_shift_no] if current_shift_no < shift_rules.size() else null
 
 func shape_breaks_rule(shape : ScannedShape) -> bool:
 	for rule in current_rules:
@@ -82,12 +92,17 @@ func _generate_shape_colour_combos(want_to_break_rule : bool) -> Array[ScannedSh
 	return possible_shape_colour_combos
 
 func _generate_new_rule():
+	# HACK: Do this properly to avoid infinite loop if we run out of combinations!!
 	if current_rules.size() < max_rule_count:
-		var new_rule = Rule.new()
-		new_rule.restricted_colour_name = possible_colours.keys().pick_random()
-		new_rule.restricted_shape = shape_name_to_scene.keys().pick_random()
-		new_rule.max_num_of_shape = 0
-		current_rules.push_back(new_rule)
+		var found_good_rule = false
+		while !found_good_rule:
+			var new_rule = Rule.new()
+			new_rule.restricted_colour_name = possible_colours.keys().pick_random()
+			new_rule.restricted_shape = shape_name_to_scene.keys().pick_random()
+			new_rule.max_num_of_shape = 0
+			found_good_rule = current_rules.find(new_rule) == -1
+			if found_good_rule:
+				current_rules.push_back(new_rule)
 
 func _ready() -> void:
 	# Generate random rules based on the parameters
@@ -98,6 +113,17 @@ func _ready() -> void:
 	possible_shape_colour_combos_passing_rule = _generate_shape_colour_combos(true)
 	possible_shape_colour_combos_failing_rule = _generate_shape_colour_combos(false)
 	
+	# Get the per-shift rules which are in the scene as children of this node
+	for child in get_children():
+		if child is ShiftRules:
+			shift_rules.push_back(child)
+	assert(shift_rules.size() > 0, "No shift rules found!")
+
 func next_shift():
-	for _next_rule_num in range(rule_count_add_per_shift):
-		_generate_new_rule()	
+	var go_to_next_shift = GameProgressionProto.score >= get_shift_rules().passing_score_threshold
+	GameProgressionProto.score = 0
+	# TODO handle end of last shift here
+	if go_to_next_shift && current_shift_no + 1 < shift_rules.size():
+		current_shift_no += 1
+		for _next_rule_num in range(rule_count_add_per_shift):
+			_generate_new_rule()	

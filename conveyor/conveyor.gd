@@ -4,7 +4,7 @@ extends Node2D
 @export var scroller : Node2D
 @export var despawn_area : Area2D
 @export var stop_bag_collider : CollisionObject2D
-@export var scroll_speed : float = 50.0
+@export var scroll_speed : float = 100.0
 @export var bag_spawn_point : Node2D
 @export var bag_dest_point : Node2D
 @export var possible_bags : Array[PackedScene]

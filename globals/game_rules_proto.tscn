@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdtkv0d3nr14"]
+[gd_scene load_steps=7 format=3 uid="uid://bdtkv0d3nr14"]
 
 [ext_resource type="Script" uid="uid://d0a6nmdhlbgy6" path="res://globals/game_rules.gd" id="1_k0dcv"]
 [ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://conveyor_bag/bag_items/circle.tscn" id="2_tcjnq"]
 [ext_resource type="PackedScene" uid="uid://dpa5lsoxu3l5i" path="res://conveyor_bag/bag_items/hexagon.tscn" id="3_aul36"]
 [ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://conveyor_bag/bag_items/square.tscn" id="4_pw6ve"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="5_3wcc5"]
+[ext_resource type="Script" uid="uid://c2h6304bk3egj" path="res://globals/shift_rules.gd" id="6_3yakh"]
 
 [node name="GameRules" type="Node"]
 script = ExtResource("1_k0dcv")
@@ -20,3 +21,20 @@ possible_colours = {
 "Red": Color(1, 0, 0, 1),
 "Yellow": Color(1, 1, 0, 1)
 }
+
+[node name="ShiftRules_0" type="Node" parent="."]
+script = ExtResource("6_3yakh")
+number_of_bags = 1
+number_of_bad_bags = 1
+
+[node name="ShiftRules_1" type="Node" parent="."]
+script = ExtResource("6_3yakh")
+time_limit = 60.0
+number_of_bags = 5
+number_of_bad_bags = 2
+passing_score_threshold = 100
+
+[node name="ShiftRules_2" type="Node" parent="."]
+script = ExtResource("6_3yakh")
+time_limit = 100.0
+passing_score_threshold = 200

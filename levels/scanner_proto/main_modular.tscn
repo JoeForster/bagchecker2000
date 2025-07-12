@@ -25,7 +25,6 @@ color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 script = ExtResource("2_esfuu")
 shift_results_scene = ExtResource("2_wnwte")
-shape_refresh_period = 2.5
 conveyor = NodePath("../Conveyor")
 minigame_holder = NodePath("../MiniGameHolder")
 timer_label = NodePath("../ProtoGameUI/StatusPanel/TimerLabel/TimerValue")

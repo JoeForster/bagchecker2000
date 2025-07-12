@@ -4,13 +4,9 @@ extends Node2D
 # Game rules
 # TODO many to be moved into GameRules
 @export var shift_results_scene : PackedScene
-@export var shape_refresh_period = 4.0
 @export var delay_after_success = 0.5
 @export var delay_after_failure = 2.0
 @export var initial_max_num_of_shape : int
-@export var number_of_bags : int = 10
-@export var number_of_bad_bags : int = 4
-@export var bag_spawn_period : float = 4.0
 
 # Game elements
 @export var conveyor : Conveyor
@@ -23,8 +19,9 @@ extends Node2D
 @export var reject_button : Button
 
 # Game state
-var timer = 0.0
+var shift_timer = 0.0
 var first_turn = true
+var applied_out_of_time_penalty = false
 var bag_spawn_timer = 0.0
 var allow_through_timer = 0.0
 var bags_left_to_spawn : Array[BagContents]
@@ -34,7 +31,7 @@ var current_scanned_bag : ConveyorBag
 # NOTE this is a duplicate of the BagContents node within the current_scanned_bag
 var scanned_bag_contents : BagContents 
 
-func _get_rules():
+func _get_rules() -> GameRules:
 	return GameRulesProto
 
 func _get_progression():
@@ -90,9 +87,11 @@ func _check_accept():
 	
 	if _highlight_forbidden_shapes():
 		_get_progression().num_failures += 1
+		_get_progression().score -= _get_rules().penalty_per_mistake
 		allow_through_timer = delay_after_failure
 	else:
 		_get_progression().num_successes += 1
+		_get_progression().score += _get_rules().score_per_searched_bag
 		allow_through_timer = delay_after_success
 
 	accept_button.disabled = true
@@ -101,6 +100,7 @@ func _check_accept():
 func _on_completed_bag_minigame():
 	_clear_displayed_contents()
 	_get_progression().num_successes += 1
+	_get_progression().score += _get_rules().score_per_safe_bag
 	allow_through_timer = delay_after_success
 
 func _check_reject():
@@ -128,9 +128,10 @@ func _check_reject():
 func _ready():
 	# Generate t he bags- meeting our quota of "bad" bags in random order
 	var bags_bad_flags : Array[bool]
-	assert(number_of_bad_bags <= number_of_bags, "number_of_bad_bags is larger than number_of_bags!!")
-	for bag_index in range(0, number_of_bags):
-		var this_bag_is_bad = (bag_index < number_of_bad_bags)
+	var shift_rules = _get_rules().get_shift_rules()
+	assert(shift_rules.number_of_bad_bags <= shift_rules.number_of_bags, "number_of_bad_bags is larger than number_of_bags!!")
+	for bag_index in range(0, shift_rules.number_of_bags):
+		var this_bag_is_bad = (bag_index < shift_rules.number_of_bad_bags)
 		bags_bad_flags.push_back(this_bag_is_bad)
 	bags_bad_flags.shuffle()
 
@@ -149,8 +150,7 @@ func _ready():
 		reject_button.pressed.connect(_check_reject)
 	
 	if conveyor:
-		timer = _get_rules().time_limit
-		remaining_bags = number_of_bags
+		remaining_bags = shift_rules.number_of_bags
 
 func _game_over():
 	get_tree().change_scene_to_packed(shift_results_scene)
@@ -160,17 +160,24 @@ func _conveyor_process(delta):
 		_game_over()
 		return
 	
-	timer -= delta
-	if timer <= 0:
-		timer = 0
-		_game_over()
-		return
+	var game_rules = _get_rules()
+	var shift_rules = game_rules.get_shift_rules()
+	
+	shift_timer += delta
+	if shift_rules && shift_timer >= shift_rules.time_limit:
+		if !applied_out_of_time_penalty:
+			_get_progression().score -= game_rules.out_of_time_penalty
+			applied_out_of_time_penalty = true
+
+		if shift_rules.end_shift_on_time_limit:
+			_game_over()
+			return
 
 	bag_spawn_timer -= delta
 	if bag_spawn_timer <= 0 and conveyor.can_spawn_new_bag() and not bags_left_to_spawn.is_empty():
 		var next_bag = bags_left_to_spawn.pop_back()
 		conveyor.spawn_new_bag(next_bag)
-		bag_spawn_timer = bag_spawn_period
+		bag_spawn_timer = shift_rules.bag_spawn_period
 	
 	var scanned_bag : ConveyorBag = conveyor.get_scanned_bag()
 	if scanned_bag:
@@ -190,7 +197,10 @@ func _conveyor_process(delta):
 
 func _update_ui():
 	if timer_label:
-		timer_label.text = str(timer).pad_decimals(2).replace(".", ":")
+		timer_label.text = str(shift_timer).pad_decimals(2).replace(".", ":")
+		var shift_rules = _get_rules().get_shift_rules()
+		if shift_rules:
+			timer_label.text += " / " + str(shift_rules.time_limit).pad_decimals(2).replace(".", ":")
 	if bags_label:
 		bags_label.text = str(remaining_bags)
 

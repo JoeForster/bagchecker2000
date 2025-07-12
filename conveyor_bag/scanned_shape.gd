@@ -47,7 +47,7 @@ func _input(event: InputEvent) -> void:
 	if click_event and click_event.button_index == 1 && !click_event.pressed:
 		mouse_dragging = false
 		
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if physics_enabled:
 		freeze = mouse_dragging
 		if mouse_dragging:

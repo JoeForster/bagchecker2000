@@ -18,7 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScorePanel" type="Panel" parent="." node_paths=PackedStringArray("successes_label", "failures_label")]
+[node name="ScorePanel" type="Panel" parent="." node_paths=PackedStringArray("score_label", "score_needed_label", "successes_label", "failures_label")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -28,10 +28,12 @@ anchor_bottom = 0.5
 offset_left = -200.0
 offset_top = -50.0
 offset_right = 200.0
-offset_bottom = 50.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3bk6o")
+score_label = NodePath("ScoreLabel/ScoreValue")
+score_needed_label = NodePath("ScoreNeededLabel/ScoreNeededValue")
 successes_label = NodePath("SuccessesLabel/SuccessesValue")
 failures_label = NodePath("FailuresLabel/FailuresValue")
 
@@ -46,8 +48,8 @@ text = "Successes: "
 
 [node name="SuccessesValue" type="Label" parent="ScorePanel/SuccessesLabel"]
 layout_mode = 0
-offset_left = 99.0
-offset_right = 185.0
+offset_left = 126.0
+offset_right = 212.0
 offset_bottom = 23.0
 theme = SubResource("Theme_5kfrg")
 text = "0"
@@ -63,9 +65,9 @@ text = "Failures: "
 
 [node name="FailuresValue" type="Label" parent="ScorePanel/FailuresLabel"]
 layout_mode = 0
-offset_left = 99.0
+offset_left = 126.0
 offset_top = 3.0
-offset_right = 185.0
+offset_right = 212.0
 offset_bottom = 26.0
 theme = SubResource("Theme_5kfrg")
 text = "0"
@@ -81,8 +83,25 @@ text = "Score: "
 
 [node name="ScoreValue" type="Label" parent="ScorePanel/ScoreLabel"]
 layout_mode = 0
-offset_left = 99.0
-offset_right = 185.0
+offset_left = 126.0
+offset_right = 212.0
+offset_bottom = 23.0
+theme = SubResource("Theme_5kfrg")
+text = "0"
+
+[node name="ScoreNeededLabel" type="Label" parent="ScorePanel"]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 98.0
+offset_right = 171.0
+offset_bottom = 121.0
+theme = SubResource("Theme_5kfrg")
+text = "Score Needed:"
+
+[node name="ScoreNeededValue" type="Label" parent="ScorePanel/ScoreNeededLabel"]
+layout_mode = 0
+offset_left = 126.0
+offset_right = 212.0
 offset_bottom = 23.0
 theme = SubResource("Theme_5kfrg")
 text = "0"
