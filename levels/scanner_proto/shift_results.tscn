@@ -18,7 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScorePanel" type="Panel" parent="." node_paths=PackedStringArray("score_label", "score_needed_label", "successes_label", "failures_label")]
+[node name="ScorePanel" type="Panel" parent="." node_paths=PackedStringArray("score_label", "score_needed_label", "num_safe_bags_passed_label", "num_successful_searches_label", "num_mistakes_label", "time_label")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -26,83 +26,91 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -200.0
-offset_top = -50.0
+offset_top = -107.0
 offset_right = 200.0
 offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3bk6o")
-score_label = NodePath("ScoreLabel/ScoreValue")
-score_needed_label = NodePath("ScoreNeededLabel/ScoreNeededValue")
-successes_label = NodePath("SuccessesLabel/SuccessesValue")
-failures_label = NodePath("FailuresLabel/FailuresValue")
+score_label = NodePath("GridContainer/ScoreValue")
+score_needed_label = NodePath("GridContainer/ScoreNeededValue")
+num_safe_bags_passed_label = NodePath("GridContainer/NumSafeBagsPassedValue")
+num_successful_searches_label = NodePath("GridContainer/NumSuccessfulSearchesValue")
+num_mistakes_label = NodePath("GridContainer/NumMistakesvalue")
+time_label = NodePath("GridContainer/TimeSpentValue")
 
-[node name="SuccessesLabel" type="Label" parent="ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 19.0
-offset_right = 187.0
-offset_bottom = 42.0
+[node name="GridContainer" type="GridContainer" parent="ScorePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.5
+offset_top = -65.5
+offset_right = 104.5
+offset_bottom = 65.5
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="NumSafeBagsPassedLabel" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
 theme = SubResource("Theme_5kfrg")
-text = "Successes: "
+text = "Safe Bags Passed: "
 
-[node name="SuccessesValue" type="Label" parent="ScorePanel/SuccessesLabel"]
-layout_mode = 0
-offset_left = 126.0
-offset_right = 212.0
-offset_bottom = 23.0
-theme = SubResource("Theme_5kfrg")
-text = "0"
-
-[node name="FailuresLabel" type="Label" parent="ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 45.0
-offset_right = 171.0
-offset_bottom = 68.0
-theme = SubResource("Theme_5kfrg")
-text = "Failures: "
-
-[node name="FailuresValue" type="Label" parent="ScorePanel/FailuresLabel"]
-layout_mode = 0
-offset_left = 126.0
-offset_top = 3.0
-offset_right = 212.0
-offset_bottom = 26.0
+[node name="NumSafeBagsPassedValue" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
 theme = SubResource("Theme_5kfrg")
 text = "0"
 
-[node name="ScoreLabel" type="Label" parent="ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 73.0
-offset_right = 171.0
-offset_bottom = 96.0
+[node name="NumSuccessfulSearchesLabel" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
 theme = SubResource("Theme_5kfrg")
-text = "Score: "
+text = "Successful Bag Searches: "
 
-[node name="ScoreValue" type="Label" parent="ScorePanel/ScoreLabel"]
-layout_mode = 0
-offset_left = 126.0
-offset_right = 212.0
-offset_bottom = 23.0
+[node name="NumSuccessfulSearchesValue" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
 theme = SubResource("Theme_5kfrg")
 text = "0"
 
-[node name="ScoreNeededLabel" type="Label" parent="ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 98.0
-offset_right = 171.0
-offset_bottom = 121.0
+[node name="NumMistakesLabel" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
+theme = SubResource("Theme_5kfrg")
+text = "Mistakes: "
+
+[node name="NumMistakesvalue" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
+theme = SubResource("Theme_5kfrg")
+text = "0"
+
+[node name="TimeSpentLabel" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
+theme = SubResource("Theme_5kfrg")
+text = "Time Spent:"
+
+[node name="TimeSpentValue" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
+theme = SubResource("Theme_5kfrg")
+text = "0"
+
+[node name="ScoreLabel" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
+theme = SubResource("Theme_5kfrg")
+text = "Total Score: "
+
+[node name="ScoreValue" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
+theme = SubResource("Theme_5kfrg")
+text = "0"
+
+[node name="ScoreNeededLabel" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
 theme = SubResource("Theme_5kfrg")
 text = "Score Needed:"
 
-[node name="ScoreNeededValue" type="Label" parent="ScorePanel/ScoreNeededLabel"]
-layout_mode = 0
-offset_left = 126.0
-offset_right = 212.0
-offset_bottom = 23.0
+[node name="ScoreNeededValue" type="Label" parent="ScorePanel/GridContainer"]
+layout_mode = 2
 theme = SubResource("Theme_5kfrg")
 text = "0"
 

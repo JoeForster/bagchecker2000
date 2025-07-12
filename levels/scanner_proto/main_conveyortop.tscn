@@ -1,6 +1,5 @@
-[gd_scene load_steps=10 format=3 uid="uid://77nwqdkwsa76"]
+[gd_scene load_steps=9 format=3 uid="uid://77nwqdkwsa76"]
 
-[ext_resource type="Script" uid="uid://ggvhqs8ina0x" path="res://levels/scanner_proto/score_panel.gd" id="2_5bek3"]
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://conveyor/conveyor.tscn" id="2_7oatl"]
 [ext_resource type="Script" uid="uid://3jh3epebyfqt" path="res://levels/scanner_proto/rules_panel.gd" id="2_db33v"]
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://levels/scanner_proto/scanner_screen.gd" id="3_0mf4y"]
@@ -79,76 +78,6 @@ offset_right = 111.0
 offset_bottom = 23.0
 theme = SubResource("Theme_7mycd")
 text = "00:00"
-
-[node name="ScorePanel" type="Panel" parent="UICanvasLayer/UI" node_paths=PackedStringArray("score_label", "successes_label", "failures_label")]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -197.0
-offset_top = -101.0
-offset_right = 203.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 0
-script = ExtResource("2_5bek3")
-score_label = NodePath("ScoreLabel/ScoreValue")
-successes_label = NodePath("SuccessesLabel/SuccessesValue")
-failures_label = NodePath("FailuresLabel/FailuresValue")
-
-[node name="SuccessesLabel" type="Label" parent="UICanvasLayer/UI/ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 19.0
-offset_right = 187.0
-offset_bottom = 42.0
-theme = SubResource("Theme_7mycd")
-text = "Successes: "
-
-[node name="SuccessesValue" type="Label" parent="UICanvasLayer/UI/ScorePanel/SuccessesLabel"]
-layout_mode = 0
-offset_left = 99.0
-offset_right = 185.0
-offset_bottom = 23.0
-theme = SubResource("Theme_7mycd")
-text = "0"
-
-[node name="FailuresLabel" type="Label" parent="UICanvasLayer/UI/ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 45.0
-offset_right = 171.0
-offset_bottom = 68.0
-theme = SubResource("Theme_7mycd")
-text = "Failures: "
-
-[node name="FailuresValue" type="Label" parent="UICanvasLayer/UI/ScorePanel/FailuresLabel"]
-layout_mode = 0
-offset_left = 99.0
-offset_top = 3.0
-offset_right = 185.0
-offset_bottom = 26.0
-theme = SubResource("Theme_7mycd")
-text = "0"
-
-[node name="ScoreLabel" type="Label" parent="UICanvasLayer/UI/ScorePanel"]
-layout_mode = 0
-offset_left = 101.0
-offset_top = 73.0
-offset_right = 171.0
-offset_bottom = 96.0
-theme = SubResource("Theme_7mycd")
-text = "Score: "
-
-[node name="ScoreValue" type="Label" parent="UICanvasLayer/UI/ScorePanel/ScoreLabel"]
-layout_mode = 0
-offset_left = 99.0
-offset_right = 185.0
-offset_bottom = 23.0
-theme = SubResource("Theme_7mycd")
-text = "0"
 
 [node name="RulesPanel" type="Panel" parent="UICanvasLayer/UI"]
 layout_mode = 1

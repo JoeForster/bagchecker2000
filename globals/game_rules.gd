@@ -25,11 +25,14 @@ var current_rules : Array[Rule]
 var possible_shape_colour_combos_passing_rule : Array[ScannedShape]
 var possible_shape_colour_combos_failing_rule : Array[ScannedShape]
 
-var current_shift_no = 0 # TODO move into GameProgressionProto?
 var shift_rules : Array[ShiftRules]
 
 func get_shift_rules() -> ShiftRules:
+	var current_shift_no = GameProgressionProto.current_shift_no
 	return shift_rules[current_shift_no] if current_shift_no < shift_rules.size() else null
+
+func get_shift_total_score() -> int:
+	return GameProgressionProto.get_current_shift_results().get_total_score(self, get_shift_rules())
 
 func shape_breaks_rule(shape : ScannedShape) -> bool:
 	for rule in current_rules:
@@ -118,12 +121,16 @@ func _ready() -> void:
 		if child is ShiftRules:
 			shift_rules.push_back(child)
 	assert(shift_rules.size() > 0, "No shift rules found!")
+	GameProgressionProto.reset_shift_results()
 
 func next_shift():
-	var go_to_next_shift = GameProgressionProto.score >= get_shift_rules().passing_score_threshold
-	GameProgressionProto.score = 0
+	var total_score = get_shift_total_score()
+	var go_to_next_shift = total_score >= get_shift_rules().passing_score_threshold
+	GameProgressionProto.reset_shift_results()
+
 	# TODO handle end of last shift here
-	if go_to_next_shift && current_shift_no + 1 < shift_rules.size():
-		current_shift_no += 1
+	# TODO split concepts of "next shift" and "next level"
+	if go_to_next_shift && GameProgressionProto.current_shift_no + 1 < shift_rules.size():
+		GameProgressionProto.current_shift_no += 1
 		for _next_rule_num in range(rule_count_add_per_shift):
 			_generate_new_rule()	

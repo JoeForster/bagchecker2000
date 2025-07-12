@@ -34,7 +34,7 @@ var scanned_bag_contents : BagContents
 func _get_rules() -> GameRules:
 	return GameRulesProto
 
-func _get_progression():
+func _get_progression() -> GameProgression:
 	return GameProgressionProto
 
 func _generate_bag_contents(breaks_rule : bool) -> BagContents:
@@ -86,12 +86,10 @@ func _check_accept():
 		return # TODO disable the button in all cases there's no bag
 	
 	if _highlight_forbidden_shapes():
-		_get_progression().num_failures += 1
-		_get_progression().score -= _get_rules().penalty_per_mistake
+		_get_progression().get_current_shift_results().num_mistakes += 1
 		allow_through_timer = delay_after_failure
 	else:
-		_get_progression().num_successes += 1
-		_get_progression().score += _get_rules().score_per_searched_bag
+		_get_progression().get_current_shift_results().num_safe_bags_passed += 1
 		allow_through_timer = delay_after_success
 
 	accept_button.disabled = true
@@ -99,8 +97,7 @@ func _check_accept():
 
 func _on_completed_bag_minigame():
 	_clear_displayed_contents()
-	_get_progression().num_successes += 1
-	_get_progression().score += _get_rules().score_per_safe_bag
+	_get_progression().get_current_shift_results().num_successful_searches  += 1
 	allow_through_timer = delay_after_success
 
 func _check_reject():
@@ -164,9 +161,9 @@ func _conveyor_process(delta):
 	var shift_rules = game_rules.get_shift_rules()
 	
 	shift_timer += delta
+	_get_progression().get_current_shift_results().time_spent = shift_timer
 	if shift_rules && shift_timer >= shift_rules.time_limit:
 		if !applied_out_of_time_penalty:
-			_get_progression().score -= game_rules.out_of_time_penalty
 			applied_out_of_time_penalty = true
 
 		if shift_rules.end_shift_on_time_limit:

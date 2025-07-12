@@ -4,4 +4,4 @@ extends Control
 
 func _ready():
 	if title_value:
-		title_value.text = "Shift " + str(GameRulesProto.current_shift_no + 1)
+		title_value.text = "Shift " + str(GameProgressionProto.current_shift_no + 1)
