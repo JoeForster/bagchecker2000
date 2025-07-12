@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ggvhqs8ina0x" path="res://levels/scanner_proto/score_panel.gd" id="1_3bk6o"]
 [ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="1_ep24s"]
-[ext_resource type="Script" uid="uid://bmxgxbslh0wqf" path="res://levels/scanner_proto/scene_transition_button.gd" id="2_3bk6o"]
+[ext_resource type="Script" uid="uid://j66wtbjo33r8" path="res://levels/scanner_proto/next_shift_button.gd" id="3_ep24s"]
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -102,5 +102,5 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ep24s")
 text = "Next Shift"
-script = ExtResource("2_3bk6o")
+script = ExtResource("3_ep24s")
 scene_to_load = "res://levels/scanner_proto/shift_intro.tscn"

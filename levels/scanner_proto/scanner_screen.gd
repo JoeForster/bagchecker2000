@@ -11,7 +11,6 @@ extends Node2D
 @export var number_of_bags : int = 10
 @export var number_of_bad_bags : int = 4
 @export var bag_spawn_period : float = 4.0
-@export var time_limit : float = 100.0
 
 # Game elements
 @export var conveyor : Conveyor
@@ -150,7 +149,7 @@ func _ready():
 		reject_button.pressed.connect(_check_reject)
 	
 	if conveyor:
-		timer = time_limit
+		timer = _get_rules().time_limit
 		remaining_bags = number_of_bags
 
 func _game_over():

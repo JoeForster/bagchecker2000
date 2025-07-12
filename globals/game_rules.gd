@@ -1,7 +1,10 @@
 class_name GameRules
 extends Node
 
-@export var initial_rule_count = 2
+@export var time_limit : float = 5.0
+@export var initial_rule_count = 1
+@export var rule_count_add_per_shift = 1
+@export var max_rule_count = 4 
 @export var rows_per_bag = 3
 @export var shapes_per_row = 4
 @export var bad_shapes_in_bag_min = 1
@@ -78,16 +81,23 @@ func _generate_shape_colour_combos(want_to_break_rule : bool) -> Array[ScannedSh
 				possible_shape_colour_combos.push_back(this_shape_entry)
 	return possible_shape_colour_combos
 
-func _ready() -> void:
-	# Generate random rules based on the parameters
-	for rule_index in range(initial_rule_count):
+func _generate_new_rule():
+	if current_rules.size() < max_rule_count:
 		var new_rule = Rule.new()
 		new_rule.restricted_colour_name = possible_colours.keys().pick_random()
 		new_rule.restricted_shape = shape_name_to_scene.keys().pick_random()
 		new_rule.max_num_of_shape = 0
 		current_rules.push_back(new_rule)
 
+func _ready() -> void:
+	# Generate random rules based on the parameters
+	for rule_index in range(initial_rule_count):
+		_generate_new_rule()
+
 	# Generate the shape possibilites for these rules
 	possible_shape_colour_combos_passing_rule = _generate_shape_colour_combos(true)
 	possible_shape_colour_combos_failing_rule = _generate_shape_colour_combos(false)
 	
+func next_shift():
+	for _next_rule_num in range(rule_count_add_per_shift):
+		_generate_new_rule()	
