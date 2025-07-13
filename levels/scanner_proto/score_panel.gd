@@ -22,6 +22,6 @@ func _process(_delta: float) -> void:
 	if num_mistakes_label:
 		num_mistakes_label.text = str(shift_results.num_mistakes)
 	if time_label:
-		time_label.text = str(shift_results.time_spent)
+		time_label.text = str(shift_results.time_spent).pad_decimals(2).replace(".", ":")
 		if GameRulesProto.get_shift_rules():
-			time_label.text += " / " + str(GameRulesProto.get_shift_rules().time_limit)
+			time_label.text += " / " + str(GameRulesProto.get_shift_rules().time_limit).pad_decimals(2).replace(".", ":")

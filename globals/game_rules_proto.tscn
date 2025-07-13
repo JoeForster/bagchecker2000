@@ -24,17 +24,19 @@ possible_colours = {
 
 [node name="ShiftRules_0" type="Node" parent="."]
 script = ExtResource("6_3yakh")
-number_of_bags = 1
+time_limit = 100.0
+number_of_bags = 5
 number_of_bad_bags = 1
+passing_score_threshold = 100
 
 [node name="ShiftRules_1" type="Node" parent="."]
 script = ExtResource("6_3yakh")
-time_limit = 60.0
-number_of_bags = 5
-number_of_bad_bags = 2
-passing_score_threshold = 100
+time_limit = 120.0
+number_of_bags = 8
+number_of_bad_bags = 3
+passing_score_threshold = 200
 
 [node name="ShiftRules_2" type="Node" parent="."]
 script = ExtResource("6_3yakh")
-time_limit = 100.0
-passing_score_threshold = 200
+time_limit = 120.0
+passing_score_threshold = 300
