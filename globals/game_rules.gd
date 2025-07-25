@@ -21,6 +21,7 @@ class Rule:
 	var restricted_colour_name : String
 	var max_num_of_shape : int
 
+var HACK_ui_dirty = true
 var current_rules : Array[Rule]
 var possible_shape_colour_combos_passing_rule : Array[ScannedShape]
 var possible_shape_colour_combos_failing_rule : Array[ScannedShape]

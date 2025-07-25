@@ -7,8 +7,13 @@ var dragging_mouse_pos : Vector2
 var zip_next_point_pos : Vector2
 var zip_colour : Color
 
+@export var zip_colour_unheld : Color
+@export var zip_colour_dragging_success : Color
+@export var zip_colour_dragging_failure : Color
+
 @export var mouse_button_index = 1
 @export var rotation_threshold_degrees = 10.0
+@export var pull_max_distance = 250.0
 @export var zip_move_speed = 200.0
 @export var zip_line_variance = 100.0
 @export var bag_front_top : Polygon2D
@@ -52,7 +57,8 @@ func _on_mouse_move_with_zip(_mouse_event : InputEventMouseMotion):
 	var zip_to_mouse = dragging_mouse_pos - zip_handle_pos
 	var zip_to_next_point = point_after_closest_point_to_handle - zip_handle_pos
 	var drag_angle = zip_to_mouse.angle_to(zip_to_next_point)
-	if abs(drag_angle) < deg_to_rad(rotation_threshold_degrees):
+	var drag_distance = zip_to_mouse.length()
+	if abs(drag_angle) < deg_to_rad(rotation_threshold_degrees) && (pull_max_distance < 0.0 || drag_distance < pull_max_distance):
 		zip_handle_moving = true
 
 	zip_next_point_pos = point_after_closest_point_to_handle
@@ -68,8 +74,12 @@ func _update_zip_handle(delta: float, zip_handle: Area2D):
 			if !direction.is_zero_approx():
 				direction = direction.normalized() * zip_move_speed * delta
 				zip_handle.global_translate(direction)
+				
+			zip_poly.color = zip_colour_dragging_success
+		else:
+			zip_poly.color = zip_colour_dragging_failure
 	else:
-		zip_poly.color = zip_colour
+		zip_poly.color = zip_colour_unheld
 
 # TODO HACK The below is probably not the nicest way to handle input here...
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

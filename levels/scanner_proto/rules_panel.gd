@@ -1,11 +1,16 @@
 extends Panel
 
-func _ready():
+func refresh():
+	# HACK: We have one preplaced label and dupe it. There is probably a better way
+	# (could we just create all the rows here, or use a table control?
 	var current_label_offset = 0
+	var rule_label = $RuleLabel
+	for label in get_children():
+		if label is Label and label != rule_label:
+			label.queue_free()
+
 	for rule in GameRulesProto.current_rules:
-		# HACK: Get or duplicate the rule label per rule
 		var this_rule_label : Label
-		var rule_label = $RuleLabel
 		if current_label_offset == 0:
 			this_rule_label = rule_label
 		else:
@@ -21,3 +26,11 @@ func _ready():
 			this_rule_label.text = "No more than " + this_rule_label.max_num_of_shape + " " + rule.restricted_colour_name + " " + rule.restricted_shape + "s"
 		var text_colour = GameRulesProto.possible_colours[rule.restricted_colour_name]
 		this_rule_label.add_theme_color_override("font_color", text_colour)
+
+func _process(delta: float) -> void:
+	if GameRulesProto.HACK_ui_dirty:
+		refresh()
+		GameRulesProto.HACK_ui_dirty = false
+
+func _ready() -> void:
+	refresh()

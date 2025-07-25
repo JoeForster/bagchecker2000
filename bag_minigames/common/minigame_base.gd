@@ -25,3 +25,5 @@ func _ready() -> void:
 	if is_test_mode:
 		var test_contents = test_rules.generate_bag_contents(true)
 		init_with_contents(test_rules, test_contents)
+		GameRulesProto.current_rules = test_rules.current_rules
+		GameRulesProto.HACK_ui_dirty = true

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpo7xuk2y20s3"]
+[gd_scene load_steps=7 format=3 uid="uid://cpo7xuk2y20s3"]
 
 [ext_resource type="Script" uid="uid://bmcmrikj3e8ba" path="res://bag_minigames/bag_zip/minigame_bag_unzip.gd" id="1_3coqq"]
 [ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://globals/game_rules_proto.tscn" id="2_rrr7o"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="3_p46va"]
 [ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_minigames/bag_zip/bag_zip.gd" id="4_hy5y4"]
+[ext_resource type="PackedScene" uid="uid://c74jpbdu182lb" path="res://levels/scanner_proto/rules_panel.tscn" id="5_frxfm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1vyj"]
 size = Vector2(96.2502, 246.25)
@@ -35,14 +36,17 @@ visible = false
 
 [node name="BagFrontTop" type="Polygon2D" parent="BagBG"]
 color = Color(0.256086, 0.149754, 0, 1)
-polygon = PackedVector2Array(0, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 0, 0, 0)
+polygon = PackedVector2Array(0, 300, 35.3418, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 0, 0, 0)
 
 [node name="BagFrontBottom" type="Polygon2D" parent="BagBG"]
 color = Color(0.254902, 0.14902, 0, 1)
-polygon = PackedVector2Array(0, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 600, 0, 600)
+polygon = PackedVector2Array(0, 300, 36.5996, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 600, 0, 600)
 
 [node name="Zip" type="Node2D" parent="BagBG" node_paths=PackedStringArray("bag_front_top", "bag_front_bottom")]
 script = ExtResource("4_hy5y4")
+zip_colour_unheld = Color(0.359069, 0.359069, 0.359069, 1)
+zip_colour_dragging_success = Color(0.791999, 0.791999, 0.791999, 1)
+zip_colour_dragging_failure = Color(0.47788, 0.47788, 0.47788, 1)
 zip_line_variance = 80.0
 bag_front_top = NodePath("../BagFrontTop")
 bag_front_bottom = NodePath("../BagFrontBottom")
@@ -82,10 +86,15 @@ position = Vector2(578, 13)
 color = Color(0.301961, 0.301961, 0.301961, 1)
 polygon = PackedVector2Array(-137, -2, -134, 607, 157, 611, 144, -7)
 
-[node name="TestModeLabel" type="Label" parent="."]
+[node name="TestModeLabel" type="Node2D" parent="."]
 visible = false
-offset_left = 13.0
-offset_top = 4.0
-offset_right = 132.0
-offset_bottom = 42.0
+position = Vector2(691, 58)
+
+[node name="TestModeLabel" type="Label" parent="TestModeLabel"]
+offset_left = -52.0
+offset_top = -49.0
+offset_right = 67.0
+offset_bottom = -11.0
 text = "TEST MODE"
+
+[node name="RulesPanel" parent="TestModeLabel" instance=ExtResource("5_frxfm")]
