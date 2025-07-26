@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bi5l0nqecdgno"]
 
 [ext_resource type="Script" uid="uid://bqfiiebovdef" path="res://conveyor_bag/bags/conveyor_bag.gd" id="1_4yood"]
-[ext_resource type="PackedScene" uid="uid://cpo7xuk2y20s3" path="res://bag_minigames/bag_zip/minigame_bag_unzip.tscn" id="3_om6c5"]
+[ext_resource type="PackedScene" uid="uid://d07cjww73uerd" path="res://bag_minigames/bag_zip_physics/minigame_bag_unzip_physics.tscn" id="2_rbckg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ftnk"]
 size = Vector2(132, 84)
@@ -10,7 +10,7 @@ size = Vector2(132, 84)
 collision_layer = 3
 gravity_scale = 0.0
 script = ExtResource("1_4yood")
-possible_minigames = Array[PackedScene]([ExtResource("3_om6c5")])
+possible_minigames = Array[PackedScene]([ExtResource("2_rbckg")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(64, 40)

@@ -1,0 +1,176 @@
+[gd_scene load_steps=13 format=3 uid="uid://d07cjww73uerd"]
+
+[ext_resource type="Script" uid="uid://ckbv28nvygq1a" path="res://bag_minigames/bag_zip_physics/minigame_bag_unzip_physics.gd" id="1_fmava"]
+[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://globals/game_rules_proto.tscn" id="2_kdtlw"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="3_46gjy"]
+[ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_minigames/common/bag_zip.gd" id="4_afod3"]
+[ext_resource type="PackedScene" uid="uid://c74jpbdu182lb" path="res://levels/scanner_proto/rules_panel.tscn" id="5_y63hi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1vyj"]
+size = Vector2(96.2502, 246.25)
+
+[sub_resource type="Curve2D" id="Curve2D_fmava"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 33.2029, 5.29291, 0, 0, 0, 0, 600.024, 2.28882e-05)
+}
+point_count = 2
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_q0uva"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_dia86"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1hy6g"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_mh1y0"]
+normal = Vector2(0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q0uva"]
+size = Vector2(266, 176)
+
+[node name="MiniGame" type="Node2D" node_paths=PackedStringArray("zips", "bag_front_top", "bag_front_bottom", "contents_holder", "item_spawn_line", "tray_area", "test_rules")]
+script = ExtResource("1_fmava")
+open_speed = 120.0
+open_dist = 260.0
+zips = [NodePath("BagBG/Zip")]
+bag_front_top = NodePath("BagBG/BagFrontTop")
+bag_front_bottom = NodePath("BagBG/BagFrontBottom")
+contents_holder = NodePath("BagBG/BagContentsHolder")
+item_spawn_line = NodePath("BagBG/SpawnLine")
+tray_area = NodePath("Tray/DetectionArea")
+test_rules = NodePath("TestRules")
+
+[node name="TestRules" parent="." instance=ExtResource("2_kdtlw")]
+
+[node name="BagBG" type="Polygon2D" parent="."]
+position = Vector2(22, 35)
+scale = Vector2(0.42165, 0.377865)
+color = Color(0.0575054, 0.0219947, 1.50409e-09, 1)
+polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
+
+[node name="BagContentsHolder" type="Node2D" parent="BagBG"]
+position = Vector2(28.75, 36.25)
+
+[node name="Node2D" parent="BagBG/BagContentsHolder" instance=ExtResource("3_46gjy")]
+visible = false
+
+[node name="BagFrontTop" type="Polygon2D" parent="BagBG"]
+color = Color(0.256086, 0.149754, 0, 1)
+polygon = PackedVector2Array(0, 300, 35.3418, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 0, 0, 0)
+
+[node name="BagFrontBottom" type="Polygon2D" parent="BagBG"]
+color = Color(0.254902, 0.14902, 0, 1)
+polygon = PackedVector2Array(0, 300, 36.5996, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 600, 0, 600)
+
+[node name="Zip" type="Node2D" parent="BagBG" node_paths=PackedStringArray("bag_front_top", "bag_front_bottom")]
+script = ExtResource("4_afod3")
+zip_colour_unheld = Color(0.359069, 0.359069, 0.359069, 1)
+zip_colour_dragging_success = Color(0.791999, 0.791999, 0.791999, 1)
+zip_colour_dragging_failure = Color(0.47788, 0.47788, 0.47788, 1)
+zip_line_variance = 80.0
+bag_front_top = NodePath("../BagFrontTop")
+bag_front_bottom = NodePath("../BagFrontBottom")
+
+[node name="ZipLine" type="Line2D" parent="BagBG/Zip"]
+position = Vector2(0, 300)
+points = PackedVector2Array(0, 0, 200, 0, 400, 0, 600, 0, 800, 0)
+default_color = Color(0.374139, 0.374139, 0.374139, 1)
+
+[node name="ZipHandle" type="Area2D" parent="BagBG/Zip"]
+position = Vector2(0, 300)
+
+[node name="Polygon2D" type="Polygon2D" parent="BagBG/Zip/ZipHandle"]
+z_index = 1
+z_as_relative = false
+polygon = PackedVector2Array(0, 0, 50, 20, 50, -20)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BagBG/Zip/ZipHandle"]
+z_index = 3
+z_as_relative = false
+position = Vector2(2.5, 278.75)
+polygon = PackedVector2Array(-2.5, -278.75, 47.5, -258.75, 47.5, -298.75)
+
+[node name="ZipEnd" type="Area2D" parent="BagBG/Zip"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BagBG/Zip/ZipEnd"]
+position = Vector2(820.307, 298.899)
+shape = SubResource("RectangleShape2D_h1vyj")
+
+[node name="SpawnLine" type="Path2D" parent="BagBG"]
+position = Vector2(47.4327, 296.402)
+curve = SubResource("Curve2D_fmava")
+
+[node name="BG1" type="Polygon2D" parent="."]
+position = Vector2(525, -326)
+rotation = 1.5708
+color = Color(0.301961, 0.301961, 0.301961, 1)
+polygon = PackedVector2Array(33, -31, 19, 535, 358, 529, 358, -31)
+
+[node name="BG2" type="Polygon2D" parent="."]
+position = Vector2(583, 525)
+rotation = 1.5708
+color = Color(0.301961, 0.301961, 0.301961, 1)
+polygon = PackedVector2Array(-137, -2, -138, 609, 157, 611, 144, -7)
+
+[node name="TestModeLabel" type="Node2D" parent="."]
+visible = false
+position = Vector2(691, 58)
+
+[node name="TestModeLabel" type="Label" parent="TestModeLabel"]
+offset_left = -52.0
+offset_top = -49.0
+offset_right = 67.0
+offset_bottom = -11.0
+text = "TEST MODE"
+
+[node name="RulesPanel" parent="TestModeLabel" instance=ExtResource("5_y63hi")]
+
+[node name="Boundaries" type="Node2D" parent="."]
+
+[node name="Bottom" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(300, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Bottom"]
+position = Vector2(-78, 0)
+shape = SubResource("WorldBoundaryShape2D_q0uva")
+
+[node name="Left" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(0, 362)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Left"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_dia86")
+
+[node name="Right" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(600, 339)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Right"]
+shape = SubResource("WorldBoundaryShape2D_1hy6g")
+
+[node name="Top" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(300, 0)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Top"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_mh1y0")
+
+[node name="Tray" type="StaticBody2D" parent="."]
+position = Vector2(377, 499)
+scale = Vector2(0.65307, 0.97255)
+
+[node name="Polygon2D" type="Polygon2D" parent="Tray"]
+color = Color(0.98275, 6.08854e-06, 1.54018e-06, 1)
+polygon = PackedVector2Array(0, 0, 20, 0, 20, 80, 96.6902, 79.9999, 280, 80, 280, 0, 300, 0, 300, 100, 0, 100)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tray"]
+polygon = PackedVector2Array(0, 0, 20, 0, 20, 80, 280, 80, 280, 0, 300, 0, 300, 100, -1, 99)
+
+[node name="DetectionArea" type="Area2D" parent="Tray"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tray/DetectionArea"]
+position = Vector2(150, -5)
+shape = SubResource("RectangleShape2D_q0uva")

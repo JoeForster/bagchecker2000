@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://1egx5sl1odcu"]
+[gd_scene load_steps=16 format=3 uid="uid://1egx5sl1odcu"]
 
-[ext_resource type="Script" uid="uid://be5cxlur1m30q" path="res://bag_minigames/bag_physics/minigame_bag_physics.gd" id="1_uhric"]
+[ext_resource type="Script" uid="uid://be5cxlur1m30q" path="res://bag_minigames/bag_clasp_physics/minigame_bag_physics.gd" id="1_uhric"]
 [ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://globals/game_rules_proto.tscn" id="2_hxame"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="3_pt3c8"]
-[ext_resource type="Script" uid="uid://c1vgtvhawyjr7" path="res://bag_minigames/bag_physics/bag_clasp.gd" id="4_vi636"]
+[ext_resource type="Script" uid="uid://c1vgtvhawyjr7" path="res://bag_minigames/bag_clasp_physics/bag_clasp.gd" id="4_vi636"]
+[ext_resource type="PackedScene" uid="uid://c74jpbdu182lb" path="res://levels/scanner_proto/rules_panel.tscn" id="5_h6bn7"]
 
 [sub_resource type="Animation" id="Animation_hxame"]
 length = 2.0
@@ -137,13 +138,6 @@ shape = SubResource("RectangleShape2D_hxame")
 position = Vector2(3.41573, 4.65288)
 curve = SubResource("Curve2D_nm5b0")
 
-[node name="TestModeLabel" type="Label" parent="."]
-offset_left = 13.0
-offset_top = 4.0
-offset_right = 132.0
-offset_bottom = 42.0
-text = "TEST MODE"
-
 [node name="Tray" type="StaticBody2D" parent="."]
 position = Vector2(377, 500)
 scale = Vector2(0.65307, 0.97255)
@@ -192,3 +186,16 @@ rotation = 1.5708
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Top"]
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_j5a5f")
+
+[node name="TestModeLabel" type="Node2D" parent="."]
+visible = false
+position = Vector2(691, 58)
+
+[node name="TestModeLabel" type="Label" parent="TestModeLabel"]
+offset_left = -52.0
+offset_top = -49.0
+offset_right = 67.0
+offset_bottom = -11.0
+text = "TEST MODE"
+
+[node name="RulesPanel" parent="TestModeLabel" instance=ExtResource("5_h6bn7")]

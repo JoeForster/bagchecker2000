@@ -4,7 +4,6 @@ extends MiniGameBase
 @export var open_dist = 240.0
 @export var complete_time = 1.0
 @export var clasps : Array[BagClasp]
-@export var bag_front : Node2D
 @export var contents_holder : Node2D
 @export var item_spawn_line : Path2D
 @export var tray_area : Area2D

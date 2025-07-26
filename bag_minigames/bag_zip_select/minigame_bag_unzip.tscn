@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://cpo7xuk2y20s3"]
 
-[ext_resource type="Script" uid="uid://bmcmrikj3e8ba" path="res://bag_minigames/bag_zip/minigame_bag_unzip.gd" id="1_3coqq"]
+[ext_resource type="Script" uid="uid://bmcmrikj3e8ba" path="res://bag_minigames/bag_zip_select/minigame_bag_unzip.gd" id="1_3coqq"]
 [ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://globals/game_rules_proto.tscn" id="2_rrr7o"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://conveyor_bag/bag_items/triangle.tscn" id="3_p46va"]
-[ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_minigames/bag_zip/bag_zip.gd" id="4_hy5y4"]
+[ext_resource type="Script" uid="uid://hdtwm1dnjbjk" path="res://bag_minigames/common/bag_zip.gd" id="4_hy5y4"]
 [ext_resource type="PackedScene" uid="uid://c74jpbdu182lb" path="res://levels/scanner_proto/rules_panel.tscn" id="5_frxfm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1vyj"]

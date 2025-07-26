@@ -8,7 +8,7 @@ extends MiniGameBase
 @export var bag_front_bottom : Node2D
 @export var contents_holder : Node2D
 
-# Internal sate values
+# Internal state values
 var opening = false
 var opened_dist = 0.0
 var complete_timer = -1.0
