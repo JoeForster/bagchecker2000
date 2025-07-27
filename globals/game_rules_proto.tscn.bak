@@ -10,6 +10,13 @@
 
 [node name="GameRules" type="Node"]
 script = ExtResource("1_k0dcv")
+initial_rule_count = null
+rule_count_add_per_shift = null
+max_rule_count = null
+rows_per_bag = null
+shapes_per_row = null
+bad_shapes_in_bag_min = null
+bad_shapes_in_bag_max = null
 shape_name_to_scene = {
 "Circle": ExtResource("2_tcjnq"),
 "Hexagon": ExtResource("3_aul36"),
@@ -22,6 +29,10 @@ possible_colours = {
 "Red": Color(1, 0, 0, 1),
 "Yellow": Color(1, 1, 0, 1)
 }
+score_per_safe_bag = null
+score_per_searched_bag = null
+penalty_per_mistake = null
+out_of_time_penalty = null
 extra_check_items = Array[PackedScene]([ExtResource("6_munt1")])
 
 [node name="ShiftRules_0" type="Node" parent="."]

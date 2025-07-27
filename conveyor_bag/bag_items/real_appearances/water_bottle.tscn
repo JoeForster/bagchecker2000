@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c1nyd27nd0uml"]
+
+[node name="WaterBottle" type="Node2D"]
+
+[node name="HexagonPoly" type="Polygon2D" parent="."]
+position = Vector2(-7, 3)
+color = Color(0, 1, 1, 1)
+polygon = PackedVector2Array(36, 77, 64, 32, 65, 11, 84, 12, 85, 33, 110, 77, 110, 150, 37, 150)

@@ -37,8 +37,12 @@ func _get_rules() -> GameRules:
 func _get_progression() -> GameProgression:
 	return GameProgressionProto
 
-func _generate_bag_contents(breaks_rule : bool) -> BagContents:
-	var new_bag_contents = _get_rules().generate_bag_contents(breaks_rule)
+class BagSpec:
+	var is_bad : bool
+	var extra_disposal_needed : bool
+
+func _generate_bag_contents(bag_spec : BagSpec) -> BagContents:
+	var new_bag_contents = _get_rules().generate_bag_contents(bag_spec.is_bad, bag_spec.extra_disposal_needed)
 	return new_bag_contents
 
 func _display_bag_contents(bag : ConveyorBag):
@@ -124,17 +128,20 @@ func _check_reject():
 
 func _ready():
 	# Generate t he bags- meeting our quota of "bad" bags in random order
-	var bags_bad_flags : Array[bool]
+	var bag_specs : Array[BagSpec]
 	var shift_rules = _get_rules().get_shift_rules()
 	assert(shift_rules.number_of_bad_bags <= shift_rules.number_of_bags, "number_of_bad_bags is larger than number_of_bags!!")
+	assert(shift_rules.number_of_bags_with_extra_disposal_needed <= shift_rules.number_of_bad_bags, "number_of_bags_with_extra_disposal_needed is larger than number_of_bad_bags!!")
 	for bag_index in range(0, shift_rules.number_of_bags):
-		var this_bag_is_bad = (bag_index < shift_rules.number_of_bad_bags)
-		bags_bad_flags.push_back(this_bag_is_bad)
-	bags_bad_flags.shuffle()
+		var new_spec = BagSpec.new()
+		new_spec.is_bad = (bag_index < shift_rules.number_of_bad_bags)
+		new_spec.extra_disposal_needed = (bag_index < shift_rules.number_of_bags_with_extra_disposal_needed)
+		bag_specs.push_back(new_spec)
+	bag_specs.shuffle()
 
 	bags_left_to_spawn.clear()
-	for this_bag_is_bad in bags_bad_flags:
-		var new_bag = _generate_bag_contents(this_bag_is_bad)
+	for bag_spec in bag_specs:
+		var new_bag = _generate_bag_contents(bag_spec)
 		assert(new_bag, "could not generate new bag - rule issue?")
 		if new_bag != null:
 			bags_left_to_spawn.push_back(new_bag)

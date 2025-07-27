@@ -5,7 +5,7 @@
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_1hh0h"]
 points = PackedVector2Array(0, 0, 150, 0, 150, 150, 0, 150)
 
-[node name="Square" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
+[node name="Square" type="RigidBody2D" node_paths=PackedStringArray("shape_node", "scanned_appearance")]
 process_mode = 4
 collision_layer = 3
 input_pickable = true
@@ -13,6 +13,7 @@ freeze = true
 script = ExtResource("1_iqrqo")
 shape_name = "Square"
 shape_node = NodePath("Square")
+scanned_appearance = NodePath("Square")
 
 [node name="Square" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(0, 0, 0, 150, 150, 150, 150, 0)

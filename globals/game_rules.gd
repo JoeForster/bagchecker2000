@@ -15,6 +15,7 @@ extends Node
 @export var score_per_searched_bag = 50
 @export var penalty_per_mistake = 60
 @export var out_of_time_penalty = 100
+@export var extra_check_items : Array[PackedScene]
 
 class Rule:
 	var restricted_shape : String
@@ -41,8 +42,13 @@ func shape_breaks_rule(shape : ScannedShape) -> bool:
 			return true
 	return false
 
+	
+class BagItemSpec:
+	var breaks_rule  = false
+	var extra_check_needed = false
+	var real_item : PackedScene = null
 
-func generate_bag_contents(breaks_rule : bool):
+func generate_bag_contents(bag_breaks_rule : bool, extra_check_needed : bool):
 	if possible_shape_colour_combos_passing_rule.is_empty() || possible_shape_colour_combos_failing_rule.is_empty():
 		# this means "no possible bag is valid", so we want to return null
 		# meaning erroneous rather than an empty bag.
@@ -51,31 +57,48 @@ func generate_bag_contents(breaks_rule : bool):
 	var new_bag_contents = BagContents.new()
 	# A random number of shapes 
 	var num_shapes_in_bag = rows_per_bag * shapes_per_row
-	var rule_breaking_shapes : Array[bool]
-	if breaks_rule:
+	var num_extra_check_items = 1 if extra_check_needed else 0
+	
+	var item_specs : Array[BagItemSpec]
+	if bag_breaks_rule:
 		assert(bad_shapes_in_bag_min > 0 && bad_shapes_in_bag_min <= bad_shapes_in_bag_max && bad_shapes_in_bag_max <= num_shapes_in_bag)
 		var num_rule_breakers = randi_range(bad_shapes_in_bag_min, bad_shapes_in_bag_max)
 		for i in range(0, num_shapes_in_bag):
-			rule_breaking_shapes.push_back(i < num_rule_breakers)
-		rule_breaking_shapes.shuffle()
+			var item_spec = BagItemSpec.new()
+			item_spec.breaks_rule = (i < num_rule_breakers)
+			if item_spec.breaks_rule and num_extra_check_items > 0 and not extra_check_items.is_empty():
+				item_spec.extra_check_needed = true
+				item_spec.real_item = extra_check_items.pick_random()
+				num_extra_check_items -= 1
+			item_specs.push_back(item_spec)
+		item_specs.shuffle()
 	else:
 		for i in range(0, num_shapes_in_bag):
-			rule_breaking_shapes.push_back(false)
+			item_specs.push_back(BagItemSpec.new())
+	assert(item_specs.size() == num_shapes_in_bag)
 
 	var overall_shape_index = 0
 	for row_index in range(0, rows_per_bag):
 		var offset = Vector2.ZERO
 		var shape_row = new_bag_contents.add_row()
 		for row_shape_index in range(shapes_per_row):
-			var this_shape_breaks_rule = rule_breaking_shapes[overall_shape_index]
-			var possible_combos = possible_shape_colour_combos_passing_rule if this_shape_breaks_rule else possible_shape_colour_combos_failing_rule
+			var this_shape_spec : BagItemSpec = item_specs[overall_shape_index]
+			var possible_combos = possible_shape_colour_combos_passing_rule if this_shape_spec.breaks_rule else possible_shape_colour_combos_failing_rule
 			var new_shape_orig : ScannedShape = possible_combos.pick_random()
-			var new_shape_dupe = new_shape_orig.clone()
+			var new_shape_dupe : ScannedShape = new_shape_orig.clone()
 			shape_row.add_child(new_shape_dupe)
 			new_shape_dupe.set_owner(shape_row)
 			new_shape_dupe.translate(offset)
 			offset.x += new_shape_dupe.shape_width_in_scanner
 			
+			# HACK: For now just the first shape is the extra one; make it random.
+			if this_shape_spec.real_item:
+				var real_appearance = this_shape_spec.real_item.instantiate()
+				real_appearance.set_visible(false)
+				new_shape_dupe.add_child(real_appearance)
+				real_appearance.set_owner(new_shape_dupe)
+				new_shape_dupe.real_appearance = real_appearance
+				new_shape_dupe.name = "CHECK_ITEM_TEST"
 			overall_shape_index += 1
 	
 	return new_bag_contents

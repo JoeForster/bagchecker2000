@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://conveyor_bag/scanned_shape.gd" id="1_gck25"]
 
-[node name="Triangle" type="RigidBody2D" node_paths=PackedStringArray("shape_node")]
+[node name="Triangle" type="RigidBody2D" node_paths=PackedStringArray("shape_node", "scanned_appearance")]
 process_mode = 4
 collision_layer = 3
 input_pickable = true
@@ -11,6 +11,7 @@ freeze = true
 script = ExtResource("1_gck25")
 shape_name = "Triangle"
 shape_node = NodePath("Triangle")
+scanned_appearance = NodePath("Triangle")
 
 [node name="Triangle" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(0, 150, 75, 0, 150, 150)

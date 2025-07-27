@@ -23,7 +23,7 @@ func _ready() -> void:
 	is_test_mode = self.get_parent() == get_tree().root
 	$TestModeLabel.set_visible(is_test_mode)
 	if is_test_mode:
-		var test_contents = test_rules.generate_bag_contents(true)
+		var test_contents = test_rules.generate_bag_contents(true, true)
 		init_with_contents(test_rules, test_contents)
 		GameRulesProto.current_rules = test_rules.current_rules
 		GameRulesProto.HACK_ui_dirty = true

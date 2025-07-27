@@ -6,6 +6,8 @@ extends RigidBody2D
 @export var shape_name : String
 @export var shape_node : Node2D
 @export var shape_width_in_scanner = 200.0
+@export var scanned_appearance : Node2D
+@export var real_appearance : Node2D
 
 var colour : Color
 var colour_name : String
@@ -17,7 +19,11 @@ func enable_physics():
 		freeze = false
 		freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 		input_event.connect(_on_input_event)
+		if real_appearance:
+			scanned_appearance.set_visible(false)
+			real_appearance.set_visible(true)
 		physics_enabled = true
+		
 
 func set_colour_and_name(new_colour : Color, new_colour_name: String):
 	shape_node.set_color(new_colour)
@@ -25,7 +31,8 @@ func set_colour_and_name(new_colour : Color, new_colour_name: String):
 	colour_name = new_colour_name
 
 func clone():
-	var new_node = duplicate()
+	# HACK workaround for issue with real_appearance, doesn't work with DUPLICATE_INSTANTIATION for some reasion?
+	var new_node = duplicate(DUPLICATE_SIGNALS | DUPLICATE_GROUPS | DUPLICATE_SCRIPTS)
 	new_node.set_colour_and_name(colour, colour_name)
 	return new_node
 
