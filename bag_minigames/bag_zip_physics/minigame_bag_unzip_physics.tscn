@@ -105,13 +105,13 @@ curve = SubResource("Curve2D_fmava")
 position = Vector2(525, -326)
 rotation = 1.5708
 color = Color(0.301961, 0.301961, 0.301961, 1)
-polygon = PackedVector2Array(33, -31, 19, 535, 358, 529, 358, -31)
+polygon = PackedVector2Array(262, 123.999, 267.002, 528.999, 361.002, 528.999, 361, 123.999)
 
 [node name="BG2" type="Polygon2D" parent="."]
-position = Vector2(583, 525)
+position = Vector2(515, 399)
 rotation = 1.5708
 color = Color(0.301961, 0.301961, 0.301961, 1)
-polygon = PackedVector2Array(-137, -2, -138, 609, 157, 611, 144, -7)
+polygon = PackedVector2Array(-136.999, 140.001, -136.998, 501.001, -14.9982, 496, -15.9995, 130)
 
 [node name="TestModeLabel" type="Node2D" parent="."]
 visible = false

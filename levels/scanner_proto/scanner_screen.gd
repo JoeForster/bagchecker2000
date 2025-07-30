@@ -39,10 +39,10 @@ func _get_progression() -> GameProgression:
 
 class BagSpec:
 	var is_bad : bool
-	var extra_disposal_needed : bool
+	var extra_check_needed : bool
 
 func _generate_bag_contents(bag_spec : BagSpec) -> BagContents:
-	var new_bag_contents = _get_rules().generate_bag_contents(bag_spec.is_bad, bag_spec.extra_disposal_needed)
+	var new_bag_contents = _get_rules().generate_bag_contents(bag_spec.is_bad, bag_spec.extra_check_needed)
 	return new_bag_contents
 
 func _display_bag_contents(bag : ConveyorBag):
@@ -53,7 +53,7 @@ func _display_bag_contents(bag : ConveyorBag):
 	for show_row : Node2D in scanned_bag_contents.get_rows():
 		show_row.set_position(offset)
 		show_row.set_visible(true)
-		offset.y += 200
+		offset.y += 100
 
 func _clear_displayed_contents():
 	for child in get_children():
@@ -131,11 +131,11 @@ func _ready():
 	var bag_specs : Array[BagSpec]
 	var shift_rules = _get_rules().get_shift_rules()
 	assert(shift_rules.number_of_bad_bags <= shift_rules.number_of_bags, "number_of_bad_bags is larger than number_of_bags!!")
-	assert(shift_rules.number_of_bags_with_extra_disposal_needed <= shift_rules.number_of_bad_bags, "number_of_bags_with_extra_disposal_needed is larger than number_of_bad_bags!!")
+	assert(shift_rules.number_of_bags_with_extra_check_needed <= shift_rules.number_of_bad_bags, "number_of_bags_with_extra_check_needed is larger than number_of_bad_bags!!")
 	for bag_index in range(0, shift_rules.number_of_bags):
 		var new_spec = BagSpec.new()
 		new_spec.is_bad = (bag_index < shift_rules.number_of_bad_bags)
-		new_spec.extra_disposal_needed = (bag_index < shift_rules.number_of_bags_with_extra_disposal_needed)
+		new_spec.extra_check_needed = (bag_index < shift_rules.number_of_bags_with_extra_check_needed)
 		bag_specs.push_back(new_spec)
 	bag_specs.shuffle()
 

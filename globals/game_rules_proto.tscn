@@ -29,6 +29,7 @@ script = ExtResource("6_3yakh")
 time_limit = 100.0
 number_of_bags = 5
 number_of_bad_bags = 1
+number_of_bags_with_extra_check_needed = 1
 passing_score_threshold = 100
 
 [node name="ShiftRules_1" type="Node" parent="."]
@@ -36,9 +37,11 @@ script = ExtResource("6_3yakh")
 time_limit = 120.0
 number_of_bags = 8
 number_of_bad_bags = 3
+number_of_bags_with_extra_check_needed = 1
 passing_score_threshold = 200
 
 [node name="ShiftRules_2" type="Node" parent="."]
 script = ExtResource("6_3yakh")
 time_limit = 120.0
+number_of_bags_with_extra_check_needed = 3
 passing_score_threshold = 300

@@ -13,15 +13,15 @@ shape_node = NodePath("HexagonPoly")
 scanned_appearance = NodePath("HexagonPoly")
 
 [node name="HexagonPoly" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(0, 75, 40, 0, 110, 0, 150, 75, 110, 150, 40, 150)
+polygon = PackedVector2Array(0, 37.5, 20, 0, 55, 0, 75, 37.5, 55, 75, 20, 75)
 
 [node name="Highlighter" type="Line2D" parent="."]
 visible = false
-points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 150)
+points = PackedVector2Array(0, 0, 37.5, 37.5, 75, 75, 37.5, 37.5, 75, 0, 37.5, 37.5, 0, 75)
 default_color = Color(1, 0, 1, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(40, 0, 110, 0, 150, 75, 110, 150, 40, 150, 0, 75)
+polygon = PackedVector2Array(20, 0, 55, 0, 75, 37.5, 55, 75, 20, 75, 0, 37.5)
 
 [node name="DragPoint" type="Marker2D" parent="."]
 position = Vector2(75, 75)

@@ -59,10 +59,6 @@ func _process(delta: float) -> void:
 					var spawn_point = item_spawn_line.curve.sample(point_index, point_interp)
 					var spawn_point_global = item_spawn_line.to_global(spawn_point)
 					show_shape.set_global_position(spawn_point_global)
-					# HACK
-					for shape_child in show_shape.get_children():
-						shape_child.set_global_scale(Vector2(0.5, 0.5))
-						
 					if rules.shape_breaks_rule(show_shape):
 						forbidden_items_for_tray.push_back(show_shape)
 			spawned_items = true

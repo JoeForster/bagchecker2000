@@ -14,15 +14,15 @@ shape_node = NodePath("Triangle")
 scanned_appearance = NodePath("Triangle")
 
 [node name="Triangle" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(0, 150, 75, 0, 150, 150)
+polygon = PackedVector2Array(0, 75, 37.5, 0, 75, 75)
 
 [node name="Highlighter" type="Line2D" parent="."]
 visible = false
-points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 150)
+points = PackedVector2Array(0, 0, 37.5, 37.5, 75, 75, 37.5, 37.5, 75, 0, 37.5, 37.5, 0, 75)
 default_color = Color(1, 0, 1, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(75, 0, 150, 150, 0, 150)
+polygon = PackedVector2Array(37.5, 0, 75, 75, 0, 75)
 
 [node name="DragPoint" type="Marker2D" parent="."]
-position = Vector2(75, 75)
+position = Vector2(37, 43)

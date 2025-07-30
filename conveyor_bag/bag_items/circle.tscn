@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxohy4i7chyl3"]
+[gd_scene load_steps=3 format=3 uid="uid://cxohy4i7chyl3"]
 
 [ext_resource type="Script" uid="uid://bxpsm4u7gbig0" path="res://conveyor_bag/bag_items/circle_2d.gd" id="1_je52t"]
 [ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://conveyor_bag/scanned_shape.gd" id="1_t0or2"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_c8xoc"]
-radius = 75.0
 
 [node name="Circle" type="RigidBody2D" node_paths=PackedStringArray("shape_node", "scanned_appearance")]
 process_mode = 4
@@ -16,18 +13,18 @@ shape_node = NodePath("CircleShape")
 scanned_appearance = NodePath("CircleShape")
 
 [node name="CircleShape" type="Node2D" parent="."]
-position = Vector2(75, 75)
+position = Vector2(37.5, 37.5)
 script = ExtResource("1_je52t")
-radius = 75.0
+radius = 37.5
 
 [node name="Highlighter" type="Line2D" parent="."]
 visible = false
-points = PackedVector2Array(0, 0, 75, 75, 150, 150, 75, 75, 150, 0, 75, 75, 0, 150)
+points = PackedVector2Array(0, 0, 37.5, 37.5, 75, 75, 37.5, 37.5, 75, 0, 37.5, 37.5, 0, 75)
 default_color = Color(1, 0, 1, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(75, 75)
-shape = SubResource("CircleShape2D_c8xoc")
-
 [node name="DragPoint" type="Marker2D" parent="."]
-position = Vector2(75, 75)
+position = Vector2(37.5, 37.5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(0.5, 0.5)
+polygon = PackedVector2Array(40, 9, 75, 0, 111, 9, 141, 36, 150, 75, 140, 115, 111, 141, 73, 152, 40, 141, 11, 115, 0, 75, 10, 36)

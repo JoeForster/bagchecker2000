@@ -12,7 +12,7 @@ extends Node2D
 		queue_redraw()
 
 func _draw():
-	draw_circle(Vector2(0,0), radius, color)
+	draw_circle(Vector2.ZERO, radius, color)
 
 func set_color(new_color : Color):
 	self.color = new_color

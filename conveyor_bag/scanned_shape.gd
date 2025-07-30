@@ -5,7 +5,7 @@ extends RigidBody2D
 
 @export var shape_name : String
 @export var shape_node : Node2D
-@export var shape_width_in_scanner = 200.0
+@export var shape_width_in_scanner = 100.0
 @export var scanned_appearance : Node2D
 @export var real_appearance : Node2D
 
@@ -22,6 +22,15 @@ func enable_physics():
 		if real_appearance:
 			scanned_appearance.set_visible(false)
 			real_appearance.set_visible(true)
+			# HACK: Assume we have a polygon collision and change it to match
+			# the "real" object since it is otherwise pure visual better would
+			# be to separate the real from the scanned object in code,
+			# but big refactor..
+			var poly = real_appearance.get_node_or_null("Polygon2D")
+			var collision = get_node_or_null("CollisionPolygon2D") as CollisionPolygon2D
+			if poly and collision:
+				collision.set_polygon(poly.get_polygon())
+			
 		physics_enabled = true
 		
 
