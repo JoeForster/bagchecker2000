@@ -3,12 +3,16 @@ extends MiniGameBase
 @export var open_speed = 100.0
 @export var open_dist = 80.0
 @export var complete_time = 1.0
+@export var light_time = 1.0
 @export var zips : Array[BagZip]
 @export var bag_front_top : Node2D
 @export var bag_front_bottom : Node2D
 @export var contents_holder : Node2D
 @export var item_spawn_line : Path2D
 @export var tray_area : Area2D
+@export var repack_button : Button
+@export var repack_indicator : Circle2D
+@export var item_scanner : ItemScanner
 
 # Internal state
 var forbidden_items_for_tray : Array[ScannedShape]
@@ -16,6 +20,7 @@ var spawned_items = false
 var opening = false
 var opened_dist = 0.0
 var complete_timer = -1.0
+var light_timer = -1.0
 
 func init_with_contents(game_rules : GameRules, new_bag_contents : BagContents):
 	super(game_rules, new_bag_contents)
@@ -39,10 +44,12 @@ func _start_opening_bag():
 
 func _spawn_items():
 	# take all the shapes out of the bag and spawn them so they'll fall
+	item_scanner.items_needing_scan.clear()
 	for show_row : Node2D in contents_holder.get_child(0).get_rows():
 		for show_shape : ScannedShape in show_row.get_children():
 			show_row.remove_child(show_shape)
-			add_sibling(show_shape)
+			add_child(show_shape)
+			show_shape.set_owner(self)
 			show_shape.set_visible(true)
 			show_shape.set_process_mode(Node.PROCESS_MODE_INHERIT)
 			show_shape.enable_physics()
@@ -53,7 +60,9 @@ func _spawn_items():
 			var spawn_point_global = item_spawn_line.to_global(spawn_point)
 			show_shape.set_global_position(spawn_point_global)
 
-			if rules.shape_breaks_rule(show_shape):
+			if show_shape.real_appearance:
+				item_scanner.items_needing_scan.push_back(show_shape)
+			if rules.shape_breaks_rule(show_shape) and (!show_shape.real_appearance or !show_shape.is_legit):
 				forbidden_items_for_tray.push_back(show_shape)
 
 # TODO for multi-bag + check: replace this mess with a state machine & separate out
@@ -75,13 +84,27 @@ func _process(delta: float) -> void:
 			_spawn_items()
 			spawned_items = true
 	# #3 CHECKING ITEMS STATE - wait for forbidden items processing to be satisfied 
+	var valid_repack = false
 	if spawned_items && complete_timer == -1.0:
 		# Assumes only items can overlap with the area (should be set in layers)
-		if tray_area.get_overlapping_bodies().size() == forbidden_items_for_tray.size():
-			var all_correct_items_in_tray = true
+		# also only allow us to repack if we've scanned all the items that need it
+		if item_scanner.items_needing_scan.is_empty() and tray_area.get_overlapping_bodies().size() == forbidden_items_for_tray.size():
+			valid_repack = true
 			for body in forbidden_items_for_tray:
 				if body not in tray_area.get_overlapping_bodies():
-					all_correct_items_in_tray = false
+					valid_repack = false
 					break
-			if all_correct_items_in_tray:
+	
+		if light_timer > 0.0:
+			light_timer -= delta
+			if light_timer <= 0.0:
+				light_timer = 0.0
+				repack_indicator.set_color(Color.BLACK)
+		
+		if repack_button.is_pressed():
+			if valid_repack:
 				complete_timer = complete_time
+				repack_indicator.set_color(Color.GREEN)
+			else:
+				repack_indicator.set_color(Color.RED)
+			light_timer = light_time

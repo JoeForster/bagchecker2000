@@ -3,7 +3,7 @@
 [node name="WaterBottle" type="Node2D"]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2(1.73077, 0)
-scale = Vector2(0.711538, 1)
+position = Vector2(68, 81)
 color = Color(0, 1, 1, 1)
+offset = Vector2(-78, -89)
 polygon = PackedVector2Array(10, 40, 30, 20, 30, 8, 40, 8, 40, 20, 60, 40, 60, 75, 10, 75)

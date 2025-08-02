@@ -1,6 +1,7 @@
 @tool
 
 extends Node2D
+class_name Circle2D
 
 @export var color : Color = Color.WHITE :
 	set(value):

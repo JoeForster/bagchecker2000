@@ -9,6 +9,7 @@ extends RigidBody2D
 @export var scanned_appearance : Node2D
 @export var real_appearance : Node2D
 
+var is_legit = true
 var colour : Color
 var colour_name : String
 var mouse_dragging = false

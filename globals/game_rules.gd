@@ -99,6 +99,8 @@ func generate_bag_contents(bag_breaks_rule : bool, extra_check_needed : bool):
 				real_appearance.set_owner(new_shape_dupe)
 				new_shape_dupe.real_appearance = real_appearance
 				new_shape_dupe.name = "CHECK_ITEM_TEST"
+				new_shape_dupe.is_legit = (randi() % 2 == 0)
+
 			overall_shape_index += 1
 	
 	return new_bag_contents
