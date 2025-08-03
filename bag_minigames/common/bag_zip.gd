@@ -7,6 +7,9 @@ var dragging_mouse_pos : Vector2
 var zip_next_point_pos : Vector2
 var zip_colour : Color
 
+@export var zip_handle : Area2D
+@export var zip_line : Line2D
+@export var zip_end : Area2D
 @export var zip_colour_unheld : Color
 @export var zip_colour_dragging_success : Color
 @export var zip_colour_dragging_failure : Color
@@ -18,14 +21,15 @@ var zip_colour : Color
 @export var zip_line_variance = 100.0
 @export var bag_front_top : Polygon2D
 @export var bag_front_bottom : Polygon2D
+@export var bag_section_index = -1
 
 signal on_zip_opened
 
 
 func _on_zip_reached_end() -> void:
-	$ZipHandle.queue_free()
-	$ZipLine.queue_free()
-	on_zip_opened.emit()
+	zip_handle.queue_free()
+	zip_line.queue_free()
+	on_zip_opened.emit(bag_section_index)
 	
 func _on_zip_end_entered(_area_rid: RID, area: Area2D, _area_shape_index: int, _local_shape_index: int) -> void:
 	if has_node("ZipHandle") && area == $ZipHandle:
@@ -37,8 +41,6 @@ func _on_mouse_move_with_zip(_mouse_event : InputEventMouseMotion):
 	# next point along the zip should be. Use that to determine th e drag angle
 	# for rotating the angle and deciding whether to move it in _update_zip_handle
 	# TODO inefficient and I know this can be done geometrically but I'm in a hurry.
-	var zip_line : Line2D = $ZipLine
-	var zip_handle : Node2D = $ZipHandle
 	var closest_dist_sq = -1
 	var point_after_closest_point_to_handle : Vector2 = to_global(zip_line.get_point_position(zip_line.get_point_count()-1))
 	var zip_handle_pos = zip_handle.get_global_position()
@@ -63,7 +65,7 @@ func _on_mouse_move_with_zip(_mouse_event : InputEventMouseMotion):
 
 	zip_next_point_pos = point_after_closest_point_to_handle
 
-func _update_zip_handle(delta: float, zip_handle: Area2D):
+func _update_zip_handle(delta: float):
 	var zip_poly = zip_handle.get_node("Polygon2D")
 	if mouse_held:
 		zip_poly.color = Color.WHITE
@@ -99,12 +101,13 @@ func _input(event: InputEvent) -> void:
 			_on_mouse_move_with_zip(move_event)
 
 func _randomise_zip() -> void:
-	var zip_line : Line2D = $ZipLine
-	var zip_handle : Node2D = $ZipHandle
-	
-	var bfb_polygon = bag_front_bottom.get_polygon()
-	var bft_polygon = bag_front_top.get_polygon()
-	
+	var has_bag_front = bag_front_bottom != null && bag_front_top != null
+	var bfb_polygon : PackedVector2Array
+	var bft_polygon : PackedVector2Array
+	if has_bag_front:
+		bfb_polygon = bag_front_bottom.get_polygon()
+		bft_polygon = bag_front_top.get_polygon()
+
 	for point_index in range(zip_line.get_point_count()):
 		var point_pos = zip_line.get_point_position(point_index)
 		var y_random_delta = randf_range(-zip_line_variance, zip_line_variance)
@@ -112,23 +115,26 @@ func _randomise_zip() -> void:
 		zip_line.set_point_position(point_index, point_pos)
 		if point_index == 0:
 			zip_handle.position.y += y_random_delta
-		for poly in [bfb_polygon, bft_polygon]:
-			var poly_point = poly.get(point_index)
-			poly_point.y += y_random_delta
-			poly.set(point_index, poly_point)
+		
+		if has_bag_front:
+			for poly in [bfb_polygon, bft_polygon]:
+				var poly_point = poly.get(point_index)
+				poly_point.y += y_random_delta
+				poly.set(point_index, poly_point)
 
-	bag_front_bottom.set_polygon(bfb_polygon)
-	bag_front_top.set_polygon(bft_polygon)
+	if has_bag_front:
+		bag_front_bottom.set_polygon(bfb_polygon)
+		bag_front_top.set_polygon(bft_polygon)
 
 func _ready() -> void:
-	$ZipHandle.input_event.connect(_on_input_event)
-	zip_colour = $ZipHandle/Polygon2D.color
+	zip_handle.input_event.connect(_on_input_event)
+	zip_colour = zip_handle.get_node("Polygon2D").color
 	
-	$ZipEnd.area_shape_entered.connect(_on_zip_end_entered)
+	zip_end.area_shape_entered.connect(_on_zip_end_entered)
 	
 	if zip_line_variance > 0.0:
 		_randomise_zip()
 
 func _process(delta: float) -> void:
-	if has_node("ZipHandle"):
-		_update_zip_handle(delta, $ZipHandle)
+	if zip_handle:
+		_update_zip_handle(delta)

@@ -16,8 +16,9 @@ extends MiniGameBase
 
 # Internal state
 var forbidden_items_for_tray : Array[ScannedShape]
-var spawned_items = false
+var spawned_all_items = false
 var opening = false
+var opening_section = -1
 var opened_dist = 0.0
 var complete_timer = -1.0
 var light_timer = -1.0
@@ -39,14 +40,20 @@ func _on_clasp_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, 
 	if click_event and click_event.button_index == 1 and click_event.pressed:
 		clasp.open()
 
-func _start_opening_bag():
+func _start_opening_bag(bag_section_index: int):
 	opening = true
+	opening_section = bag_section_index
 
-func _spawn_items():
+func _spawn_items(section_index : int):
 	# take all the shapes out of the bag and spawn them so they'll fall
 	item_scanner.items_needing_scan.clear()
+	var has_any_left = false
 	for show_row : Node2D in contents_holder.get_child(0).get_rows():
 		for show_shape : ScannedShape in show_row.get_children():
+			if section_index >= 0 && show_shape.bag_section_id != section_index:
+				has_any_left = true
+				continue # Skip item not in specified section
+			
 			show_row.remove_child(show_shape)
 			add_child(show_shape)
 			show_shape.set_owner(self)
@@ -65,6 +72,8 @@ func _spawn_items():
 			if rules.shape_breaks_rule(show_shape) and (!show_shape.real_appearance or !show_shape.is_legit):
 				forbidden_items_for_tray.push_back(show_shape)
 
+	spawned_all_items = !has_any_left
+
 # TODO for multi-bag + check: replace this mess with a state machine & separate out
 # the different bag open methods from the item check methods if it keeps getting duplicated.
 func _process(delta: float) -> void:
@@ -75,17 +84,21 @@ func _process(delta: float) -> void:
 			complete()
 	# #2 OPENING STATE: Move the bag BG a certain distance before moving to the CHECKING state
 	elif opening:
-		bag_front_top.translate(Vector2(0, -open_speed * delta))
-		bag_front_bottom.translate(Vector2(0, open_speed * delta))
-		opened_dist += open_speed * delta
-		if opened_dist >= open_dist:
+		# HARD-CODED bag sections: 0 opens gradually, any others open instantly.
+		if opening_section <= 0:
+			bag_front_top.translate(Vector2(0, -open_speed * delta))
+			bag_front_bottom.translate(Vector2(0, open_speed * delta))
+			opened_dist += open_speed * delta
+			if opened_dist >= open_dist:
+				opening = false
+				_spawn_items(opening_section)
+		else:
 			opening = false
-			assert(!spawned_items)
-			_spawn_items()
-			spawned_items = true
+			_spawn_items(opening_section)
+			
 	# #3 CHECKING ITEMS STATE - wait for forbidden items processing to be satisfied 
 	var valid_repack = false
-	if spawned_items && complete_timer == -1.0:
+	if spawned_all_items && complete_timer == -1.0:
 		# Assumes only items can overlap with the area (should be set in layers)
 		# also only allow us to repack if we've scanned all the items that need it
 		if item_scanner.items_needing_scan.is_empty() and tray_area.get_overlapping_bodies().size() == forbidden_items_for_tray.size():

@@ -8,8 +8,10 @@ extends RigidBody2D
 @export var shape_width_in_scanner = 100.0
 @export var scanned_appearance : Node2D
 @export var real_appearance : Node2D
+@export var bag_section_id = 0
+@export var is_legit = true
 
-var is_legit = true
+# NOTE these won't be copied when added to a minigame via clone so should only be runtime values!
 var colour : Color
 var colour_name : String
 var mouse_dragging = false

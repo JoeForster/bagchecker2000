@@ -7,6 +7,8 @@ extends Node2D
 @export var scroll_speed : float = 100.0
 @export var bag_spawn_point : Node2D
 @export var bag_dest_point : Node2D
+# TODO this should be moved into game rules but avoid circular dependency between bag scenes -> minigames -> rules scene!
+# (make a separate mapping so you can mix/match the bag and minigame types per shift ideally)
 @export var possible_bags : Array[PackedScene]
 
 signal bag_reached_bottom

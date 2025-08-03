@@ -47,6 +47,7 @@ class BagItemSpec:
 	var breaks_rule  = false
 	var extra_check_needed = false
 	var real_item : PackedScene = null
+	var bag_section_id = 0
 
 func generate_bag_contents(bag_breaks_rule : bool, extra_check_needed : bool):
 	if possible_shape_colour_combos_passing_rule.is_empty() || possible_shape_colour_combos_failing_rule.is_empty():
@@ -59,23 +60,28 @@ func generate_bag_contents(bag_breaks_rule : bool, extra_check_needed : bool):
 	var num_shapes_in_bag = rows_per_bag * shapes_per_row
 	var num_extra_check_items = 1 if extra_check_needed else 0
 	
+	# Set up item specs for any bag
 	var item_specs : Array[BagItemSpec]
+	item_specs.resize(num_shapes_in_bag)
+	for i in range (num_shapes_in_bag):
+		var item_spec = BagItemSpec.new()
+		item_spec.bag_section_id = i % 2
+		item_specs[i] = item_spec
+
+	# set up items that break the rules, if this is needed
 	if bag_breaks_rule:
 		assert(bad_shapes_in_bag_min > 0 && bad_shapes_in_bag_min <= bad_shapes_in_bag_max && bad_shapes_in_bag_max <= num_shapes_in_bag)
 		var num_rule_breakers = randi_range(bad_shapes_in_bag_min, bad_shapes_in_bag_max)
 		for i in range(0, num_shapes_in_bag):
-			var item_spec = BagItemSpec.new()
+			var item_spec = item_specs[i]
 			item_spec.breaks_rule = (i < num_rule_breakers)
 			if item_spec.breaks_rule and num_extra_check_items > 0 and not extra_check_items.is_empty():
 				item_spec.extra_check_needed = true
 				item_spec.real_item = extra_check_items.pick_random()
 				num_extra_check_items -= 1
-			item_specs.push_back(item_spec)
-		item_specs.shuffle()
-	else:
-		for i in range(0, num_shapes_in_bag):
-			item_specs.push_back(BagItemSpec.new())
-	assert(item_specs.size() == num_shapes_in_bag)
+
+	# Randomise the items (even if not rule-breaking, e.g. for bag_section_id)
+	item_specs.shuffle()
 
 	var overall_shape_index = 0
 	for row_index in range(0, rows_per_bag):
@@ -90,6 +96,9 @@ func generate_bag_contents(bag_breaks_rule : bool, extra_check_needed : bool):
 			new_shape_dupe.set_owner(shape_row)
 			new_shape_dupe.translate(offset)
 			offset.x += new_shape_dupe.shape_width_in_scanner
+			
+			var section_id = this_shape_spec.bag_section_id
+			new_shape_dupe.bag_section_id = section_id
 			
 			# HACK: For now just the first shape is the extra one; make it random.
 			if this_shape_spec.real_item:

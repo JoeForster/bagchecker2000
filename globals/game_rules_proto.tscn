@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdtkv0d3nr14"]
+[gd_scene load_steps=10 format=3 uid="uid://bdtkv0d3nr14"]
 
 [ext_resource type="Script" uid="uid://d0a6nmdhlbgy6" path="res://globals/game_rules.gd" id="1_k0dcv"]
 [ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://conveyor_bag/bag_items/circle.tscn" id="2_tcjnq"]

@@ -20,7 +20,7 @@ func init_with_contents(game_rules : GameRules, new_bag_contents : BagContents):
 	contents_holder.add_child(bag_contents)
 	bag_contents.set_owner(contents_holder)
 
-func _start_opening_bag():
+func _start_opening_bag(bag_section_index : int):
 	opening = true
 	var offset = Vector2.ZERO
 	# HACK
