@@ -49,7 +49,8 @@ func _process(delta: float) -> void:
 			for show_row : Node2D in contents_holder.get_child(0).get_rows():
 				for show_shape : ScannedShape in show_row.get_children():
 					show_row.remove_child(show_shape)
-					add_sibling(show_shape)
+					add_child(show_shape)
+					show_shape.set_owner(self)
 					show_shape.set_visible(true)
 					show_shape.set_process_mode(Node.PROCESS_MODE_INHERIT)
 					show_shape.enable_physics()
