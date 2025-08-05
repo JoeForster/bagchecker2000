@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameRulesProto="*res://globals/game_rules_proto.tscn"
-GameProgressionProto="*res://globals/game_progression.gd"
+GameRulesProto="*res://scenes/globals/game_rules_proto.tscn"
+GameProgressionProto="*res://scripts/game_progression.gd"
 
 [display]
 

@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5rtxv5uwpvtw"]
+
+[ext_resource type="Script" uid="uid://bqfiiebovdef" path="res://scripts/conveyor_bag.gd" id="1_fh3dm"]
+[ext_resource type="PackedScene" uid="uid://1egx5sl1odcu" path="res://scenes/bag_minigames/minigame_bag_physics.tscn" id="2_7rjik"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ftnk"]
+size = Vector2(132, 84)
+
+[node name="ConveyorBag" type="RigidBody2D"]
+collision_layer = 3
+gravity_scale = 0.0
+script = ExtResource("1_fh3dm")
+possible_minigames = Array[PackedScene]([ExtResource("2_7rjik")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(64, 40)
+shape = SubResource("RectangleShape2D_2ftnk")
+
+[node name="Bag" type="Polygon2D" parent="."]
+color = Color(0.368627, 0.180392, 0.0470588, 1)
+polygon = PackedVector2Array(0, 0, 128, 0, 128, 80, 0, 80)
+
+[node name="Polygon2D" type="Polygon2D" parent="Bag"]
+position = Vector2(123, 14)
+color = Color(0.695503, 0.695503, 0.695503, 1)
+polygon = PackedVector2Array(0, 0, 8, 0, 8, 8, 0, 8)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(123, 58)
+color = Color(0.695503, 0.695503, 0.695503, 1)
+polygon = PackedVector2Array(0, 0, 8, 0, 8, 8, 0, 8)

@@ -1,0 +1,201 @@
+[gd_scene load_steps=16 format=3 uid="uid://1egx5sl1odcu"]
+
+[ext_resource type="Script" uid="uid://be5cxlur1m30q" path="res://scripts/minigame_bag_physics.gd" id="1_mbgko"]
+[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://scenes/globals/game_rules_proto.tscn" id="2_qskvr"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/abstract_shapes/triangle.tscn" id="3_82j4a"]
+[ext_resource type="Script" uid="uid://c1vgtvhawyjr7" path="res://scripts/bag_clasp.gd" id="4_0ades"]
+[ext_resource type="PackedScene" uid="uid://c74jpbdu182lb" path="res://scenes/ui/ui_rules_panel.tscn" id="5_yoqp7"]
+
+[sub_resource type="Animation" id="Animation_hxame"]
+length = 2.0
+
+[sub_resource type="Animation" id="Animation_vi636"]
+resource_name = "open_clasp"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ClaspTurner:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(0.133, 1),
+"update": 0,
+"values": [0.0, -1.5708]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pt3c8"]
+_data = {
+&"RESET": SubResource("Animation_hxame"),
+&"open_clasp": SubResource("Animation_vi636")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hxame"]
+size = Vector2(50, 80)
+
+[sub_resource type="Curve2D" id="Curve2D_nm5b0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 95.6404, 502.511, 0, 0, 0, 0, 596.044, 500.184)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nm5b0"]
+size = Vector2(266, 176)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_nm5b0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_gw6n5"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_r36gv"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j5a5f"]
+normal = Vector2(0, 1)
+
+[node name="MiniGame" type="Node2D" node_paths=PackedStringArray("clasps", "contents_holder", "item_spawn_line", "tray_area", "test_rules")]
+script = ExtResource("1_mbgko")
+open_speed = 120.0
+open_dist = 260.0
+clasps = [NodePath("BagBG/Clasp1"), NodePath("BagBG/Clasp2")]
+contents_holder = NodePath("BagBG/BagContentsHolder")
+item_spawn_line = NodePath("BagBG/SpawnLine")
+tray_area = NodePath("Tray/DetectionArea")
+test_rules = NodePath("TestRules")
+
+[node name="TestRules" parent="." instance=ExtResource("2_qskvr")]
+
+[node name="BagBG" type="Polygon2D" parent="."]
+position = Vector2(22, 35)
+scale = Vector2(0.455628, 0.38012)
+color = Color(0.0575054, 0.0219947, 1.50409e-09, 1)
+polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
+
+[node name="BagContentsHolder" type="Node2D" parent="BagBG"]
+position = Vector2(28.75, 36.25)
+
+[node name="Node2D" parent="BagBG/BagContentsHolder" instance=ExtResource("3_82j4a")]
+visible = false
+
+[node name="BagFrontTop" type="Polygon2D" parent="BagBG"]
+color = Color(0.256086, 0.149754, 0, 1)
+polygon = PackedVector2Array(0, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 0, 0, 0)
+
+[node name="BagFrontBottom" type="Polygon2D" parent="BagBG"]
+color = Color(0.254902, 0.14902, 0, 1)
+polygon = PackedVector2Array(0, 300, 200, 300, 400, 300, 600, 300, 800, 300, 800, 600, 0, 600)
+
+[node name="BG1" type="Polygon2D" parent="BagBG"]
+position = Vector2(-62, -770)
+scale = Vector2(2, 3.33333)
+color = Color(0.301961, 0.301961, 0.301961, 1)
+polygon = PackedVector2Array(31, 411, 30, 535, 431, 539, 431, 411, 91.059, 411)
+
+[node name="Clasp1" type="Node2D" parent="BagBG"]
+position = Vector2(129, 600)
+script = ExtResource("4_0ades")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BagBG/Clasp1"]
+libraries = {
+&"": SubResource("AnimationLibrary_pt3c8")
+}
+
+[node name="ClaspTurner" type="Area2D" parent="BagBG/Clasp1"]
+
+[node name="ClaspShape" type="Polygon2D" parent="BagBG/Clasp1/ClaspTurner"]
+rotation = 1.5708
+color = Color(0.703808, 0.703808, 0.703808, 1)
+offset = Vector2(-24.7853, -40.0737)
+polygon = PackedVector2Array(0, 0, 50, 0, 50, 80, 0, 80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BagBG/Clasp1/ClaspTurner"]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_hxame")
+
+[node name="Clasp2" type="Node2D" parent="BagBG"]
+position = Vector2(666.067, 600)
+script = ExtResource("4_0ades")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BagBG/Clasp2"]
+libraries = {
+&"": SubResource("AnimationLibrary_pt3c8")
+}
+
+[node name="ClaspTurner" type="Area2D" parent="BagBG/Clasp2"]
+
+[node name="ClaspShape" type="Polygon2D" parent="BagBG/Clasp2/ClaspTurner"]
+rotation = 1.5708
+color = Color(0.703808, 0.703808, 0.703808, 1)
+offset = Vector2(-24.7853, -40.0737)
+polygon = PackedVector2Array(0, 0, 50, 0, 50, 80, 0, 80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BagBG/Clasp2/ClaspTurner"]
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_hxame")
+
+[node name="SpawnLine" type="Path2D" parent="BagBG"]
+position = Vector2(3.41573, 4.65288)
+curve = SubResource("Curve2D_nm5b0")
+
+[node name="Tray" type="StaticBody2D" parent="."]
+position = Vector2(377, 500)
+scale = Vector2(0.65307, 0.97255)
+
+[node name="Polygon2D" type="Polygon2D" parent="Tray"]
+color = Color(0.98275, 6.08854e-06, 1.54018e-06, 1)
+polygon = PackedVector2Array(0, 0, 20, 0, 20, 80, 96.6902, 79.9999, 280, 80, 280, 0, 300, 0, 300, 100, 0, 100)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Tray"]
+polygon = PackedVector2Array(0, 0, 20, 0, 20, 80, 280, 80, 280, 0, 300, 0, 300, 100, -1, 99)
+
+[node name="DetectionArea" type="Area2D" parent="Tray"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tray/DetectionArea"]
+position = Vector2(150, -5)
+shape = SubResource("RectangleShape2D_nm5b0")
+
+[node name="Boundaries" type="Node2D" parent="."]
+
+[node name="Bottom" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(300, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Bottom"]
+position = Vector2(-78, 0)
+shape = SubResource("WorldBoundaryShape2D_nm5b0")
+
+[node name="Left" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(0, 362)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Left"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_gw6n5")
+
+[node name="Right" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(600, 339)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Right"]
+shape = SubResource("WorldBoundaryShape2D_r36gv")
+
+[node name="Top" type="StaticBody2D" parent="Boundaries"]
+position = Vector2(300, 0)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Top"]
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_j5a5f")
+
+[node name="TestModeLabel" type="Node2D" parent="."]
+visible = false
+position = Vector2(691, 58)
+
+[node name="TestModeLabel" type="Label" parent="TestModeLabel"]
+offset_left = -52.0
+offset_top = -49.0
+offset_right = 67.0
+offset_bottom = -11.0
+text = "TEST MODE"
+
+[node name="RulesPanel" parent="TestModeLabel" instance=ExtResource("5_yoqp7")]

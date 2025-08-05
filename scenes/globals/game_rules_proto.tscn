@@ -1,0 +1,47 @@
+[gd_scene load_steps=10 format=3 uid="uid://bdtkv0d3nr14"]
+
+[ext_resource type="Script" uid="uid://d0a6nmdhlbgy6" path="res://scripts/game_rules.gd" id="1_k0dcv"]
+[ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://scenes/bag_items/abstract_shapes/circle.tscn" id="2_tcjnq"]
+[ext_resource type="PackedScene" uid="uid://dpa5lsoxu3l5i" path="res://scenes/bag_items/abstract_shapes/hexagon.tscn" id="3_aul36"]
+[ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://scenes/bag_items/abstract_shapes/square.tscn" id="4_pw6ve"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/abstract_shapes/triangle.tscn" id="5_3wcc5"]
+[ext_resource type="Script" uid="uid://c2h6304bk3egj" path="res://scripts/shift_rules.gd" id="6_3yakh"]
+[ext_resource type="PackedScene" uid="uid://c1nyd27nd0uml" path="res://scenes/bag_items/real_appearances/water_bottle.tscn" id="6_munt1"]
+
+[node name="GameRules" type="Node"]
+script = ExtResource("1_k0dcv")
+shape_name_to_scene = {
+"Circle": ExtResource("2_tcjnq"),
+"Hexagon": ExtResource("3_aul36"),
+"Square": ExtResource("4_pw6ve"),
+"Triangle": ExtResource("5_3wcc5")
+}
+possible_colours = {
+"Blue": Color(0, 0, 1, 1),
+"Green": Color(0, 1, 0, 1),
+"Red": Color(1, 0, 0, 1),
+"Yellow": Color(1, 1, 0, 1)
+}
+extra_check_items = Array[PackedScene]([ExtResource("6_munt1")])
+
+[node name="ShiftRules_0" type="Node" parent="."]
+script = ExtResource("6_3yakh")
+time_limit = 100.0
+number_of_bags = 5
+number_of_bad_bags = 1
+number_of_bags_with_extra_check_needed = 1
+passing_score_threshold = 100
+
+[node name="ShiftRules_1" type="Node" parent="."]
+script = ExtResource("6_3yakh")
+time_limit = 120.0
+number_of_bags = 8
+number_of_bad_bags = 3
+number_of_bags_with_extra_check_needed = 1
+passing_score_threshold = 200
+
+[node name="ShiftRules_2" type="Node" parent="."]
+script = ExtResource("6_3yakh")
+time_limit = 120.0
+number_of_bags_with_extra_check_needed = 3
+passing_score_threshold = 300
