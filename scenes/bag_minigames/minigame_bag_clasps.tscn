@@ -1,10 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://1egx5sl1odcu"]
+[gd_scene load_steps=22 format=3 uid="uid://1egx5sl1odcu"]
 
-[ext_resource type="Script" uid="uid://be5cxlur1m30q" path="res://scripts/minigame_bag_physics.gd" id="1_mbgko"]
-[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://scenes/globals/game_rules_proto.tscn" id="2_qskvr"]
-[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/abstract_shapes/triangle.tscn" id="3_82j4a"]
-[ext_resource type="Script" uid="uid://c1vgtvhawyjr7" path="res://scripts/bag_clasp.gd" id="4_0ades"]
-[ext_resource type="PackedScene" uid="uid://c74jpbdu182lb" path="res://scenes/ui/ui_rules_panel.tscn" id="5_yoqp7"]
+[ext_resource type="Script" uid="uid://be5cxlur1m30q" path="res://scripts/minigame_bag_clasps.gd" id="1_ado8s"]
+[ext_resource type="PackedScene" uid="uid://bdtkv0d3nr14" path="res://scenes/globals/game_rules_proto.tscn" id="2_jqi0q"]
+[ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/abstract_shapes/triangle.tscn" id="3_tigp0"]
+[ext_resource type="Script" uid="uid://c1vgtvhawyjr7" path="res://scripts/bag_clasp.gd" id="4_piy0l"]
+[ext_resource type="Script" uid="uid://bxpsm4u7gbig0" path="res://scripts/circle_2d.gd" id="5_54vwu"]
+[ext_resource type="PackedScene" uid="uid://c74jpbdu182lb" path="res://scenes/ui/ui_rules_panel.tscn" id="6_rwovs"]
+[ext_resource type="Script" uid="uid://cv7o0qninkdiu" path="res://scripts/liquid_tray.gd" id="7_cpyxk"]
+[ext_resource type="Script" uid="uid://da7oeeqrx02qg" path="res://scripts/lever.gd" id="8_jy2wp"]
+[ext_resource type="Script" uid="uid://dm4p2rje1e7hu" path="res://scripts/lever_handle.gd" id="9_ina8l"]
 
 [sub_resource type="Animation" id="Animation_hxame"]
 length = 2.0
@@ -54,17 +58,29 @@ normal = Vector2(-1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_j5a5f"]
 normal = Vector2(0, 1)
 
-[node name="MiniGame" type="Node2D" node_paths=PackedStringArray("clasps", "contents_holder", "item_spawn_line", "tray_area", "test_rules")]
-script = ExtResource("1_mbgko")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kou47"]
+size = Vector2(65, 43)
+
+[sub_resource type="Curve2D" id="Curve2D_torcd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 24.5, -21.5927, 0, 0, 0, 0, 24.5, 11.3105)
+}
+point_count = 2
+
+[node name="MiniGame" type="Node2D" node_paths=PackedStringArray("clasps", "contents_holder", "item_spawn_line", "tray_area", "repack_button", "repack_indicator", "item_scanner", "test_rules")]
+script = ExtResource("1_ado8s")
 open_speed = 120.0
 open_dist = 260.0
 clasps = [NodePath("BagBG/Clasp1"), NodePath("BagBG/Clasp2")]
 contents_holder = NodePath("BagBG/BagContentsHolder")
 item_spawn_line = NodePath("BagBG/SpawnLine")
 tray_area = NodePath("Tray/DetectionArea")
+repack_button = NodePath("BagBG/RepackButton")
+repack_indicator = NodePath("BagBG/ResultIndicator")
+item_scanner = NodePath("LiquidTray")
 test_rules = NodePath("TestRules")
 
-[node name="TestRules" parent="." instance=ExtResource("2_qskvr")]
+[node name="TestRules" parent="." instance=ExtResource("2_jqi0q")]
 
 [node name="BagBG" type="Polygon2D" parent="."]
 position = Vector2(22, 35)
@@ -75,7 +91,7 @@ polygon = PackedVector2Array(0, 0, 800, 0, 800, 600, 0, 600)
 [node name="BagContentsHolder" type="Node2D" parent="BagBG"]
 position = Vector2(28.75, 36.25)
 
-[node name="Node2D" parent="BagBG/BagContentsHolder" instance=ExtResource("3_82j4a")]
+[node name="Node2D" parent="BagBG/BagContentsHolder" instance=ExtResource("3_tigp0")]
 visible = false
 
 [node name="BagFrontTop" type="Polygon2D" parent="BagBG"]
@@ -94,7 +110,7 @@ polygon = PackedVector2Array(31, 411, 30, 535, 431, 539, 431, 411, 91.059, 411)
 
 [node name="Clasp1" type="Node2D" parent="BagBG"]
 position = Vector2(129, 600)
-script = ExtResource("4_0ades")
+script = ExtResource("4_piy0l")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BagBG/Clasp1"]
 libraries = {
@@ -115,7 +131,7 @@ shape = SubResource("RectangleShape2D_hxame")
 
 [node name="Clasp2" type="Node2D" parent="BagBG"]
 position = Vector2(666.067, 600)
-script = ExtResource("4_0ades")
+script = ExtResource("4_piy0l")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BagBG/Clasp2"]
 libraries = {
@@ -137,6 +153,21 @@ shape = SubResource("RectangleShape2D_hxame")
 [node name="SpawnLine" type="Path2D" parent="BagBG"]
 position = Vector2(3.41573, 4.65288)
 curve = SubResource("Curve2D_nm5b0")
+
+[node name="RepackButton" type="Button" parent="BagBG"]
+offset_left = 277.0
+offset_top = 32.0
+offset_right = 526.0
+offset_bottom = 138.0
+text = "Repack"
+
+[node name="ResultIndicator" type="Node2D" parent="BagBG"]
+position = Vector2(600.024, 95.2721)
+scale = Vector2(2.37164, 2.64645)
+script = ExtResource("5_54vwu")
+color = Color(0, 0, 0, 1)
+radius = 10.0
+metadata/_custom_type_script = "uid://bxpsm4u7gbig0"
 
 [node name="Tray" type="StaticBody2D" parent="."]
 position = Vector2(377, 500)
@@ -198,4 +229,67 @@ offset_right = 67.0
 offset_bottom = -11.0
 text = "TEST MODE"
 
-[node name="RulesPanel" parent="TestModeLabel" instance=ExtResource("5_yoqp7")]
+[node name="RulesPanel" parent="TestModeLabel" instance=ExtResource("6_rwovs")]
+
+[node name="LiquidTray" type="StaticBody2D" parent="." node_paths=PackedStringArray("lever", "scanner_area", "indicator_light")]
+position = Vector2(465, 305)
+script = ExtResource("7_cpyxk")
+lever = NodePath("ScannerLever")
+scanner_area = NodePath("DetectionArea")
+indicator_light = NodePath("ScannerLever/ScanResultLight")
+
+[node name="Polygon2D" type="Polygon2D" parent="LiquidTray"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-16, 0, 0, 0, 0, 55, 55, 54, 55, 0, 73, 0, 73, 74, -16, 74)
+
+[node name="DetectionArea" type="Area2D" parent="LiquidTray"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LiquidTray/DetectionArea"]
+position = Vector2(26.5, 37.5)
+shape = SubResource("RectangleShape2D_kou47")
+
+[node name="ScannerLever" type="Polygon2D" parent="LiquidTray" node_paths=PackedStringArray("handle", "path", "path_follow")]
+z_index = 1
+z_as_relative = false
+position = Vector2(79, -3.00001)
+polygon = PackedVector2Array(0, 19.5363, 50.5306, 19.5363, 50.5306, -13.3669, 0, -13.3669)
+script = ExtResource("8_jy2wp")
+handle = NodePath("LeverPath/PathFollow2D/LeverHandle")
+path = NodePath("LeverPath")
+path_follow = NodePath("LeverPath/PathFollow2D")
+
+[node name="LeverPath" type="Path2D" parent="LiquidTray/ScannerLever"]
+curve = SubResource("Curve2D_torcd")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="LiquidTray/ScannerLever/LeverPath"]
+position = Vector2(24.5, -21.5927)
+rotation = 1.5708
+
+[node name="LeverHandle" type="Area2D" parent="LiquidTray/ScannerLever/LeverPath/PathFollow2D"]
+position = Vector2(-31.875, -249.59)
+scale = Vector2(1.02822, 1.53123)
+script = ExtResource("9_ina8l")
+
+[node name="Polygon2D" type="Polygon2D" parent="LiquidTray/ScannerLever/LeverPath/PathFollow2D/LeverHandle"]
+z_index = 1
+z_as_relative = false
+position = Vector2(4.00054, 132)
+color = Color(0.226707, 0.226707, 0.226707, 1)
+polygon = PackedVector2Array(19.0002, 46.9999, 35.0002, 46.9999, 35, 13.9999, 19, 13.9999)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LiquidTray/ScannerLever/LeverPath/PathFollow2D/LeverHandle"]
+z_index = 3
+z_as_relative = false
+position = Vector2(25.0016, 438)
+polygon = PackedVector2Array(-2.00095, -259, 13.9991, -259, 13.9989, -292, -2.00107, -292)
+
+[node name="ScanResultLight" type="Node2D" parent="LiquidTray/ScannerLever"]
+position = Vector2(24.41, -47.9153)
+script = ExtResource("5_54vwu")
+color = Color(0, 0, 0, 1)
+radius = 10.0
+metadata/_custom_type_script = "uid://bxpsm4u7gbig0"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LiquidTray"]
+polygon = PackedVector2Array(-16, 0, 0, 0, 0, 55, 55, 54, 55, 0, 73, 0, 73, 74, -16, 74)

@@ -52,7 +52,7 @@ bag_front_bottom = NodePath("BagBG/BagFrontBottom")
 contents_holder = NodePath("BagBG/BagContentsHolder")
 item_spawn_line = NodePath("BagBG/SpawnLine")
 tray_area = NodePath("DumpTray/DetectionArea")
-repack_button = NodePath("RepackButton")
+repack_button = NodePath("BagBG/RepackButton")
 repack_indicator = NodePath("BagBG/ResultIndicator")
 item_scanner = NodePath("LiquidTray")
 test_rules = NodePath("TestRules")
@@ -120,8 +120,15 @@ shape = SubResource("RectangleShape2D_h1vyj")
 position = Vector2(47.4327, 296.402)
 curve = SubResource("Curve2D_fmava")
 
+[node name="RepackButton" type="Button" parent="BagBG"]
+offset_left = 336.772
+offset_top = 47.6361
+offset_right = 540.772
+offset_bottom = 113.636
+text = "Repack"
+
 [node name="ResultIndicator" type="Node2D" parent="BagBG"]
-position = Vector2(600.024, 95.2721)
+position = Vector2(576.307, 84.6863)
 scale = Vector2(2.37164, 2.64645)
 script = ExtResource("5_2mjoj")
 color = Color(0, 0, 0, 1)
@@ -264,10 +271,3 @@ metadata/_custom_type_script = "uid://bxpsm4u7gbig0"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LiquidTray"]
 polygon = PackedVector2Array(-16, 0, 0, 0, 0, 55, 55, 54, 55, 0, 73, 0, 73, 74, -16, 74)
-
-[node name="RepackButton" type="Button" parent="."]
-offset_left = 139.0
-offset_top = 47.0
-offset_right = 252.0
-offset_bottom = 95.0
-text = "Repack"

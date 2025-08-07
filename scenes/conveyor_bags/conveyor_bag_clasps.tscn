@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b5rtxv5uwpvtw"]
 
 [ext_resource type="Script" uid="uid://bqfiiebovdef" path="res://scripts/conveyor_bag.gd" id="1_fh3dm"]
-[ext_resource type="PackedScene" uid="uid://1egx5sl1odcu" path="res://scenes/bag_minigames/minigame_bag_physics.tscn" id="2_7rjik"]
+[ext_resource type="PackedScene" uid="uid://1egx5sl1odcu" path="res://scenes/bag_minigames/minigame_bag_clasps.tscn" id="2_7rjik"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ftnk"]
 size = Vector2(132, 84)

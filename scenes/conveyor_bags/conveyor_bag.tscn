@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bubr4467euv3f"]
 
 [ext_resource type="Script" uid="uid://bqfiiebovdef" path="res://scripts/conveyor_bag.gd" id="1_belmi"]
-[ext_resource type="PackedScene" uid="uid://1egx5sl1odcu" path="res://scenes/bag_minigames/minigame_bag_physics.tscn" id="2_nepgt"]
+[ext_resource type="PackedScene" uid="uid://1egx5sl1odcu" path="res://scenes/bag_minigames/minigame_bag_clasps.tscn" id="2_nepgt"]
 [ext_resource type="PackedScene" uid="uid://cpo7xuk2y20s3" path="res://scenes/bag_minigames/minigame_bag_unzip.tscn" id="3_snebf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2ftnk"]
