@@ -6,6 +6,8 @@
 process_mode = 4
 collision_layer = 3
 input_pickable = true
+center_of_mass_mode = 1
+center_of_mass = Vector2(37.5, 50)
 freeze = true
 script = ExtResource("1_wba84")
 shape_name = "Hexagon"
@@ -24,4 +26,4 @@ default_color = Color(1, 0, 1, 1)
 polygon = PackedVector2Array(20, 0, 55, 0, 75, 37.5, 55, 75, 20, 75, 0, 37.5)
 
 [node name="DragPoint" type="Marker2D" parent="."]
-position = Vector2(75, 75)
+position = Vector2(37.5, 37.5)

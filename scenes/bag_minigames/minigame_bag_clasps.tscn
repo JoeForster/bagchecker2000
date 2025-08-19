@@ -67,11 +67,10 @@ _data = {
 }
 point_count = 2
 
-[node name="MiniGame" type="Node2D" node_paths=PackedStringArray("clasps", "contents_holder", "item_spawn_line", "tray_area", "repack_button", "repack_indicator", "item_scanner", "test_rules")]
+[node name="MiniGame" type="Node2D" node_paths=PackedStringArray("contents_holder", "item_spawn_line", "tray_area", "repack_button", "repack_indicator", "item_scanner", "test_rules")]
 script = ExtResource("1_ado8s")
 open_speed = 120.0
 open_dist = 260.0
-clasps = [NodePath("BagBG/Clasp1"), NodePath("BagBG/Clasp2")]
 contents_holder = NodePath("BagBG/BagContentsHolder")
 item_spawn_line = NodePath("BagBG/SpawnLine")
 tray_area = NodePath("Tray/DetectionArea")
