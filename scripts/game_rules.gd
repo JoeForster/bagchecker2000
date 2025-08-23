@@ -22,6 +22,13 @@ class Rule:
 	var restricted_colour_name : String
 	var max_num_of_shape : int
 
+func rules_match(rule_1 : Rule, rule_2 : Rule) -> bool:
+	return (
+			rule_1.restricted_shape == rule_2.restricted_shape &&
+			rule_1.restricted_colour_name == rule_2.restricted_colour_name &&
+			rule_1.max_num_of_shape == rule_2.max_num_of_shape
+		)
+
 var HACK_ui_dirty = true
 var current_rules : Array[Rule]
 var possible_shape_colour_combos_passing_rule : Array[ScannedShape]
@@ -130,17 +137,28 @@ func _generate_shape_colour_combos(want_to_break_rule : bool) -> Array[ScannedSh
 	return possible_shape_colour_combos
 
 func _generate_new_rule():
-	# HACK: Do this properly to avoid infinite loop if we run out of combinations!!
+	# Since there's not that many possible combinations, it should be fine for now to generate them all here.
 	if current_rules.size() < max_rule_count:
-		var found_good_rule = false
-		while !found_good_rule:
-			var new_rule = Rule.new()
-			new_rule.restricted_colour_name = possible_colours.keys().pick_random()
-			new_rule.restricted_shape = shape_name_to_scene.keys().pick_random()
-			new_rule.max_num_of_shape = 0
-			found_good_rule = current_rules.find(new_rule) == -1
-			if found_good_rule:
-				current_rules.push_back(new_rule)
+		var possible_rules : Array[Rule]
+		for new_rule_colour in possible_colours:
+			for new_rule_shape_name in shape_name_to_scene.keys():
+				var new_rule = Rule.new()
+				new_rule.restricted_colour_name = new_rule_colour
+				new_rule.restricted_shape = new_rule_shape_name
+				new_rule.max_num_of_shape = 0
+
+				var rule_matches = func(check_rule : Rule) -> bool:
+					return rules_match(new_rule, check_rule)
+				
+				if current_rules.any(rule_matches):
+					print("rejecting existing rule: %s/%s/%d" % [new_rule.restricted_colour_name, new_rule.restricted_shape, new_rule.max_num_of_shape])
+				else:
+					possible_rules.push_back(new_rule)
+
+		if possible_rules.is_empty():
+			printerr("_generate_new_rule unable to find any more valid rules")
+		else:
+			current_rules.push_back(possible_rules.pick_random())
 
 func _ready() -> void:
 	# Generate random rules based on the parameters

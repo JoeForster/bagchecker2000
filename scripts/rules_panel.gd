@@ -27,7 +27,7 @@ func refresh():
 		var text_colour = GameRulesProto.possible_colours[rule.restricted_colour_name]
 		this_rule_label.add_theme_color_override("font_color", text_colour)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if GameRulesProto.HACK_ui_dirty:
 		refresh()
 		GameRulesProto.HACK_ui_dirty = false

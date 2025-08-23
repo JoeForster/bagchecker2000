@@ -7,7 +7,7 @@ class_name ItemScanner
 
 var items_needing_scan : Array[ScannedShape]
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if indicator_light:
 		if lever and lever.is_lever_at_bottom():
 			var new_colour = Color.BLACK

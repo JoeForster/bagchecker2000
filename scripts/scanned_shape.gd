@@ -89,7 +89,7 @@ func _physics_process_pickup_force_pos(delta: float) -> void:
 		var rotate_diff = 0.0 - rotation
 		rotate(rotate_diff if rotate_diff < rotate_rate else rotate_rate)
 	
-func _physics_process_pickup_thrust(delta: float) -> void:
+func _physics_process_pickup_thrust(_delta: float) -> void:
 	if mouse_dragging:
 		# TODO this can be simplified
 		gravity_scale = 0.0

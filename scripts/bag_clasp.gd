@@ -4,7 +4,7 @@ extends Node2D
 var is_opening = false
 var is_opened = false
 
-func _on_anim_finished(anim_name: StringName):
+func _on_anim_finished(_anim_name: StringName):
 	# HACK assumes only one anim
 	is_opening = false
 	is_opened = true
