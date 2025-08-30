@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://busdkrk4e02qy"]
+
+[node name="Book" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-2, 0)
+color = Color(0.732358, 0, 0.0398788, 1)
+offset = Vector2(-5, -17)
+polygon = PackedVector2Array(11, 25, 14, 22, 48, 22, 48, 70, 44, 72, 11, 72)
+
+[node name="DetailPolygon" type="Polygon2D" parent="."]
+position = Vector2(-41, -6)
+scale = Vector2(0.714286, 1)
+color = Color(0.648349, 0.519362, 0.486163, 1)
+polygon = PackedVector2Array(109.2, 14, 64.4, 14, 67.2, 12, 114.8, 12, 114.8, 59, 109.2, 61)

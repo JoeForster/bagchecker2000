@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dvteeshk7j32n"]
+
+[node name="GameConsole" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.385492, 0.385493, 0.385492, 1)
+polygon = PackedVector2Array(21, 14, 23.7041, 11, 46, 11, 49, 15, 49, 71.63, 46, 75, 24, 75, 21, 72)
+
+[node name="DetailPolygon" type="Polygon2D" parent="."]
+position = Vector2(-22, -44)
+scale = Vector2(0.714286, 1)
+color = Color(0.629835, 0.880712, 1, 1)
+polygon = PackedVector2Array(63, 68, 96.6, 68, 96.6, 105, 63, 105)
+
+[node name="DetailPolygon2" type="Polygon2D" parent="."]
+position = Vector2(-34, -43)
+scale = Vector2(0.714286, 1)
+color = Color(0.144063, 0.144063, 0.144063, 1)
+polygon = PackedVector2Array(77, 56, 79.8, 54, 113.15, 54, 116.2, 56, 116.2, 64, 77, 64)
+
+[node name="DetailPolygon3" type="Polygon2D" parent="."]
+position = Vector2(-34, 11)
+scale = Vector2(0.714286, 1)
+color = Color(0.144063, 0.144063, 0.144063, 1)
+polygon = PackedVector2Array(77, 54, 116.2, 54, 116.2, 62, 113.619, 64, 79.6913, 64, 77, 62)
+
+[node name="DetailPolygon4" type="Polygon2D" parent="."]
+position = Vector2(-27, 11)
+scale = Vector2(0.714286, 1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(93.8, 58, 95.2, 57, 98, 57, 99.4, 58, 99.4, 60, 98, 61, 95.2, 61, 93.8, 60)
+
+[node name="DetailPolygon5" type="Polygon2D" parent="."]
+position = Vector2(-26, -43)
+scale = Vector2(0.714286, 1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(93.8, 58, 95.2, 57, 98, 57, 99.4, 58, 99.4, 60, 98, 61, 95.2, 61, 93.8, 60)

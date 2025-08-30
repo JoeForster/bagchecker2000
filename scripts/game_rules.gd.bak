@@ -16,7 +16,6 @@ extends Node
 @export var penalty_per_mistake = 60
 @export var out_of_time_penalty = 100
 @export var extra_check_items : Array[PackedScene]
-@export var no_extra_check_items : Array[PackedScene]
 
 class Rule:
 	var restricted_shape : String
@@ -87,8 +86,6 @@ func generate_bag_contents(bag_breaks_rule : bool, extra_check_needed : bool):
 				item_spec.extra_check_needed = true
 				item_spec.real_item = extra_check_items.pick_random()
 				num_extra_check_items -= 1
-			elif !no_extra_check_items.is_empty():
-				item_spec.real_item = no_extra_check_items.pick_random()
 
 	# Randomise the items (even if not rule-breaking, e.g. for bag_section_id)
 	item_specs.shuffle()
@@ -152,6 +149,12 @@ func _generate_new_rule():
 
 				var rule_matches = func(check_rule : Rule) -> bool:
 					return rules_match(new_rule, check_rule)
+
+				var new_rule_test = Rule.new()
+				new_rule_test.restricted_colour_name =  new_rule.restricted_colour_name
+				new_rule_test.restricted_shape = new_rule.restricted_shape
+				new_rule_test.max_num_of_shape = 0
+				assert(rule_matches.call(new_rule_test))
 				
 				if current_rules.any(rule_matches):
 					print("rejecting existing rule: %s/%s/%d" % [new_rule.restricted_colour_name, new_rule.restricted_shape, new_rule.max_num_of_shape])
