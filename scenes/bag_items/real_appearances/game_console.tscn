@@ -2,7 +2,7 @@
 
 [node name="GameConsole" type="Node2D"]
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
 color = Color(0.385492, 0.385493, 0.385492, 1)
 polygon = PackedVector2Array(21, 14, 23.7041, 11, 46, 11, 49, 15, 49, 71.63, 46, 75, 24, 75, 21, 72)
 

@@ -2,10 +2,10 @@
 
 [node name="Banana" type="Node2D"]
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
 color = Color(0.878425, 0.929297, 0, 1)
-polygon = PackedVector2Array(10, 68, 28, 52, 42, 40, 60, 19, 61, 11, 67, 11, 65, 26, 60, 40, 50, 58, 32, 68, 10, 75)
+polygon = PackedVector2Array(2, 59, 20, 43, 34, 31, 52, 10, 53, 2, 59, 2, 57, 17, 52, 31, 42, 49, 24, 59, 2, 66)
 
 [node name="DetailPolygon" type="Polygon2D" parent="."]
 color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(60, 15, 61, 11, 67, 11, 67, 16)
+polygon = PackedVector2Array(52, 5, 53, 1, 59, 1, 59, 6)

@@ -43,10 +43,12 @@ func enable_physics():
 			# the "real" object since it is otherwise pure visual better would
 			# be to separate the real from the scanned object in code,
 			# but big refactor..
-			var poly = real_appearance.get_node_or_null("Polygon2D")
+			var poly = real_appearance.get_node_or_null("OutlinePolygon")
 			var collision = get_node_or_null("CollisionPolygon2D") as CollisionPolygon2D
+			assert(poly and collision)
 			if poly and collision:
-				collision.set_polygon(poly.get_polygon())
+				collision.polygon = poly.polygon
+			real_appearance.scale = Vector2.ONE
 			
 		physics_enabled = true
 		

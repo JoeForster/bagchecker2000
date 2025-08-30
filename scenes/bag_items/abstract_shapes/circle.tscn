@@ -28,5 +28,4 @@ default_color = Color(1, 0, 1, 1)
 position = Vector2(37.5, 37.5)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-scale = Vector2(0.5, 0.5)
-polygon = PackedVector2Array(40, 9, 75, 0, 111, 9, 141, 36, 150, 75, 140, 115, 111, 141, 73, 152, 40, 141, 11, 115, 0, 75, 10, 36)
+polygon = PackedVector2Array(20, 4.5, 37.5, 0, 55.5, 4.5, 70.5, 18, 75, 37.5, 70, 57.5, 55.5, 70.5, 36.5, 76, 20, 70.5, 5.5, 57.5, 0, 37.5, 5, 18)
