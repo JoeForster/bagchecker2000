@@ -3,35 +3,43 @@
 [node name="GameConsole" type="Node2D"]
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
+position = Vector2(-18.5, -5)
+scale = Vector2(1.21429, 1)
 color = Color(0.385492, 0.385493, 0.385492, 1)
-polygon = PackedVector2Array(21, 14, 23.7041, 11, 46, 11, 49, 15, 49, 71.63, 46, 75, 24, 75, 21, 72)
+polygon = PackedVector2Array(21, 14, 27.5882, 11, 41.5882, 11, 49, 15, 49, 63, 44.0588, 66, 24.2941, 66, 21, 63)
 
 [node name="DetailPolygon" type="Polygon2D" parent="."]
-position = Vector2(-22, -44)
+position = Vector2(-30, -49)
 scale = Vector2(0.714286, 1)
 color = Color(0.629835, 0.880712, 1, 1)
-polygon = PackedVector2Array(63, 68, 96.6, 68, 96.6, 105, 63, 105)
+polygon = PackedVector2Array(56, 68, 96.6, 68, 96.6, 97, 56, 97)
 
 [node name="DetailPolygon2" type="Polygon2D" parent="."]
-position = Vector2(-34, -43)
+position = Vector2(-42, -48)
 scale = Vector2(0.714286, 1)
 color = Color(0.144063, 0.144063, 0.144063, 1)
-polygon = PackedVector2Array(77, 56, 79.8, 54, 113.15, 54, 116.2, 56, 116.2, 64, 77, 64)
+polygon = PackedVector2Array(68.6, 56, 79.8, 54, 105, 54, 109.565, 54.8152, 116.2, 56, 116.2, 64, 68.6, 64)
 
 [node name="DetailPolygon3" type="Polygon2D" parent="."]
-position = Vector2(-34, 11)
+position = Vector2(-42, -3)
 scale = Vector2(0.714286, 1)
 color = Color(0.144063, 0.144063, 0.144063, 1)
-polygon = PackedVector2Array(77, 54, 116.2, 54, 116.2, 62, 113.619, 64, 79.6913, 64, 77, 62)
+polygon = PackedVector2Array(68.6, 54, 116.2, 54, 116.2, 62, 113.619, 64, 79.6913, 64, 71.4, 64, 68.6, 62)
 
 [node name="DetailPolygon4" type="Polygon2D" parent="."]
-position = Vector2(-27, 11)
+position = Vector2(-39, -3)
 scale = Vector2(0.714286, 1)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(93.8, 58, 95.2, 57, 98, 57, 99.4, 58, 99.4, 60, 98, 61, 95.2, 61, 93.8, 60)
 
 [node name="DetailPolygon5" type="Polygon2D" parent="."]
-position = Vector2(-26, -43)
+position = Vector2(-39, -48)
 scale = Vector2(0.714286, 1)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(93.8, 58, 95.2, 57, 98, 57, 99.4, 58, 99.4, 60, 98, 61, 95.2, 61, 93.8, 60)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="GameConsole" type="Node" parent="ItemTags"]
+
+[node name="Electronics" type="Node" parent="ItemTags"]

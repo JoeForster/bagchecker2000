@@ -7,7 +7,8 @@ extends RigidBody2D
 @export var shape_node : Node2D
 @export var shape_width_in_scanner = 100.0
 @export var scanned_appearance : Node2D
-@export var real_appearance : Node2D
+@export var possible_real_appearances : Array[PackedScene]
+@export var real_appearance : Node2D # TODO does this need to be an @export? it's set at runtime!
 @export var bag_section_id = 0
 @export var is_legit = true
 

@@ -95,13 +95,55 @@ grow_vertical = 0
 script = ExtResource("2_db33v")
 
 [node name="RuleLabel" type="Label" parent="UICanvasLayer/UI/RulesPanel"]
-layout_mode = 0
-offset_left = 111.0
-offset_top = 46.0
-offset_right = 287.0
-offset_bottom = 69.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -13.0
+offset_right = 88.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = SubResource("Theme_7mycd")
 text = "RULE_PLACEHOLDER"
+
+[node name="TaskUI" type="Control" parent="UICanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -622.0
+offset_right = 26.0
+offset_bottom = 778.0
+grow_horizontal = 0
+focus_mode = 2
+mouse_filter = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UICanvasLayer/UI/TaskUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = 160.0
+offset_right = -13.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+stretch = true
+mouse_target = true
+
+[node name="SubViewport" type="SubViewport" parent="UICanvasLayer/UI/TaskUI/SubViewportContainer"]
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(600, 600)
+render_target_update_mode = 4
+
+[node name="MiniGameHolder" type="Node2D" parent="UICanvasLayer/UI/TaskUI/SubViewportContainer/SubViewport"]
 
 [node name="ScannerUI" type="Control" parent="UICanvasLayer/UI"]
 anchors_preset = 0
@@ -197,38 +239,3 @@ position = Vector2(21, 347)
 
 [node name="Passenger4" parent="UICanvasLayer/UI/Queue" instance=ExtResource("5_db33v")]
 position = Vector2(21, 515)
-
-[node name="TaskUI" type="Control" parent="UICanvasLayer/UI"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -622.0
-offset_right = 26.0
-offset_bottom = 778.0
-grow_horizontal = 0
-focus_mode = 2
-mouse_filter = 1
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="UICanvasLayer/UI/TaskUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 35.0
-offset_top = 160.0
-offset_right = -13.0
-offset_bottom = -18.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_mode = 2
-stretch = true
-mouse_target = true
-
-[node name="SubViewport" type="SubViewport" parent="UICanvasLayer/UI/TaskUI/SubViewportContainer"]
-handle_input_locally = false
-physics_object_picking = true
-size = Vector2i(600, 600)
-render_target_update_mode = 4
-
-[node name="MiniGameHolder" type="Node2D" parent="UICanvasLayer/UI/TaskUI/SubViewportContainer/SubViewport"]

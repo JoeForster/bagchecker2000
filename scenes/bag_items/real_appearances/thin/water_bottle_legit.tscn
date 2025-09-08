@@ -3,13 +3,19 @@
 [node name="WaterBottle" type="Node2D"]
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
-color = Color(3.46541e-06, 0.90996, 0.613104, 1)
-polygon = PackedVector2Array(10, 40, 30, 20, 30, 8, 40, 8, 40, 20, 60, 40, 60, 92, 10, 92)
+color = Color(0.895279, 1, 0.940247, 1)
+polygon = PackedVector2Array(15, 40, 30, 20, 30, 8, 40, 8, 40, 20, 55, 40, 55, 92, 15, 92)
 
 [node name="PolygonDetail" type="Polygon2D" parent="."]
 color = Color(0.463499, 0.820764, 1, 1)
-polygon = PackedVector2Array(10, 55, 60, 55, 60, 81, 10, 81)
+polygon = PackedVector2Array(15, 55, 55, 55, 55, 81, 15, 81)
 
 [node name="PolygonDetail2" type="Polygon2D" parent="."]
 color = Color(0.838897, 0.838897, 0.838897, 1)
 polygon = PackedVector2Array(30, 8, 40, 8, 40, 14, 30, 14)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="Water" type="Node" parent="ItemTags"]
+
+[node name="Liquid" type="Node" parent="ItemTags"]

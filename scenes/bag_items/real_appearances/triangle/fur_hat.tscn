@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bqn3upind1y6m"]
+
+[node name="FurHat" type="Node2D"]
+
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
+color = Color(0.870588, 0.701961, 0.435294, 1)
+polygon = PackedVector2Array(39, 9, 68, 92, 4, 92, 30, 9)
+
+[node name="PolygonDetail4" type="Polygon2D" parent="."]
+position = Vector2(3, 58)
+color = Color(0.694118, 0.552941, 0.321569, 1)
+polygon = PackedVector2Array(32, -49, 35, 3, 35, 20, 33, 27, 31, 28, 33, 21, 34, 0, 31, -49)
+
+[node name="PolygonDetail3" type="Polygon2D" parent="."]
+position = Vector2(0, -4)
+color = Color(0.905882, 0.87451, 0.839216, 1)
+polygon = PackedVector2Array(30, 11, 31, 8, 33, 7, 36, 7, 39, 10, 38, 16, 33, 16, 30, 14)
+
+[node name="PolygonDetail" type="Polygon2D" parent="."]
+color = Color(0.905882, 0.87451, 0.839216, 1)
+polygon = PackedVector2Array(49, 81, 58, 83, 71, 84, 70, 92, 62, 95, 51, 95, 48, 92, 27, 92, 22, 96, 3, 93, 3, 83, 7, 82, 17, 80, 35, 83)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="FurHat" type="Node" parent="ItemTags"]
+
+[node name="Fur" type="Node" parent="ItemTags"]

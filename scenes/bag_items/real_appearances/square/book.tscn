@@ -13,3 +13,9 @@ position = Vector2(-39, -6)
 scale = Vector2(0.714286, 1)
 color = Color(0.648349, 0.519362, 0.486163, 1)
 polygon = PackedVector2Array(109.2, 14, 65.8, 14, 68.6, 12, 114.8, 12, 114.8, 17.3278, 114.8, 59, 109.2, 61)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="Book" type="Node" parent="ItemTags"]
+
+[node name="Paper" type="Node" parent="ItemTags"]

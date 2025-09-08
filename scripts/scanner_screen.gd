@@ -90,7 +90,7 @@ func _check_accept():
 		return # TODO disable the button in all cases there's no bag
 	
 	if _highlight_forbidden_shapes():
-		_get_progression().get_current_shift_results().num_mistakes += 1
+		_get_progression().get_current_shift_results().num_false_clears += 1
 		allow_through_timer = delay_after_failure
 	else:
 		_get_progression().get_current_shift_results().num_safe_bags_passed += 1
@@ -120,7 +120,7 @@ func _check_reject():
 		else:
 			_on_completed_bag_minigame()
 	else:
-		_get_progression().num_failures += 1
+		_get_progression().num_false_flags += 1
 		allow_through_timer = delay_after_failure
 
 	accept_button.disabled = true

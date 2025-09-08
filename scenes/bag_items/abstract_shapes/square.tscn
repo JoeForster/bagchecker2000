@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://bj6up7wy4oxe7"]
+[gd_scene load_steps=4 format=3 uid="uid://bj6up7wy4oxe7"]
 
 [ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://scripts/scanned_shape.gd" id="1_iqrqo"]
+[ext_resource type="PackedScene" uid="uid://cpwfqub8q8tf3" path="res://scenes/bag_items/real_appearances/square/book.tscn" id="2_re4xk"]
+[ext_resource type="PackedScene" uid="uid://dvteeshk7j32n" path="res://scenes/bag_items/real_appearances/square/game_console.tscn" id="3_4s4ea"]
 
 [node name="Square" type="RigidBody2D" node_paths=PackedStringArray("shape_node", "scanned_appearance")]
 process_mode = 4
@@ -13,6 +15,7 @@ script = ExtResource("1_iqrqo")
 shape_name = "Square"
 shape_node = NodePath("Square")
 scanned_appearance = NodePath("Square")
+possible_real_appearances = Array[PackedScene]([ExtResource("2_re4xk"), ExtResource("3_4s4ea")])
 
 [node name="Square" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(0, 0, 0, 75, 75, 75, 75, 0)

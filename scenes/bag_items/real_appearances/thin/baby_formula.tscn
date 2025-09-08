@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cvpko7d1jyda0"]
+
+[node name="BabyFormula" type="Node2D"]
+
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
+color = Color(0.462745, 0.819608, 1, 1)
+polygon = PackedVector2Array(15, 40, 20, 20, 30, 17, 40, 17, 50, 20, 55, 40, 55, 92, 15, 92)
+
+[node name="PolygonDetail" type="Polygon2D" parent="."]
+position = Vector2(2, 0)
+color = Color(1, 0.811765, 0.737255, 1)
+polygon = PackedVector2Array(28, 52, 41, 50, 45, 56, 46, 62, 45, 69, 37, 71, 29, 70, 24, 69, 23, 63, 24, 56)
+
+[node name="PolygonDetail2" type="Polygon2D" parent="."]
+position = Vector2(-3, 4)
+color = Color(0.133333, 0.223529, 0.501961, 1)
+polygon = PackedVector2Array(29, 8, 47, 8, 48, 17, 28, 17)
+
+[node name="PolygonDetail3" type="Polygon2D" parent="."]
+position = Vector2(-6, 35)
+polygon = PackedVector2Array(33, 19, 33, 15, 38, 15, 41, 13, 44, 15, 47, 13, 50, 16, 53, 17, 54, 21, 54, 28, 53, 23, 51, 20, 47, 17, 41, 17, 36, 18, 33, 22, 31, 30, 29, 27, 31, 25, 30, 20)
+
+[node name="PolygonDetail4" type="Polygon2D" parent="."]
+position = Vector2(-17, 49)
+scale = Vector2(1.33333, 1)
+color = Color(0.980392, 0.843137, 0.317647, 1)
+polygon = PackedVector2Array(39, 14, 42, 14, 42.75, 17, 42, 19, 39.75, 20, 38.25, 18)
+
+[node name="PolygonDetail5" type="Polygon2D" parent="."]
+position = Vector2(-16, 48)
+scale = Vector2(1.33333, 1)
+color = Color(0.569328, 0.474851, 0.0678612, 1)
+polygon = PackedVector2Array(39, 17, 40.5, 17, 40.5, 18, 40.5, 19, 39, 19, 38.25, 18)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="BabyFormula" type="Node" parent="ItemTags"]
+
+[node name="Liquid" type="Node" parent="ItemTags"]

@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpa5lsoxu3l5i"]
+[gd_scene load_steps=6 format=3 uid="uid://dpa5lsoxu3l5i"]
 
 [ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://scripts/scanned_shape.gd" id="1_wba84"]
+[ext_resource type="PackedScene" uid="uid://busdkrk4e02qy" path="res://scenes/bag_items/real_appearances/thin/banana.tscn" id="2_8unvk"]
+[ext_resource type="PackedScene" uid="uid://c1nyd27nd0uml" path="res://scenes/bag_items/real_appearances/thin/water_bottle_legit.tscn" id="3_covvh"]
+[ext_resource type="PackedScene" uid="uid://cvpko7d1jyda0" path="res://scenes/bag_items/real_appearances/thin/baby_formula.tscn" id="4_t343a"]
+[ext_resource type="PackedScene" uid="uid://dboysacrr8myh" path="res://scenes/bag_items/real_appearances/thin/water_bottle_lighter_fluid.tscn" id="5_k4t7n"]
 
 [node name="Hexagon" type="RigidBody2D" node_paths=PackedStringArray("shape_node", "scanned_appearance")]
 process_mode = 4
@@ -13,9 +17,10 @@ script = ExtResource("1_wba84")
 shape_name = "Hexagon"
 shape_node = NodePath("HexagonPoly")
 scanned_appearance = NodePath("HexagonPoly")
+possible_real_appearances = Array[PackedScene]([ExtResource("2_8unvk"), ExtResource("3_covvh"), ExtResource("4_t343a"), ExtResource("5_k4t7n")])
 
 [node name="HexagonPoly" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(0, 37.5, 20, 0, 55, 0, 75, 37.5, 55, 75, 20, 75)
+polygon = PackedVector2Array(18, 38, 20, 0, 52, 0, 55, 38, 51, 75, 20, 75)
 
 [node name="Highlighter" type="Line2D" parent="."]
 visible = false
@@ -23,7 +28,7 @@ points = PackedVector2Array(0, 0, 37.5, 37.5, 75, 75, 37.5, 37.5, 75, 0, 37.5, 3
 default_color = Color(1, 0, 1, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(20, 0, 55, 0, 75, 37.5, 55, 75, 20, 75, 0, 37.5)
+polygon = PackedVector2Array(20, 0, 52, 0, 55, 38, 51, 75, 20, 75, 18, 38)
 
 [node name="DragPoint" type="Marker2D" parent="."]
 position = Vector2(37.5, 37.5)

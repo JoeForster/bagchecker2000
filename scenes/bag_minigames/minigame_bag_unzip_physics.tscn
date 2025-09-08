@@ -58,6 +58,7 @@ item_scanner = NodePath("LiquidTray")
 test_rules = NodePath("TestRules")
 
 [node name="TestRules" parent="." instance=ExtResource("2_efg4p")]
+no_extra_check_items = Array[PackedScene]([])
 
 [node name="BagBG" type="Polygon2D" parent="."]
 position = Vector2(22, 35)

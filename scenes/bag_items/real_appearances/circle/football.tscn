@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://bsippiai37g1s"]
+
+[node name="Football" type="Node2D"]
+
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
+color = Color(0.921569, 0.921569, 0.921569, 1)
+polygon = PackedVector2Array(20, 4.5, 37.5, 0, 55.5, 4.5, 70.5, 18, 75, 37.5, 70, 57.5, 55.5, 70.5, 38, 75, 20, 70.5, 5.5, 57.5, 0, 37.5, 5, 18)
+
+[node name="PolygonDetail" type="Polygon2D" parent="."]
+position = Vector2(-1, -32)
+scale = Vector2(1, 0.944444)
+color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+polygon = PackedVector2Array(41, 75, 51, 68, 49, 57, 36, 57, 33, 67)
+
+[node name="PolygonDetail2" type="Polygon2D" parent="."]
+position = Vector2(22, -37)
+scale = Vector2(1, 0.944444)
+color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+polygon = PackedVector2Array(51, 67.7647, 49, 58.2353, 43, 52.9412, 37, 58.2353, 41, 68.8235)
+
+[node name="PolygonDetail3" type="Polygon2D" parent="."]
+position = Vector2(35, 63)
+rotation = -3.0822
+scale = Vector2(1, 0.944444)
+color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+offset = Vector2(-41.7682, -64.8244)
+polygon = PackedVector2Array(41, 75, 51, 68, 49, 57, 36, 57, 33, 67)
+
+[node name="PolygonDetail6" type="Polygon2D" parent="."]
+position = Vector2(10, 41)
+rotation = -2.25932
+scale = Vector2(1, 0.944444)
+color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+offset = Vector2(-41.7682, -64.8244)
+polygon = PackedVector2Array(41, 75, 51, 68, 49, 57, 36, 57, 33, 67)
+
+[node name="PolygonDetail7" type="Polygon2D" parent="."]
+position = Vector2(8, 10)
+rotation = 0.177963
+scale = Vector2(1, 0.944444)
+color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+offset = Vector2(-41.7682, -64.8244)
+polygon = PackedVector2Array(41, 75, 51, 68, 48.4807, 62.4702, 40.2318, 73.7235)
+
+[node name="PolygonDetail4" type="Polygon2D" parent="."]
+position = Vector2(65, 52)
+rotation = -3.43819
+scale = Vector2(1, 0.944444)
+color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+offset = Vector2(-41.7682, -64.8244)
+polygon = PackedVector2Array(41, 75, 51, 68, 49, 57, 38.4479, 58.2141, 33, 67)
+
+[node name="PolygonDetail5" type="Polygon2D" parent="."]
+position = Vector2(39, 9)
+rotation = -3.43819
+scale = Vector2(1, 0.944444)
+color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+offset = Vector2(-41.7682, -64.8244)
+polygon = PackedVector2Array(41, 75, 49.2857, 75.0071, 50.8266, 73.2914, 34.8612, 67.018, 32.0717, 69.4368)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="Football" type="Node" parent="ItemTags"]
+
+[node name="Inflatable" type="Node" parent="ItemTags"]

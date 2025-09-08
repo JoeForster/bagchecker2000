@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dboysacrr8myh"]
+
+[node name="WaterBottle" type="Node2D"]
+
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
+color = Color(0.894118, 1, 0.941176, 1)
+polygon = PackedVector2Array(15, 40, 30, 20, 30, 8, 40, 8, 40, 20, 55, 40, 55, 92, 15, 92)
+
+[node name="PolygonDetail" type="Polygon2D" parent="."]
+color = Color(0.463499, 0.820764, 1, 1)
+polygon = PackedVector2Array(15, 55, 55, 55, 55, 81, 15, 81)
+
+[node name="PolygonDetail2" type="Polygon2D" parent="."]
+color = Color(0.838897, 0.838897, 0.838897, 1)
+polygon = PackedVector2Array(30, 8, 40, 8, 40, 14, 30, 14)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="LighterFluid" type="Node" parent="ItemTags"]
+
+[node name="Liquid" type="Node" parent="ItemTags"]

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cun1r8cyn6xjl"]
+
+[node name="BigCheese" type="Node2D"]
+
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
+color = Color(0.654902, 0.0313726, 0.2, 1)
+polygon = PackedVector2Array(20, 4.5, 37.5, 0, 55.5, 4.5, 70.5, 18, 75, 37.5, 70, 57.5, 55.5, 70.5, 48.2159, 60.8534, 43.9688, 55.229, 37, 48, 20, 70.5, 5.5, 57.5, 0, 37.5, 5, 18)
+
+[node name="PolygonDetail" type="Polygon2D" parent="."]
+position = Vector2(1, -6)
+color = Color(0.960784, 0.890196, 0.623529, 1)
+polygon = PackedVector2Array(52, 78, 60, 71, 38, 44, 34, 55, 19, 77, 37, 56)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="BigCheese" type="Node" parent="ItemTags"]
+
+[node name="Cheese" type="Node" parent="ItemTags"]
+
+[node name="Food" type="Node" parent="ItemTags"]

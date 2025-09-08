@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://busdkrk4e02qy"]
+
+[node name="Banana" type="Node2D"]
+
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
+position = Vector2(-15.806, 36.3602)
+rotation = -0.659498
+color = Color(0.878425, 0.929297, 0, 1)
+polygon = PackedVector2Array(1.55851, 56.4276, 17.5868, 42.2822, 31.5994, 29.1047, 47.6278, 14.9592, 53, 2, 59, 2, 57, 17, 52, 31, 42, 49, 24, 59, 2, 66)
+
+[node name="DetailPolygon" type="Polygon2D" parent="."]
+position = Vector2(-15.806, 36.3602)
+rotation = -0.659498
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(52, 5, 53, 1, 59, 1, 59, 6)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="Banana" type="Node" parent="ItemTags"]
+
+[node name="Fruit" type="Node" parent="ItemTags"]
+
+[node name="Food" type="Node" parent="ItemTags"]

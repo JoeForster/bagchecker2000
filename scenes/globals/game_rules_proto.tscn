@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://scenes/bag_items/abstract_shapes/square.tscn" id="4_pw6ve"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/abstract_shapes/triangle.tscn" id="5_3wcc5"]
 [ext_resource type="Script" uid="uid://c2h6304bk3egj" path="res://scripts/shift_rules.gd" id="6_3yakh"]
-[ext_resource type="PackedScene" uid="uid://c1nyd27nd0uml" path="res://scenes/bag_items/real_appearances/water_bottle.tscn" id="6_munt1"]
-[ext_resource type="PackedScene" uid="uid://busdkrk4e02qy" path="res://scenes/bag_items/real_appearances/banana.tscn" id="8_7c5rk"]
-[ext_resource type="PackedScene" uid="uid://cpwfqub8q8tf3" path="res://scenes/bag_items/real_appearances/book.tscn" id="9_7c5rk"]
-[ext_resource type="PackedScene" uid="uid://dvteeshk7j32n" path="res://scenes/bag_items/real_appearances/game_console.tscn" id="9_mqjen"]
+[ext_resource type="PackedScene" uid="uid://c1nyd27nd0uml" path="res://scenes/bag_items/real_appearances/thin/water_bottle_legit.tscn" id="6_munt1"]
+[ext_resource type="PackedScene" uid="uid://busdkrk4e02qy" path="res://scenes/bag_items/real_appearances/thin/banana.tscn" id="8_7c5rk"]
+[ext_resource type="PackedScene" uid="uid://cpwfqub8q8tf3" path="res://scenes/bag_items/real_appearances/square/book.tscn" id="9_7c5rk"]
+[ext_resource type="PackedScene" uid="uid://dvteeshk7j32n" path="res://scenes/bag_items/real_appearances/square/game_console.tscn" id="9_mqjen"]
 
 [node name="GameRules" type="Node"]
 script = ExtResource("1_k0dcv")
