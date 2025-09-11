@@ -21,11 +21,17 @@ func refresh():
 		current_label_offset += this_rule_label.get_size().y
 		# Populate the rule label
 		if rule.max_num_of_shape <= 0:
-			this_rule_label.text = "No " + rule.restricted_colour_name + " " + rule.restricted_shape + "s"
+			this_rule_label.text = "No "
 		else:
-			this_rule_label.text = "No more than " + this_rule_label.max_num_of_shape + " " + rule.restricted_colour_name + " " + rule.restricted_shape + "s"
-		var text_colour = GameRulesProto.possible_colours[rule.restricted_colour_name]
-		this_rule_label.add_theme_color_override("font_color", text_colour)
+			this_rule_label.text = "No more than " + this_rule_label.max_num_of_shape + " "
+
+		if rule.restricted_item_tag:
+			this_rule_label.text += rule.restricted_item_tag # TODO human readable
+		else:
+			this_rule_label.text += rule.restricted_colour_name + " " + rule.restricted_shape + "s"
+			var text_colour = GameRulesProto.possible_colours[rule.restricted_colour_name]
+			this_rule_label.add_theme_color_override("font_color", text_colour)
+
 
 func _process(_delta: float) -> void:
 	if GameRulesProto.HACK_ui_dirty:
