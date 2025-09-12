@@ -52,9 +52,21 @@ func get_shift_rules() -> ShiftRules:
 func get_shift_total_score() -> int:
 	return GameProgressionProto.get_current_shift_results().get_total_score(self, get_shift_rules())
 
-func shape_breaks_rule(shape : ScannedShape) -> bool:
+func item_really_breaks_rule(item : ScannedShape) -> bool:
 	for rule in current_rules:
-		if shape.colour_name == rule.restricted_colour_name && shape.shape_name == rule.restricted_shape:
+		if rule.restricted_item_tag:
+			if any_tag_breaks_rule(item.current_item_tags):
+				return true
+		elif item.colour_name == rule.restricted_colour_name && item.shape_name == rule.restricted_shape:
+			return true
+	return false
+	
+func item_shape_potentially_breaks_rule(item : ScannedShape) -> bool:
+	for rule in current_rules:
+		if rule.restricted_item_tag:
+			if any_tag_breaks_rule(item.shape_possible_item_tags):
+				return true
+		elif item.colour_name == rule.restricted_colour_name && item.shape_name == rule.restricted_shape:
 			return true
 	return false
 
@@ -120,10 +132,11 @@ func generate_bag_contents_tagged(bag_breaks_rule : bool):
 			# TODO restore extra check logic
 			#item_spec.extra_check_needed = true
 			picked_item = possible_bag_items_failing_rule.pick_random()
+			assert(!picked_item.is_legit)
 		else:
 			picked_item = possible_bag_items_passing_rule.pick_random()
+			assert(picked_item.is_legit)
 
-		assert(picked_item)
 		item_spec.scanned_shape_temp = picked_item
 
 	# Randomise the items (even if not rule-breaking, e.g. for bag_section_id)
@@ -143,15 +156,9 @@ func generate_bag_contents_tagged(bag_breaks_rule : bool):
 			new_shape_dupe.set_owner(shape_row)
 			new_shape_dupe.translate(offset)
 			offset.x += new_shape_dupe.shape_width_in_scanner
-			
+
 			var section_id = this_shape_spec.bag_section_id
 			new_shape_dupe.bag_section_id = section_id
-
-			var real_appearance = new_shape_dupe.real_appearance
-			#new_shape_dupe.real_appearance = real_appearance
-			
-			# TODO bring back the extra check here (for item that breaks rule but may or may not be legit)
-			new_shape_dupe.is_legit = true # (randi() % 2 == 0)
 
 			overall_shape_index += 1
 	
@@ -222,7 +229,7 @@ func generate_bag_contents_abstract(bag_breaks_rule : bool, extra_check_needed :
 				real_appearance.set_visible(false)
 				new_shape_dupe.add_child(real_appearance)
 				real_appearance.set_owner(new_shape_dupe)
-				new_shape_dupe.real_appearance = real_appearance
+				new_shape_dupe.set_real_appearance(real_appearance)
 				# TGODO NEEDS FIX FOR NEW REAL_ITEM RULES
 				new_shape_dupe.is_legit = (randi() % 2 == 0)
 
@@ -241,23 +248,30 @@ func _generate_shape_colour_combos(want_to_break_rule : bool) -> Array[ScannedSh
 			assert(this_shape_entry, "Could not find or instantiate PackedScene for shape name '"  + possible_shape_name + "'")
 			this_shape_entry.set_colour_and_name(possible_colours[possible_colour_name], possible_colour_name)
 			this_shape_entry.shape_name = possible_shape_name
-			if shape_breaks_rule(this_shape_entry) == want_to_break_rule:
+			if item_shape_potentially_breaks_rule(this_shape_entry) == want_to_break_rule:
 				possible_shape_colour_combos.push_back(this_shape_entry)
 	return possible_shape_colour_combos
 
 func _generate_possible_items_for_rule(want_to_break_rule : bool) -> Array[ScannedShape]:
 	var possible_items : Array[ScannedShape]
 	for item_spec in all_possible_bag_items_tagged:
-		if any_tag_breaks_rule(item_spec.real_item_tags) == want_to_break_rule:
+		var this_item_breaks_rule = any_tag_breaks_rule(item_spec.real_item_tags)
+		if this_item_breaks_rule == want_to_break_rule:
 			# TODO don't instnatiate here! Store the spec and instantiate when generating bag!
 			var this_shape_entry = item_spec.scanned_shape_scene.instantiate() as ScannedShape
 			var real_appearance = item_spec.real_item.instantiate()
-			this_shape_entry.real_appearance = real_appearance
+			this_shape_entry.set_real_appearance(real_appearance)
 			real_appearance.set_visible(false)
 			this_shape_entry.add_child(real_appearance)
-			real_appearance.set_owner(this_shape_entry)	
+			real_appearance.set_owner(this_shape_entry)
 			assert(this_shape_entry.real_appearance)
+			# It needs a colour for the scanner - for now just hard-code.
+			this_shape_entry.set_colour_and_name(possible_colours["Blue"], "Blue")
+			# This flag was for "extra checks" but that is now governed by the real appearance - need to set to satisfy minigame logic
+			this_shape_entry.is_legit = !this_item_breaks_rule
+			
 			possible_items.push_back(this_shape_entry)
+
 	return possible_items
 
 # TODO DEAD FUNCTION - DELETE when done with abstract rules.
@@ -364,12 +378,8 @@ func _ready() -> void:
 		_generate_new_rule_tagged()
 
 	# Generate the shape possibilites for these rules
-	if use_shape_based_items:
-		possible_bag_items_passing_rule = _generate_possible_items_for_rule(true)
-		possible_bag_items_failing_rule = _generate_possible_items_for_rule(false)
-	else:
-		possible_bag_items_passing_rule = _generate_shape_colour_combos(true)
-		possible_bag_items_failing_rule = _generate_shape_colour_combos(false)
+	possible_bag_items_passing_rule = _generate_possible_items_for_rule(false)
+	possible_bag_items_failing_rule = _generate_possible_items_for_rule(true)
 	
 	# Get the per-shift rules which are in the scene as children of this node
 	for child in get_children():

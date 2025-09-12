@@ -67,7 +67,7 @@ func _process(delta: float) -> void:
 					show_shape.set_global_position(spawn_point_global)
 					if show_shape.real_appearance:
 						item_scanner.items_needing_scan.push_back(show_shape)
-					if rules.shape_breaks_rule(show_shape) and (!show_shape.real_appearance or !show_shape.is_legit):
+					if rules.item_really_breaks_rule(show_shape):
 						forbidden_items_for_tray.push_back(show_shape)
 			spawned_all_items = true
 			
@@ -76,7 +76,8 @@ func _process(delta: float) -> void:
 	if spawned_all_items && complete_timer == -1.0:
 		# Assumes only items can overlap with the area (should be set in layers)
 		# also only allow us to repack if we've scanned all the items that need it
-		if item_scanner.items_needing_scan.is_empty() and tray_area.get_overlapping_bodies().size() == forbidden_items_for_tray.size():
+		var items_in_tray = tray_area.get_overlapping_bodies()
+		if items_in_tray.size() == forbidden_items_for_tray.size():
 			valid_repack = true
 			for body in forbidden_items_for_tray:
 				if body not in tray_area.get_overlapping_bodies():

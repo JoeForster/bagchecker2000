@@ -42,7 +42,7 @@ class BagSpec:
 	var extra_check_needed : bool
 
 func _generate_bag_contents(bag_spec : BagSpec) -> BagContents:
-	var new_bag_contents = _get_rules().generate_bag_contents(bag_spec.is_bad, bag_spec.extra_check_needed)
+	var new_bag_contents = _get_rules().generate_bag_contents_tagged(bag_spec.is_bad)
 	return new_bag_contents
 
 func _display_bag_contents(bag : ConveyorBag):
@@ -63,7 +63,7 @@ func _clear_displayed_contents():
 func _check_forbidden_shapes():
 	for r in scanned_bag_contents.get_rows():
 		for shape : ScannedShape in r.get_children():
-			if _get_rules().shape_breaks_rule(shape):
+			if _get_rules().item_shape_potentially_breaks_rule(shape):
 				return true
 	return false
 
@@ -71,7 +71,7 @@ func _highlight_forbidden_shapes():
 	var found_any = false
 	for r in scanned_bag_contents.get_rows():
 		for shape : ScannedShape in r.get_children():
-			if _get_rules().shape_breaks_rule(shape):
+			if _get_rules().item_shape_potentially_breaks_rule(shape):
 				found_any = true
 				shape.set_highlighter_visible(true)
 	return found_any
@@ -120,7 +120,7 @@ func _check_reject():
 		else:
 			_on_completed_bag_minigame()
 	else:
-		_get_progression().num_false_flags += 1
+		_get_progression().get_current_shift_results().num_false_flags += 1
 		allow_through_timer = delay_after_failure
 
 	accept_button.disabled = true

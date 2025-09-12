@@ -41,14 +41,14 @@ func _ready() -> void:
 func _all_rule_breakers_marked() -> bool:
 	for row in bag_contents.get_rows():
 		for shape : ScannedShape in row.get_children():
-			if rules.shape_breaks_rule(shape) && !shape.is_highlighted():
+			if rules.item_really_breaks_rule(shape) && !shape.is_highlighted():
 				return false
 	return true
 
 func _on_shape_input_event(_viewport: Node, event: InputEvent, _shape_idx: int, shape : ScannedShape):
 	var click_event = event as InputEventMouseButton
 	if click_event and click_event.button_index == 1 and click_event.pressed:
-		if rules.shape_breaks_rule(shape):
+		if rules.item_really_breaks_rule(shape):
 			shape.set_highlighter_visible(true)
 			
 		if _all_rule_breakers_marked() && complete_timer == -1.0:

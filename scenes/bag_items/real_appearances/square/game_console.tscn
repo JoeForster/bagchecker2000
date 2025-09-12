@@ -3,10 +3,9 @@
 [node name="GameConsole" type="Node2D"]
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
-position = Vector2(-18.5, -5)
 scale = Vector2(1.21429, 1)
 color = Color(0.385492, 0.385493, 0.385492, 1)
-polygon = PackedVector2Array(21, 14, 27.5882, 11, 41.5882, 11, 49, 15, 49, 63, 44.0588, 66, 24.2941, 66, 21, 63)
+polygon = PackedVector2Array(5.76469, 8, 12.3529, 6, 27.1764, 6, 33.7646, 8, 33.7646, 59, 26.3528, 61, 12.3529, 61, 5.76469, 59)
 
 [node name="DetailPolygon" type="Polygon2D" parent="."]
 position = Vector2(-30, -49)
@@ -24,7 +23,7 @@ polygon = PackedVector2Array(68.6, 56, 79.8, 54, 105, 54, 109.565, 54.8152, 116.
 position = Vector2(-42, -3)
 scale = Vector2(0.714286, 1)
 color = Color(0.144063, 0.144063, 0.144063, 1)
-polygon = PackedVector2Array(68.6, 54, 116.2, 54, 116.2, 62, 113.619, 64, 79.6913, 64, 71.4, 64, 68.6, 62)
+polygon = PackedVector2Array(68.6, 54, 116.2, 54, 116.2, 62, 103.6, 64, 79.6913, 64, 68.6, 62)
 
 [node name="DetailPolygon4" type="Polygon2D" parent="."]
 position = Vector2(-39, -3)

@@ -10,7 +10,7 @@ extends RigidBody2D
 @export var possible_real_appearances : Array[PackedScene]
 @export var real_appearance : Node2D # TODO does this need to be an @export? it's set at runtime!
 @export var bag_section_id = 0
-@export var is_legit = true
+@export var is_legit = true # TODO probably remove flag after figuring out the new liquid scanner stuff, since the rules should determine this based on real_appearance
 
 @export var rotate_upright_rate = PI * 1.5
 
@@ -19,6 +19,11 @@ var colour : Color
 var colour_name : String
 var mouse_dragging = false
 var physics_enabled = false
+
+# All possible tags this item could have based on its shape
+var shape_possible_item_tags : Array[String]
+# The actual tags this item has based on its real_appearance (if any)
+var current_item_tags : Array[String]
 
 # Internal hard-code settings
 
@@ -31,6 +36,27 @@ enum ITEM_DRAG_MODE
 
 var item_drag_mode = ITEM_DRAG_MODE.FORCE_POS
 var move_and_collide_speed = 100.0
+
+func refresh_item_tags() -> void:
+	current_item_tags.clear()
+	if real_appearance and real_appearance.has_node("ItemTags"):
+		var tags_node = real_appearance.get_node("ItemTags")
+		for tag_node in tags_node.get_children():
+			current_item_tags.push_back(tag_node.name)
+
+func _ready() -> void:
+	shape_possible_item_tags.clear()
+	for real_appearance_scene in possible_real_appearances:
+		var temp_real_appearance = real_appearance_scene.instantiate()
+		if temp_real_appearance and temp_real_appearance.has_node("ItemTags"):
+			var tags_node = temp_real_appearance.get_node("ItemTags")
+			for tag_node in tags_node.get_children():
+				shape_possible_item_tags.push_back(tag_node.name)
+	refresh_item_tags()
+
+func set_real_appearance(new_real_appearance : Node2D):
+	real_appearance = new_real_appearance
+	refresh_item_tags()
 
 func enable_physics():
 	if !physics_enabled:
