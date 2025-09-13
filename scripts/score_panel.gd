@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 	if num_successful_searches_label:
 		num_successful_searches_label.text = str(shift_results.num_successful_searches)
 	if num_mistakes_label:
-		num_mistakes_label.text = str(shift_results.num_mistakes)
+		num_mistakes_label.text = str(shift_results.num_false_clears + shift_results.num_false_flags)
 	if time_label:
 		time_label.text = str(shift_results.time_spent).pad_decimals(2).replace(".", ":")
 		if GameRulesProto.get_shift_rules():

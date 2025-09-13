@@ -67,11 +67,11 @@ func _check_forbidden_shapes():
 				return true
 	return false
 
-func _highlight_forbidden_shapes():
+func _highlight_forbidden_items():
 	var found_any = false
 	for r in scanned_bag_contents.get_rows():
 		for shape : ScannedShape in r.get_children():
-			if _get_rules().item_shape_potentially_breaks_rule(shape):
+			if _get_rules().item_really_breaks_rule(shape):
 				found_any = true
 				shape.set_highlighter_visible(true)
 	return found_any
@@ -89,7 +89,7 @@ func _check_accept():
 	if current_scanned_bag == null:
 		return # TODO disable the button in all cases there's no bag
 	
-	if _highlight_forbidden_shapes():
+	if _highlight_forbidden_items():
 		_get_progression().get_current_shift_results().num_false_clears += 1
 		allow_through_timer = delay_after_failure
 	else:

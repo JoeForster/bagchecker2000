@@ -101,7 +101,7 @@ func _process(delta: float) -> void:
 	if spawned_all_items && complete_timer == -1.0:
 		# Assumes only items can overlap with the area (should be set in layers)
 		# also only allow us to repack if we've scanned all the items that need it
-		if item_scanner.items_needing_scan.is_empty() and tray_area.get_overlapping_bodies().size() == forbidden_items_for_tray.size():
+		if tray_area.get_overlapping_bodies().size() == forbidden_items_for_tray.size():
 			valid_repack = true
 			for body in forbidden_items_for_tray:
 				if body not in tray_area.get_overlapping_bodies():
