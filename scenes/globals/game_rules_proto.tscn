@@ -15,7 +15,7 @@
 script = ExtResource("1_k0dcv")
 shape_name_to_scene = {
 "Circle": ExtResource("2_tcjnq"),
-"Hexagon": ExtResource("3_aul36"),
+"Long": ExtResource("3_aul36"),
 "Square": ExtResource("4_pw6ve"),
 "Triangle": ExtResource("5_3wcc5")
 }

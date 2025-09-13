@@ -18,4 +18,4 @@ polygon = PackedVector2Array(30, 8, 40, 8, 40, 14, 30, 14)
 
 [node name="Water" type="Node" parent="ItemTags"]
 
-[node name="Liquid" type="Node" parent="ItemTags"]
+[node name="Liquids" type="Node" parent="ItemTags"]

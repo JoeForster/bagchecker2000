@@ -60,6 +60,6 @@ polygon = PackedVector2Array(41, 75, 49.2857, 75.0071, 50.8266, 73.2914, 34.8612
 
 [node name="ItemTags" type="Node" parent="."]
 
-[node name="Football" type="Node" parent="ItemTags"]
+[node name="Footballs" type="Node" parent="ItemTags"]
 
-[node name="Inflatable" type="Node" parent="ItemTags"]
+[node name="Inflatables" type="Node" parent="ItemTags"]

@@ -39,6 +39,6 @@ polygon = PackedVector2Array(93.8, 58, 95.2, 57, 98, 57, 99.4, 58, 99.4, 60, 98,
 
 [node name="ItemTags" type="Node" parent="."]
 
-[node name="GameConsole" type="Node" parent="ItemTags"]
+[node name="Game Consoles" type="Node" parent="ItemTags"]
 
 [node name="Electronics" type="Node" parent="ItemTags"]

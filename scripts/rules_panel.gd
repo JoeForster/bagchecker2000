@@ -26,12 +26,15 @@ func refresh():
 			this_rule_label.text = "No more than " + this_rule_label.max_num_of_shape + " "
 
 		if rule.restricted_item_tag:
-			this_rule_label.text += rule.restricted_item_tag # TODO human readable
+			# Show just the tag and the preformatted list of shapes it could be
+			# TODO human readable, and with visual aid?
+			this_rule_label.text += rule.restricted_item_tag
+			this_rule_label.text += " " + rule.restricted_item_possible_shapes_label
+
 		else:
 			this_rule_label.text += rule.restricted_colour_name + " " + rule.restricted_shape + "s"
 			var text_colour = GameRulesProto.possible_colours[rule.restricted_colour_name]
 			this_rule_label.add_theme_color_override("font_color", text_colour)
-
 
 func _process(_delta: float) -> void:
 	if GameRulesProto.HACK_ui_dirty:

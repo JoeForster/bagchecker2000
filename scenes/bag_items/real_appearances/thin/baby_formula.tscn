@@ -34,6 +34,6 @@ polygon = PackedVector2Array(39, 17, 40.5, 17, 40.5, 18, 40.5, 19, 39, 19, 38.25
 
 [node name="ItemTags" type="Node" parent="."]
 
-[node name="BabyFormula" type="Node" parent="ItemTags"]
+[node name="Baby Formula" type="Node" parent="ItemTags"]
 
-[node name="Liquid" type="Node" parent="ItemTags"]
+[node name="Liquids" type="Node" parent="ItemTags"]

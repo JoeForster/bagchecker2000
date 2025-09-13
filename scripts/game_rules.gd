@@ -26,14 +26,19 @@ class Rule:
 	var restricted_shape : String
 	var restricted_colour_name : String
 	var restricted_item_tag : String
+	var restricted_item_possible_shapes_label : String
 	var max_num_of_shape : int
 
 func rules_match(rule_1 : Rule, rule_2 : Rule) -> bool:
-	return (
-			rule_1.restricted_shape == rule_2.restricted_shape &&
-			rule_1.restricted_colour_name == rule_2.restricted_colour_name &&
-			rule_1.max_num_of_shape == rule_2.max_num_of_shape
-		)
+	if rule_1.restricted_item_tag:
+		assert(rule_2.restricted_item_tag)
+		return (rule_1.restricted_item_tag == rule_2.restricted_item_tag)
+	else:
+		return (
+				rule_1.restricted_shape == rule_2.restricted_shape &&
+				rule_1.restricted_colour_name == rule_2.restricted_colour_name &&
+				rule_1.max_num_of_shape == rule_2.max_num_of_shape
+			)
 
 var HACK_ui_dirty = true
 var current_rules : Array[Rule]
@@ -42,6 +47,7 @@ var possible_bag_items_failing_rule : Array[ScannedShape]
 #var item_tag_to_item_specs : Dictionary
 var all_item_tags : Array[String]
 var all_possible_bag_items_tagged : Array[BagItemSpec]
+var item_tag_to_possible_shapes : Dictionary # String -> PackedStringArray
 
 var shift_rules : Array[ShiftRules]
 
@@ -305,17 +311,18 @@ func _generate_new_rule_tagged():
 		var possible_rules : Array[Rule]
 		
 		for new_rule_tag in all_item_tags:
-				var new_rule = Rule.new()
-				new_rule.restricted_item_tag = new_rule_tag
-				new_rule.max_num_of_shape = 0
+			var new_rule = Rule.new()
+			new_rule.restricted_item_tag = new_rule_tag
+			new_rule.restricted_item_possible_shapes_label = "(%s)" % ", ".join(item_tag_to_possible_shapes[new_rule_tag])
+			new_rule.max_num_of_shape = 0
 
-				var rule_matches = func(check_rule : Rule) -> bool:
-					return rules_match(new_rule, check_rule)
-				
-				if current_rules.any(rule_matches):
-					print("rejecting existing tag rule: %s/%d" % [new_rule.restricted_item_tag, new_rule.max_num_of_shape])
-				else:
-					possible_rules.push_back(new_rule)
+			var rule_matches = func(check_rule : Rule) -> bool:
+				return rules_match(new_rule, check_rule)
+			
+			if current_rules.any(rule_matches):
+				print("rejecting existing tag rule: %s/%d" % [new_rule.restricted_item_tag, new_rule.max_num_of_shape])
+			else:
+				possible_rules.push_back(new_rule)
 
 		if possible_rules.is_empty():
 			printerr("_generate_new_rule_tagged unable to find any more valid rules")
@@ -327,6 +334,7 @@ func _generate_possible_item_specs_tagged():
 	print("_generate_possible_item_specs_tagged:")
 	#item_tag_to_item_specs.clear()
 	all_item_tags.clear()
+	item_tag_to_possible_shapes.clear()
 	all_possible_bag_items_tagged.clear()
 	
 	for possible_shape_name in shape_name_to_scene:
@@ -344,19 +352,7 @@ func _generate_possible_item_specs_tagged():
 					var new_item_spec = BagItemSpec.new()
 					new_item_spec.scanned_shape_scene = shape_scene
 					new_item_spec.real_item = real_appearance_scene
-				
-					# TODO remove this if we don't need to build the mapping after all
-					#for tag_node in tags_node.get_children():
-					#	pass
-						# TODO human-readable name
-						#var tag_item_specs : Array[BagItemSpec]
-						#if tag_node.name in all_item_tags_to_specs:
-						#	tag_item_specs = all_item_tags_to_specs.get(tag_node.name)
-						#else:
-						#	all_item_tags_to_specs[tag_node.name] = tag_item_specs
-						
-						#tag_item_specs.push_back(new_item_spec)
-					
+
 					for tag_node in tags_node.get_children():
 						if tag_node.name not in new_item_spec.real_item_tags:
 							new_item_spec.real_item_tags.push_back(tag_node.name)
@@ -364,11 +360,15 @@ func _generate_possible_item_specs_tagged():
 							
 						if tag_node.name not in all_item_tags:
 							all_item_tags.push_back(tag_node.name)
+							
+						var this_tag_shapes : PackedStringArray
+						if tag_node.name in item_tag_to_possible_shapes:
+							this_tag_shapes = item_tag_to_possible_shapes[tag_node.name]
+						else:
+							item_tag_to_possible_shapes[tag_node.name] = this_tag_shapes
+						this_tag_shapes.push_back(possible_shape_name)
 
 					all_possible_bag_items_tagged.push_back(new_item_spec)
-
-	
-	#return item_tag_to_item_specs
 
 func _ready() -> void:
 	_generate_possible_item_specs_tagged()

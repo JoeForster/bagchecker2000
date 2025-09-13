@@ -22,6 +22,6 @@ polygon = PackedVector2Array(49, 81, 58, 83, 71, 84, 70, 92, 62, 95, 51, 95, 48,
 
 [node name="ItemTags" type="Node" parent="."]
 
-[node name="FurHat" type="Node" parent="ItemTags"]
+[node name="Fur Hats" type="Node" parent="ItemTags"]
 
 [node name="Fur" type="Node" parent="ItemTags"]

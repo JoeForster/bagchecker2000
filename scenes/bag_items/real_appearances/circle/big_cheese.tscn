@@ -13,7 +13,7 @@ polygon = PackedVector2Array(52, 78, 60, 71, 38, 44, 34, 55, 19, 77, 37, 56)
 
 [node name="ItemTags" type="Node" parent="."]
 
-[node name="BigCheese" type="Node" parent="ItemTags"]
+[node name="Big Cheese" type="Node" parent="ItemTags"]
 
 [node name="Cheese" type="Node" parent="ItemTags"]
 
