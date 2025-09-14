@@ -313,7 +313,7 @@ func _generate_new_rule_tagged():
 		for new_rule_tag in all_item_tags:
 			var new_rule = Rule.new()
 			new_rule.restricted_item_tag = new_rule_tag
-			new_rule.restricted_item_possible_shapes_label = "(%s)" % ", ".join(item_tag_to_possible_shapes[new_rule_tag])
+			new_rule.restricted_item_possible_shapes_label = "(Shapes: %s)" % ", ".join(item_tag_to_possible_shapes[new_rule_tag])
 			new_rule.max_num_of_shape = 0
 
 			var rule_matches = func(check_rule : Rule) -> bool:
