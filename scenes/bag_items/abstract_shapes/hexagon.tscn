@@ -14,7 +14,6 @@ center_of_mass_mode = 1
 center_of_mass = Vector2(37.5, 50)
 freeze = true
 script = ExtResource("1_wba84")
-shape_name = "Long"
 shape_node = NodePath("HexagonPoly")
 scanned_appearance = NodePath("HexagonPoly")
 possible_real_appearances = Array[PackedScene]([ExtResource("2_8unvk"), ExtResource("3_covvh"), ExtResource("4_t343a"), ExtResource("5_k4t7n")])

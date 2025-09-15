@@ -69,7 +69,7 @@ func _spawn_items(section_index : int):
 
 			if show_shape.real_appearance:
 				item_scanner.items_needing_scan.push_back(show_shape)
-			if rules.item_really_breaks_rule(show_shape) and (!show_shape.real_appearance or !show_shape.is_legit):
+			if rules.item_really_breaks_rule(show_shape):
 				forbidden_items_for_tray.push_back(show_shape)
 
 	spawned_all_items = !has_any_left

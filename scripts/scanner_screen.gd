@@ -6,7 +6,6 @@ extends Node2D
 @export var shift_results_scene : PackedScene
 @export var delay_after_success = 0.5
 @export var delay_after_failure = 2.0
-@export var initial_max_num_of_shape : int
 
 # Game elements
 @export var conveyor : Conveyor

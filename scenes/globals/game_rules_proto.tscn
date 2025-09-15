@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bdtkv0d3nr14"]
+[gd_scene load_steps=7 format=3 uid="uid://bdtkv0d3nr14"]
 
 [ext_resource type="Script" uid="uid://d0a6nmdhlbgy6" path="res://scripts/game_rules.gd" id="1_k0dcv"]
 [ext_resource type="PackedScene" uid="uid://cxohy4i7chyl3" path="res://scenes/bag_items/abstract_shapes/circle.tscn" id="2_tcjnq"]
@@ -6,13 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bj6up7wy4oxe7" path="res://scenes/bag_items/abstract_shapes/square.tscn" id="4_pw6ve"]
 [ext_resource type="PackedScene" uid="uid://vtugltde8pc6" path="res://scenes/bag_items/abstract_shapes/triangle.tscn" id="5_3wcc5"]
 [ext_resource type="Script" uid="uid://c2h6304bk3egj" path="res://scripts/shift_rules.gd" id="6_3yakh"]
-[ext_resource type="PackedScene" uid="uid://c1nyd27nd0uml" path="res://scenes/bag_items/real_appearances/thin/water_bottle_legit.tscn" id="6_munt1"]
-[ext_resource type="PackedScene" uid="uid://busdkrk4e02qy" path="res://scenes/bag_items/real_appearances/thin/banana.tscn" id="8_7c5rk"]
-[ext_resource type="PackedScene" uid="uid://cpwfqub8q8tf3" path="res://scenes/bag_items/real_appearances/square/book.tscn" id="9_7c5rk"]
-[ext_resource type="PackedScene" uid="uid://dvteeshk7j32n" path="res://scenes/bag_items/real_appearances/square/game_console.tscn" id="9_mqjen"]
 
 [node name="GameRules" type="Node"]
 script = ExtResource("1_k0dcv")
+initial_rule_count = 2
 shape_name_to_scene = {
 "Circle": ExtResource("2_tcjnq"),
 "Long": ExtResource("3_aul36"),
@@ -25,8 +22,6 @@ possible_colours = {
 "Red": Color(1, 0, 0, 1),
 "Yellow": Color(1, 1, 0, 1)
 }
-extra_check_items = Array[PackedScene]([ExtResource("6_munt1")])
-no_extra_check_items = Array[PackedScene]([ExtResource("9_mqjen"), ExtResource("8_7c5rk"), ExtResource("9_7c5rk")])
 
 [node name="ShiftRules_0" type="Node" parent="."]
 script = ExtResource("6_3yakh")

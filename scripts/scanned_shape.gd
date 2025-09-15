@@ -3,7 +3,6 @@
 class_name ScannedShape
 extends RigidBody2D
 
-@export var shape_name : String
 @export var shape_node : Node2D
 @export var shape_width_in_scanner = 100.0
 @export var scanned_appearance : Node2D

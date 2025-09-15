@@ -12,7 +12,6 @@ center_of_mass_mode = 1
 center_of_mass = Vector2(37.5, 50)
 freeze = true
 script = ExtResource("1_iqrqo")
-shape_name = "Square"
 shape_node = NodePath("Square")
 scanned_appearance = NodePath("Square")
 possible_real_appearances = Array[PackedScene]([ExtResource("2_re4xk"), ExtResource("3_4s4ea")])

@@ -13,7 +13,6 @@ center_of_mass = Vector2(37.5, 50)
 can_sleep = false
 freeze = true
 script = ExtResource("1_gck25")
-shape_name = "Triangle"
 shape_node = NodePath("Triangle")
 scanned_appearance = NodePath("Triangle")
 possible_real_appearances = Array[PackedScene]([ExtResource("2_ys7lb"), ExtResource("3_5rko3")])
