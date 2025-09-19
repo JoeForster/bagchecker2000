@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://77nwqdkwsa76"]
+[gd_scene load_steps=10 format=3 uid="uid://77nwqdkwsa76"]
 
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://scenes/conveyor/conveyor.tscn" id="2_7oatl"]
 [ext_resource type="Script" uid="uid://3jh3epebyfqt" path="res://scripts/rules_panel.gd" id="2_db33v"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="4_jifd8"]
 [ext_resource type="PackedScene" uid="uid://d3s1wwrkdxkgl" path="res://scenes/passengers/passenger.tscn" id="5_db33v"]
 [ext_resource type="PackedScene" uid="uid://hm88ugqy8ogu" path="res://scenes/game/ui_shift_results.tscn" id="5_e0lju"]
+[ext_resource type="Script" uid="uid://dkwtsxj56l6tv" path="res://scripts/scan_mode_buttons.gd" id="6_h8qxr"]
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -147,9 +148,9 @@ render_target_update_mode = 4
 
 [node name="ScannerUI" type="Control" parent="UICanvasLayer/UI"]
 anchors_preset = 0
-offset_left = 432.0
+offset_left = 290.0
 offset_top = 164.0
-offset_right = 1006.0
+offset_right = 1010.0
 offset_bottom = 656.0
 
 [node name="ScannerBGPanel" type="Panel" parent="UICanvasLayer/UI/ScannerUI"]
@@ -162,14 +163,10 @@ grow_vertical = 2
 
 [node name="ScannerScreenContainer" type="SubViewportContainer" parent="UICanvasLayer/UI/ScannerUI"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -250.5
-offset_top = 39.0
-offset_right = 249.5
-offset_bottom = 364.0
-grow_horizontal = 2
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 540.0
+offset_bottom = 365.0
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="UICanvasLayer/UI/ScannerUI/ScannerScreenContainer"]
@@ -198,9 +195,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -211.5
+offset_left = -271.0
 offset_top = -104.0
-offset_right = -31.5
+offset_right = -91.0
 offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -215,15 +212,51 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 32.0
+offset_left = -37.0
 offset_top = -104.0
-offset_right = 212.0
+offset_right = 143.0
 offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("4_jifd8")
 theme_type_variation = &"RedButton"
 text = "Flag"
+
+[node name="ScanModeButtons" type="VBoxContainer" parent="UICanvasLayer/UI/ScannerUI" node_paths=PackedStringArray("buttons")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_top = 67.0
+offset_right = -44.0
+offset_bottom = 351.0
+grow_horizontal = 0
+theme_override_constants/separation = 20
+script = ExtResource("6_h8qxr")
+buttons = [NodePath("ScanModeButton_1"), NodePath("ScanModeButton_2"), NodePath("ScanModeButton_3")]
+
+[node name="ScanModeButton_1" type="Button" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("4_jifd8")
+toggle_mode = true
+button_pressed = true
+text = "X-Ray"
+
+[node name="ScanModeButton_2" type="Button" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("4_jifd8")
+toggle_mode = true
+text = "Thermal"
+
+[node name="ScanModeButton_3" type="Button" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme = ExtResource("4_jifd8")
+toggle_mode = true
+text = "Audio"
 
 [node name="Queue" type="Node2D" parent="UICanvasLayer/UI"]
 position = Vector2(35, 10)
