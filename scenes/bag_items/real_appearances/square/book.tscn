@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://cpwfqub8q8tf3"]
+[gd_scene load_steps=2 format=3 uid="uid://cpwfqub8q8tf3"]
+
+[ext_resource type="Script" uid="uid://crkiqhnqwv1hi" path="res://scripts/bag_item.gd" id="1_vni0h"]
 
 [node name="Book" type="Node2D"]
+script = ExtResource("1_vni0h")
+xray_colour = Color(0.701961, 0.117647, 0, 1)
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
 position = Vector2(0, -9.53674e-07)

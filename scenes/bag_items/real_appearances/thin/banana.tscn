@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://busdkrk4e02qy"]
+[gd_scene load_steps=2 format=3 uid="uid://busdkrk4e02qy"]
+
+[ext_resource type="Script" uid="uid://crkiqhnqwv1hi" path="res://scripts/bag_item.gd" id="1_a8hf7"]
 
 [node name="Banana" type="Node2D"]
+script = ExtResource("1_a8hf7")
+xray_colour = Color(0.701961, 0.117647, 0, 1)
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
 color = Color(0.878425, 0.929297, 0, 1)

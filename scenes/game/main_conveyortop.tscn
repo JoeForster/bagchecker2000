@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://77nwqdkwsa76"]
+[gd_scene load_steps=11 format=3 uid="uid://77nwqdkwsa76"]
 
 [ext_resource type="PackedScene" uid="uid://dul4y13kgs5a4" path="res://scenes/conveyor/conveyor.tscn" id="2_7oatl"]
 [ext_resource type="Script" uid="uid://3jh3epebyfqt" path="res://scripts/rules_panel.gd" id="2_db33v"]
 [ext_resource type="Script" uid="uid://b3eg12m0cn1v4" path="res://scripts/scanner_screen.gd" id="3_0mf4y"]
 [ext_resource type="Theme" uid="uid://cb67h1qmovvhl" path="res://ui/main_modular.tres" id="4_jifd8"]
-[ext_resource type="PackedScene" uid="uid://d3s1wwrkdxkgl" path="res://scenes/passengers/passenger.tscn" id="5_db33v"]
 [ext_resource type="PackedScene" uid="uid://hm88ugqy8ogu" path="res://scenes/game/ui_shift_results.tscn" id="5_e0lju"]
 [ext_resource type="Script" uid="uid://dkwtsxj56l6tv" path="res://scripts/scan_mode_buttons.gd" id="6_h8qxr"]
+[ext_resource type="Script" uid="uid://defns6g0x7uyy" path="res://scripts/scan_mode_button.gd" id="7_2lfp1"]
+[ext_resource type="Script" uid="uid://bxpsm4u7gbig0" path="res://scripts/circle_2d.gd" id="8_2lfp1"]
 
 [sub_resource type="SystemFont" id="SystemFont_lquwl"]
 subpixel_positioning = 0
@@ -187,6 +188,9 @@ timer_label = NodePath("../../../../StatusPanel/TimerLabel/TimerValue")
 bags_label = NodePath("../../../../StatusPanel/BagCounterLabel/BagCounterValue")
 accept_button = NodePath("../../../AcceptButton")
 reject_button = NodePath("../../../RejectButton")
+default_colour_xray = Color(0.154876, 0.154876, 0.154876, 1)
+default_colour_thermal = Color(0.154876, 0.154876, 0.154876, 1)
+default_colour_audio = Color(0.154876, 0.154876, 0.154876, 1)
 
 [node name="AcceptButton" type="Button" parent="UICanvasLayer/UI/ScannerUI"]
 layout_mode = 1
@@ -222,53 +226,99 @@ theme = ExtResource("4_jifd8")
 theme_type_variation = &"RedButton"
 text = "Flag"
 
-[node name="ScanModeButtons" type="VBoxContainer" parent="UICanvasLayer/UI/ScannerUI" node_paths=PackedStringArray("buttons")]
+[node name="ScanModeButtons" type="GridContainer" parent="UICanvasLayer/UI/ScannerUI" node_paths=PackedStringArray("buttons", "scanner_screen")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -150.0
+offset_left = -169.0
 offset_top = 67.0
-offset_right = -44.0
+offset_right = -14.0
 offset_bottom = 351.0
 grow_horizontal = 0
-theme_override_constants/separation = 20
+columns = 2
 script = ExtResource("6_h8qxr")
-buttons = [NodePath("ScanModeButton_1"), NodePath("ScanModeButton_2"), NodePath("ScanModeButton_3")]
+buttons = [NodePath("ScanModeButton_XRay"), NodePath("ScanModeButton_Thermal"), NodePath("ScanModeButton_Audio")]
+scanner_screen = NodePath("../ScannerScreenContainer/SubViewport/ScannerScreen")
 
-[node name="ScanModeButton_1" type="Button" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+[node name="ModesLabel" type="Label" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+layout_mode = 2
+text = "Mode"
+
+[node name="HintsLabel" type="Label" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+layout_mode = 2
+text = "Hints"
+
+[node name="ScanModeButton_XRay" type="Button" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = ExtResource("4_jifd8")
 toggle_mode = true
 button_pressed = true
 text = "X-Ray"
+script = ExtResource("7_2lfp1")
 
-[node name="ScanModeButton_2" type="Button" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+[node name="ScanModeLabel_XRay" type="RichTextLabel" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=#b31e00]Organic[/color]
+[color=#008800]Metallic [/color]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="ScanModeButton_Thermal" type="Button" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = ExtResource("4_jifd8")
 toggle_mode = true
 text = "Thermal"
+script = ExtResource("7_2lfp1")
+scan_mode = 1
 
-[node name="ScanModeButton_3" type="Button" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+[node name="ScanModeLabel_Thermal" type="RichTextLabel" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+layout_mode = 2
+
+[node name="ScanModeButton_Audio" type="Button" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme = ExtResource("4_jifd8")
 toggle_mode = true
 text = "Audio"
+script = ExtResource("7_2lfp1")
+scan_mode = 2
+
+[node name="ScanModeLabel_Audio" type="RichTextLabel" parent="UICanvasLayer/UI/ScannerUI/ScanModeButtons"]
+layout_mode = 2
 
 [node name="Queue" type="Node2D" parent="UICanvasLayer/UI"]
 position = Vector2(35, 10)
 
-[node name="Passenger" parent="UICanvasLayer/UI/Queue" instance=ExtResource("5_db33v")]
-position = Vector2(21, 9)
+[node name="Passenger1" type="Node2D" parent="UICanvasLayer/UI/Queue"]
+position = Vector2(94, 120)
+script = ExtResource("8_2lfp1")
+color = Color(0.213013, 0.0772684, 0.000376106, 1)
+radius = 80.0
+metadata/_custom_type_script = "uid://bxpsm4u7gbig0"
 
-[node name="Passenger2" parent="UICanvasLayer/UI/Queue" instance=ExtResource("5_db33v")]
-position = Vector2(21, 177)
+[node name="Passenger2" type="Node2D" parent="UICanvasLayer/UI/Queue"]
+position = Vector2(94, 300)
+script = ExtResource("8_2lfp1")
+color = Color(0.213013, 0.0772684, 0.000376106, 1)
+radius = 80.0
+metadata/_custom_type_script = "uid://bxpsm4u7gbig0"
 
-[node name="Passenger3" parent="UICanvasLayer/UI/Queue" instance=ExtResource("5_db33v")]
-position = Vector2(21, 347)
+[node name="Passenger3" type="Node2D" parent="UICanvasLayer/UI/Queue"]
+position = Vector2(94, 480)
+script = ExtResource("8_2lfp1")
+color = Color(0.213013, 0.0772684, 0.000376106, 1)
+radius = 80.0
+metadata/_custom_type_script = "uid://bxpsm4u7gbig0"
 
-[node name="Passenger4" parent="UICanvasLayer/UI/Queue" instance=ExtResource("5_db33v")]
-position = Vector2(21, 515)
+[node name="Passenger4" type="Node2D" parent="UICanvasLayer/UI/Queue"]
+position = Vector2(94, 660)
+script = ExtResource("8_2lfp1")
+color = Color(0.213013, 0.0772684, 0.000376106, 1)
+radius = 80.0
+metadata/_custom_type_script = "uid://bxpsm4u7gbig0"

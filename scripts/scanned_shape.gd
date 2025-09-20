@@ -7,15 +7,15 @@ extends RigidBody2D
 @export var shape_width_in_scanner = 100.0
 @export var scanned_appearance : Node2D
 @export var possible_real_appearances : Array[PackedScene]
-@export var real_appearance : Node2D # TODO does this need to be an @export? it's set at runtime!
+@export var real_appearance : BagItem # TODO  RENAME AND does this need to be an @export? it's set at runtime!
 @export var bag_section_id = 0
 @export var is_legit = true # TODO probably remove flag after figuring out the new liquid scanner stuff, since the rules should determine this based on real_appearance
 
 @export var rotate_upright_rate = PI * 1.5
 
 # NOTE these won't be copied when added to a minigame via clone so should only be runtime values!
-var colour : Color
-var colour_name : String
+#var colour : Color
+#var colour_name : String
 var mouse_dragging = false
 var physics_enabled = false
 
@@ -52,8 +52,12 @@ func _ready() -> void:
 			for tag_node in tags_node.get_children():
 				shape_possible_item_tags.push_back(tag_node.name)
 	refresh_item_tags()
+	
+	# HACK default to blue until we have scanner colour system
+	shape_node.set_color(Color.BLUE)
+	
 
-func set_real_appearance(new_real_appearance : Node2D):
+func set_real_appearance(new_real_appearance : BagItem):
 	real_appearance = new_real_appearance
 	refresh_item_tags()
 
@@ -62,6 +66,7 @@ func enable_physics():
 		freeze = false
 		freeze_mode = RigidBody2D.FREEZE_MODE_KINEMATIC
 		input_event.connect(_on_input_event)
+		assert(real_appearance)
 		if real_appearance:
 			scanned_appearance.set_visible(false)
 			real_appearance.set_visible(true)
@@ -78,16 +83,14 @@ func enable_physics():
 			
 		physics_enabled = true
 		
-
-func set_colour_and_name(new_colour : Color, new_colour_name: String):
-	shape_node.set_color(new_colour)
-	colour = new_colour
-	colour_name = new_colour_name
-
 func clone():
-	# HACK workaround for issue with real_appearance, doesn't work with DUPLICATE_INSTANTIATION for some reasion?
+	# HACK needs attention - these flags were needed to duplicate real_appearance
+	# doesn't work with DUPLICATE_INSTANTIATION for some reasion?
+	# AND we have to manually fix up the real_appearance export now?
 	var new_node = duplicate(DUPLICATE_SIGNALS | DUPLICATE_GROUPS | DUPLICATE_SCRIPTS)
-	new_node.set_colour_and_name(colour, colour_name)
+	for child in new_node.get_children():
+		if child is BagItem:
+			new_node.real_appearance = child
 	return new_node
 
 func set_highlighter_visible(value : bool):

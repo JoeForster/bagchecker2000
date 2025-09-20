@@ -17,7 +17,24 @@ extends Node2D
 @export var accept_button : Button
 @export var reject_button : Button
 
-# Game state
+# Scanning Visuals
+@export var default_colour_xray : Color
+@export var default_colour_thermal : Color
+@export var default_colour_audio : Color
+
+# Types
+enum ITEM_SCAN_MODE
+{
+	XRAY,
+	THERMAL,
+	AUDIO
+}
+
+class BagSpec:
+	var is_bad : bool
+	var extra_check_needed : bool
+
+# Runtime game state
 var shift_timer = 0.0
 var first_turn = true
 var applied_out_of_time_penalty = false
@@ -29,6 +46,16 @@ var remaining_bags : int
 var current_scanned_bag : ConveyorBag
 # NOTE this is a duplicate of the BagContents node within the current_scanned_bag
 var scanned_bag_contents : BagContents 
+var scan_mode : ITEM_SCAN_MODE = ITEM_SCAN_MODE.XRAY
+
+# PUBLIC functions
+
+func set_scan_mode(new_mode : ITEM_SCAN_MODE):
+	if new_mode != scan_mode:
+		scan_mode = new_mode
+		_refresh_item_colours()
+
+# INTERNAL functions
 
 func _get_rules() -> GameRules:
 	return GameRulesProto
@@ -36,9 +63,6 @@ func _get_rules() -> GameRules:
 func _get_progression() -> GameProgression:
 	return GameProgressionProto
 
-class BagSpec:
-	var is_bad : bool
-	var extra_check_needed : bool
 
 func _generate_bag_contents(bag_spec : BagSpec) -> BagContents:
 	var new_bag_contents = _get_rules().generate_bag_contents_tagged(bag_spec.is_bad)
@@ -53,6 +77,8 @@ func _display_bag_contents(bag : ConveyorBag):
 		show_row.set_position(offset)
 		show_row.set_visible(true)
 		offset.y += 100
+		
+	_refresh_item_colours()
 
 func _clear_displayed_contents():
 	for child in get_children():
@@ -75,9 +101,28 @@ func _highlight_forbidden_items():
 				shape.set_highlighter_visible(true)
 	return found_any
 
+func _refresh_item_colours():
+
+	if not scanned_bag_contents:
+		return
+
+	var default_colour : Color
+	if scan_mode == ScannerScreen.ITEM_SCAN_MODE.XRAY:
+		default_colour = default_colour_xray
+	elif scan_mode == ScannerScreen.ITEM_SCAN_MODE.THERMAL:
+		default_colour = default_colour_thermal
+	else:
+		assert(scan_mode == ScannerScreen.ITEM_SCAN_MODE.AUDIO)
+		default_colour = default_colour_audio
+
+	for r in scanned_bag_contents.get_rows():
+		for shape : ScannedShape in r.get_children():
+			var real_item : BagItem = shape.real_appearance
+			var scanned_colour : Color = real_item.get_scanned_colour(scan_mode, default_colour)
+			shape.shape_node.set_color(scanned_colour)
+			
 func _on_bag_removed():
 	remaining_bags -= 1
-
 
 func _allow_bag_through():
 	# the scanner stopper only blocks layer 1 but the despawner blocks layers 1 and 2,

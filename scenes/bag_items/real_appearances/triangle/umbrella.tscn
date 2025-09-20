@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://vxryotyc03o8"]
+
+[ext_resource type="Script" uid="uid://crkiqhnqwv1hi" path="res://scripts/bag_item.gd" id="1_ptkyg"]
+
+[node name="Umbrella" type="Node2D"]
+script = ExtResource("1_ptkyg")
+xray_colour = Color(0, 0.503838, 0, 1)
+
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
+color = Color(0.324262, 0.421578, 0.985975, 1)
+polygon = PackedVector2Array(39, 20, 52, 62, 68, 92, 56, 92, 36, 99, 18, 95, 4, 92, 18, 63, 30.4643, 20.2904)
+
+[node name="PolygonDetail1" type="Polygon2D" parent="."]
+color = Color(0.144145, 0.147918, 0.655388, 1)
+polygon = PackedVector2Array(12, 91, 19, 94, 33, 20, 27, 95, 36, 96, 36, 20, 44, 95, 50, 93, 38, 20, 58, 91, 67, 89, 68, 92, 55, 92, 47, 99, 31, 100, 19, 95, 4, 92, 5, 89, 17, 64, 31, 20)
+
+[node name="PolygonDetail2" type="Polygon2D" parent="."]
+position = Vector2(3, -1)
+color = Color(0.462291, 0.462291, 0.462291, 1)
+polygon = PackedVector2Array(38, 8, 42, 15, 40, 15, 36, 10, 32, 12, 32, 21, 31, 21, 31, 12, 32, 10)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="Umbrellas" type="Node" parent="ItemTags"]

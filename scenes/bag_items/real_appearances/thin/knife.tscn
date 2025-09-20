@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://p0kpefusfwap"]
+
+[ext_resource type="Script" uid="uid://crkiqhnqwv1hi" path="res://scripts/bag_item.gd" id="1_6qbm7"]
+
+[node name="Knife" type="Node2D"]
+script = ExtResource("1_6qbm7")
+xray_colour = Color(0, 0.619608, 0, 1)
+
+[node name="OutlinePolygon" type="Polygon2D" parent="."]
+position = Vector2(4, 0)
+color = Color(0.800491, 0.800491, 0.800491, 1)
+polygon = PackedVector2Array(19, 40, 21, 28, 26, 22, 32, 22, 32, 92, 19, 92)
+
+[node name="PolygonDetail" type="Polygon2D" parent="."]
+position = Vector2(4, 11)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(17, 55, 34, 55, 34, 81, 17, 81)
+
+[node name="PolygonDetail2" type="Polygon2D" parent="."]
+position = Vector2(-4, 21)
+color = Color(0.650128, 0.650128, 0.650128, 1)
+polygon = PackedVector2Array(36, 8, 40, 8, 40, 39, 36, 35, 38, 31, 36, 27, 38, 18, 36, 16, 37.1799, 13.0501, 38, 11)
+
+[node name="ItemTags" type="Node" parent="."]
+
+[node name="Knives" type="Node" parent="ItemTags"]
+
+[node name="Weapons" type="Node" parent="ItemTags"]

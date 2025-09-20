@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://cvpko7d1jyda0"]
+[gd_scene load_steps=2 format=3 uid="uid://cvpko7d1jyda0"]
+
+[ext_resource type="Script" uid="uid://crkiqhnqwv1hi" path="res://scripts/bag_item.gd" id="1_ym8o5"]
 
 [node name="BabyFormula" type="Node2D"]
+script = ExtResource("1_ym8o5")
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
 color = Color(0.462745, 0.819608, 1, 1)

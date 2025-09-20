@@ -130,6 +130,7 @@ func generate_bag_contents_tagged(bag_breaks_rule : bool):
 			var this_shape_spec : BagItemSpec = item_specs[overall_shape_index]
 			# TODO instantiate 
 			var new_shape_orig : ScannedShape = this_shape_spec.scanned_shape_temp
+			assert(new_shape_orig.real_appearance)
 			var new_shape_dupe : ScannedShape = new_shape_orig.clone()
 			shape_row.add_child(new_shape_dupe)
 			new_shape_dupe.set_owner(shape_row)
@@ -140,6 +141,7 @@ func generate_bag_contents_tagged(bag_breaks_rule : bool):
 			new_shape_dupe.bag_section_id = section_id
 
 			overall_shape_index += 1
+			assert(new_shape_dupe.real_appearance)# ???
 	
 	return new_bag_contents
 
@@ -150,14 +152,15 @@ func _generate_possible_items_for_rule(want_to_break_rule : bool) -> Array[Scann
 		if this_item_breaks_rule == want_to_break_rule:
 			# TODO don't instnatiate here! Store the spec and instantiate when generating bag!
 			var this_shape_entry = item_spec.scanned_shape_scene.instantiate() as ScannedShape
-			var real_appearance = item_spec.real_item.instantiate()
+			var real_appearance = item_spec.real_item.instantiate() as BagItem
+			assert(real_appearance)
 			this_shape_entry.set_real_appearance(real_appearance)
 			real_appearance.set_visible(false)
 			this_shape_entry.add_child(real_appearance)
 			real_appearance.set_owner(this_shape_entry)
 			assert(this_shape_entry.real_appearance)
 			# It needs a colour for the scanner - for now just hard-code.
-			this_shape_entry.set_colour_and_name(possible_colours["Blue"], "Blue")
+			#this_shape_entry.set_colour_and_name(possible_colours["Blue"], "Blue")
 			# This flag was for "extra checks" but that is now governed by the real appearance - need to set to satisfy minigame logic
 			this_shape_entry.is_legit = !this_item_breaks_rule
 			

@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://cun1r8cyn6xjl"]
+[gd_scene load_steps=2 format=3 uid="uid://cun1r8cyn6xjl"]
+
+[ext_resource type="Script" uid="uid://crkiqhnqwv1hi" path="res://scripts/bag_item.gd" id="1_rfgdc"]
 
 [node name="BigCheese" type="Node2D"]
+script = ExtResource("1_rfgdc")
+xray_colour = Color(0.701961, 0.117647, 0, 1)
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
 color = Color(0.654902, 0.0313726, 0.2, 1)
@@ -14,6 +18,8 @@ polygon = PackedVector2Array(52, 78, 60, 71, 38, 44, 34, 55, 19, 77, 37, 56)
 [node name="ItemTags" type="Node" parent="."]
 
 [node name="Big Cheese" type="Node" parent="ItemTags"]
+script = ExtResource("1_rfgdc")
+xray_colour = Color(0.701961, 0.117647, 0, 1)
 
 [node name="Cheese" type="Node" parent="ItemTags"]
 

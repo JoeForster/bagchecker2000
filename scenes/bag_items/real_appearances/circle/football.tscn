@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://bsippiai37g1s"]
+[gd_scene load_steps=2 format=3 uid="uid://bsippiai37g1s"]
+
+[ext_resource type="Script" uid="uid://crkiqhnqwv1hi" path="res://scripts/bag_item.gd" id="1_rqydo"]
 
 [node name="Football" type="Node2D"]
+script = ExtResource("1_rqydo")
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
 color = Color(0.921569, 0.921569, 0.921569, 1)
