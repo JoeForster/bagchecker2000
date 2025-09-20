@@ -4,7 +4,7 @@
 
 [node name="Umbrella" type="Node2D"]
 script = ExtResource("1_ptkyg")
-xray_colour = Color(0, 0.503838, 0, 1)
+xray_colour = Color(0, 0.501961, 0, 0.862745)
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
 color = Color(0.324262, 0.421578, 0.985975, 1)

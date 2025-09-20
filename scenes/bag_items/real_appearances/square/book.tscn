@@ -4,7 +4,7 @@
 
 [node name="Book" type="Node2D"]
 script = ExtResource("1_vni0h")
-xray_colour = Color(0.701961, 0.117647, 0, 1)
+xray_colour = Color(0.701961, 0.117647, 0, 0.862745)
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
 position = Vector2(0, -9.53674e-07)

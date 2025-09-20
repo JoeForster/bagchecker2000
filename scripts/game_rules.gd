@@ -229,7 +229,7 @@ func _generate_possible_item_specs_tagged():
 							this_tag_shapes = item_tag_to_possible_shapes[tag_node.name]
 						else:
 							item_tag_to_possible_shapes[tag_node.name] = this_tag_shapes
-						if tag_node.name not in this_tag_shapes:
+						if possible_shape_name not in this_tag_shapes:
 							this_tag_shapes.push_back(possible_shape_name)
 
 					all_possible_bag_items_tagged.push_back(new_item_spec)

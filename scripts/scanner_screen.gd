@@ -21,6 +21,12 @@ extends Node2D
 @export var default_colour_xray : Color
 @export var default_colour_thermal : Color
 @export var default_colour_audio : Color
+@export_group("Scanned Shape Jumble Settings")
+@export var scan_variance_enable : bool = true
+@export_range(0.5, 3.0) var scan_size_variance_min : float
+@export_range(0.5, 3.0) var scan_size_variance_max : float
+@export_range(0, 50) var scan_pos_variance : int
+@export var scan_random_rotations_degs : Array[int]
 
 # Types
 enum ITEM_SCAN_MODE
@@ -79,6 +85,7 @@ func _display_bag_contents(bag : ConveyorBag):
 		offset.y += 100
 		
 	_refresh_item_colours()
+	_refresh_item_jumble()
 
 func _clear_displayed_contents():
 	for child in get_children():
@@ -121,6 +128,23 @@ func _refresh_item_colours():
 			var scanned_colour : Color = real_item.get_scanned_colour(scan_mode, default_colour)
 			shape.shape_node.set_color(scanned_colour)
 			
+			
+func _refresh_item_jumble():
+	if !scan_variance_enable:
+		return
+	for r in scanned_bag_contents.get_rows():
+		for shape : ScannedShape in r.get_children():
+			# TODO keep in limits of screen
+			var new_scale = randf_range(scan_size_variance_min, scan_size_variance_max)
+			shape.scale = Vector2(new_scale, new_scale)
+			var new_move : Vector2 = Vector2.ZERO
+			new_move.x = randi_range(-scan_pos_variance, scan_pos_variance)
+			new_move.y = randi_range(-scan_pos_variance, scan_pos_variance)
+			shape.translate(new_move) 
+			if !scan_random_rotations_degs.is_empty():
+				var rot_degs = scan_random_rotations_degs.pick_random()
+				shape.rotate(deg_to_rad(rot_degs))
+
 func _on_bag_removed():
 	remaining_bags -= 1
 

@@ -188,9 +188,12 @@ timer_label = NodePath("../../../../StatusPanel/TimerLabel/TimerValue")
 bags_label = NodePath("../../../../StatusPanel/BagCounterLabel/BagCounterValue")
 accept_button = NodePath("../../../AcceptButton")
 reject_button = NodePath("../../../RejectButton")
-default_colour_xray = Color(0.154876, 0.154876, 0.154876, 1)
-default_colour_thermal = Color(0.154876, 0.154876, 0.154876, 1)
-default_colour_audio = Color(0.154876, 0.154876, 0.154876, 1)
+default_colour_xray = Color(0.152941, 0.152941, 0.152941, 0.862745)
+default_colour_thermal = Color(0.152941, 0.152941, 0.152941, 0.862745)
+default_colour_audio = Color(0.152941, 0.152941, 0.152941, 0.862745)
+scan_size_variance_min = 0.9
+scan_size_variance_max = 2.072
+scan_random_rotations_degs = Array[int]([0, 90])
 
 [node name="AcceptButton" type="Button" parent="UICanvasLayer/UI/ScannerUI"]
 layout_mode = 1

@@ -4,7 +4,7 @@
 
 [node name="FurHat" type="Node2D"]
 script = ExtResource("1_7mbgf")
-xray_colour = Color(0.701961, 0.117647, 0, 1)
+xray_colour = Color(0.701961, 0.117647, 0, 0.862745)
 
 [node name="OutlinePolygon" type="Polygon2D" parent="."]
 color = Color(0.870588, 0.701961, 0.435294, 1)
