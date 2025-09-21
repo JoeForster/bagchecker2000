@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://vtugltde8pc6"]
+[gd_scene load_steps=5 format=3 uid="uid://vtugltde8pc6"]
 
 [ext_resource type="Script" uid="uid://qoovpu4xdbqa" path="res://scripts/scanned_shape.gd" id="1_gck25"]
 [ext_resource type="PackedScene" uid="uid://bqn3upind1y6m" path="res://scenes/bag_items/real_appearances/triangle/fur_hat.tscn" id="2_ys7lb"]
 [ext_resource type="PackedScene" uid="uid://c8oqwmcfxou54" path="res://scenes/bag_items/real_appearances/triangle/watermelon.tscn" id="3_5rko3"]
+[ext_resource type="PackedScene" uid="uid://vxryotyc03o8" path="res://scenes/bag_items/real_appearances/triangle/umbrella.tscn" id="4_5rko3"]
 
 [node name="Triangle" type="RigidBody2D" node_paths=PackedStringArray("shape_node", "scanned_appearance")]
 process_mode = 4
@@ -15,7 +16,7 @@ freeze = true
 script = ExtResource("1_gck25")
 shape_node = NodePath("Triangle")
 scanned_appearance = NodePath("Triangle")
-possible_real_appearances = Array[PackedScene]([ExtResource("2_ys7lb"), ExtResource("3_5rko3")])
+possible_real_appearances = Array[PackedScene]([ExtResource("2_ys7lb"), ExtResource("3_5rko3"), ExtResource("4_5rko3")])
 
 [node name="Triangle" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(0, 75, 37.5, 0, 75, 75)
